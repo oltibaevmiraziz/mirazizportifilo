@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="uz">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,7 +8,9 @@
     <!-- Sarlavhalar va kiber-shriftlar uchun Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&family=Inter:wght@300;400;600;800&display=swap"
+        rel="stylesheet">
     <!-- Ikonkalar uchun FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
@@ -158,9 +161,19 @@
             transition: 0.3s ease;
         }
 
-        .menu-toggle.open span:nth-child(1) { transform: rotate(45deg) translate(6px, 6px); background: var(--accent); }
-        .menu-toggle.open span:nth-child(2) { opacity: 0; }
-        .menu-toggle.open span:nth-child(3) { transform: rotate(-45deg) translate(6px, -7px); background: var(--accent); }
+        .menu-toggle.open span:nth-child(1) {
+            transform: rotate(45deg) translate(6px, 6px);
+            background: var(--accent);
+        }
+
+        .menu-toggle.open span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .menu-toggle.open span:nth-child(3) {
+            transform: rotate(-45deg) translate(6px, -7px);
+            background: var(--accent);
+        }
 
         .page {
             display: none;
@@ -180,6 +193,7 @@
                 opacity: 0;
                 transform: translateY(30px) scale(0.97);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0) scale(1);
@@ -271,16 +285,24 @@
         .card::before {
             content: "";
             position: absolute;
-            top: 0; left: 0; width: 15px; height: 15px;
-            border-top: 2px solid transparent; border-left: 2px solid transparent;
+            top: 0;
+            left: 0;
+            width: 15px;
+            height: 15px;
+            border-top: 2px solid transparent;
+            border-left: 2px solid transparent;
             transition: 0.3s;
         }
 
         .card::after {
             content: "";
             position: absolute;
-            bottom: 0; right: 0; width: 15px; height: 15px;
-            border-bottom: 2px solid transparent; border-right: 2px solid transparent;
+            bottom: 0;
+            right: 0;
+            width: 15px;
+            height: 15px;
+            border-bottom: 2px solid transparent;
+            border-right: 2px solid transparent;
             transition: 0.3s;
         }
 
@@ -358,7 +380,10 @@
         .photo-box::after {
             content: "";
             position: absolute;
-            top: -100%; left: -100%; width: 300%; height: 300%;
+            top: -100%;
+            left: -100%;
+            width: 300%;
+            height: 300%;
             background: linear-gradient(45deg, transparent, rgba(0, 247, 255, 0.15), transparent);
             transition: 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
         }
@@ -373,7 +398,8 @@
         }
 
         .card:hover .photo-box::after {
-            top: 0; left: 0;
+            top: 0;
+            left: 0;
         }
 
         /* Mini Texnik Ma'lumotlar */
@@ -444,8 +470,15 @@
         }
 
         @keyframes modalScan {
-            from { opacity: 0; transform: scale(0.9) translateY(20px); }
-            to { opacity: 1; transform: scale(1) translateY(0); }
+            from {
+                opacity: 0;
+                transform: scale(0.9) translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
         }
 
         .modal-header {
@@ -597,7 +630,8 @@
             gap: 20px;
         }
 
-        input, textarea {
+        input,
+        textarea {
             background: rgba(0, 0, 0, 0.35);
             border: 1px solid rgba(255, 255, 255, 0.06);
             padding: 18px;
@@ -608,7 +642,8 @@
             transition: 0.3s ease;
         }
 
-        input:focus, textarea:focus {
+        input:focus,
+        textarea:focus {
             border-color: var(--accent);
             box-shadow: 0 0 15px rgba(0, 247, 255, 0.15);
             background: rgba(0, 0, 0, 0.5);
@@ -645,23 +680,42 @@
         }
 
         @keyframes pulse {
-            from { opacity: 0.5; }
-            to { opacity: 1; }
+            from {
+                opacity: 0.5;
+            }
+
+            to {
+                opacity: 1;
+            }
         }
 
         /* Responsive UI */
         @media (max-width: 1024px) {
-            .hero h1 { font-size: 56px; min-height: 80px; }
-            header { padding: 15px 5%; }
-            .page { padding: 120px 5% 60px; }
+            .hero h1 {
+                font-size: 56px;
+                min-height: 80px;
+            }
+
+            header {
+                padding: 15px 5%;
+            }
+
+            .page {
+                padding: 120px 5% 60px;
+            }
         }
 
         @media (max-width: 768px) {
-            .menu-toggle { display: flex; }
-            
+            .menu-toggle {
+                display: flex;
+            }
+
             nav {
                 position: fixed;
-                top: 0; right: -100%; width: 75%; height: 100vh;
+                top: 0;
+                right: -100%;
+                width: 75%;
+                height: 100vh;
                 background: rgba(2, 4, 8, 0.98);
                 backdrop-filter: blur(25px);
                 flex-direction: column;
@@ -672,13 +726,27 @@
                 border-left: 1px solid var(--border);
             }
 
-            nav.open { right: 0; }
-            .hero h1 { font-size: 38px; min-height: 55px; }
-            h2 { font-size: 32px; }
-            .contact-container { grid-template-columns: 1fr; gap: 35px; }
+            nav.open {
+                right: 0;
+            }
+
+            .hero h1 {
+                font-size: 38px;
+                min-height: 55px;
+            }
+
+            h2 {
+                font-size: 32px;
+            }
+
+            .contact-container {
+                grid-template-columns: 1fr;
+                gap: 35px;
+            }
         }
     </style>
 </head>
+
 <body>
 
     <!-- 60fps Dynamic Canvas Background -->
@@ -686,7 +754,7 @@
 
     <header>
         <a href="#" class="logo" onclick="showPage('home')">Miraziz<span>.</span></a>
-        
+
         <div class="nav-container">
             <!-- Web Audio Control -->
             <button class="audio-control" id="audio-toggle" onclick="toggleAudio()">
@@ -699,7 +767,7 @@
                 <span></span>
                 <span></span>
             </div>
-            
+
             <nav id="nav-menu">
                 <a onclick="showPage('home')" class="active-nav" id="nav-home">Home</a>
                 <a onclick="showPage('about')" id="nav-about">About</a>
@@ -720,15 +788,18 @@
         <div class="grid">
             <div class="card">
                 <h3>Web Development</h3><br>
-                <p>Zamonaviy, o'ta tezkor, xavfsiz va optimal premium darajadagi yagona sahifali SPA va PWA tizimlari.</p>
+                <p>Zamonaviy, o'ta tezkor, xavfsiz va optimal premium darajadagi yagona sahifali SPA va PWA tizimlari.
+                </p>
             </div>
             <div class="card">
                 <h3>UI/UX Design</h3><br>
-                <p>Mijoz va foydalanuvchi his-tuyg'ularini kiber-premium darajada ifodalovchi kreativ, interaktiv interfeyslar.</p>
+                <p>Mijoz va foydalanuvchi his-tuyg'ularini kiber-premium darajada ifodalovchi kreativ, interaktiv
+                    interfeyslar.</p>
             </div>
             <div class="card">
                 <h3>Responsive Layout</h3><br>
-                <p>Smartfonlardan tortib eng ulkan o'yin monitorlarigacha mukammal kadr nisbati va dinamik grid tizimi.</p>
+                <p>Smartfonlardan tortib eng ulkan o'yin monitorlarigacha mukammal kadr nisbati va dinamik grid tizimi.
+                </p>
             </div>
         </div>
     </section>
@@ -738,7 +809,10 @@
         <h2>About Me</h2>
         <div class="card" style="max-width: 850px; margin: 0 auto;">
             <h3>Kiber Identifikatsiya</h3><br>
-            <p>Salom! Mening ismim Miraziz. Men yuqori darajadagi yuklanishga chidamli, vizual jihatdan mukammal va premium darajadagi Frontend loyihalarni ishlab chiqish bilan shug'ullanaman. Strukturaviy toza kod yozish, har bir pikselga alohida e'tibor qaratish va foydalanuvchi tajribasini (UX) eng oliy darajaga olib chiqish mening asosiy kiber-missiyamdir.</p>
+            <p>Salom! Mening ismim Miraziz. Men yuqori darajadagi yuklanishga chidamli, vizual jihatdan mukammal va
+                premium darajadagi Frontend loyihalarni ishlab chiqish bilan shug'ullanaman. Strukturaviy toza kod
+                yozish, har bir pikselga alohida e'tibor qaratish va foydalanuvchi tajribasini (UX) eng oliy darajaga
+                olib chiqish mening asosiy kiber-missiyamdir.</p>
         </div>
     </section>
 
@@ -748,15 +822,21 @@
         <div class="grid skill-container">
             <div class="card">
                 <div class="skill-title"><span>HTML / CSS / Tailwind / Bootstrap</span><span>95%</span></div>
-                <div class="bar"><div class="fill" data-width="95%"></div></div>
+                <div class="bar">
+                    <div class="fill" data-width="95%"></div>
+                </div>
             </div>
             <div class="card">
                 <div class="skill-title"><span>JavaScript (ES6+) / Async API</span><span>90%</span></div>
-                <div class="bar"><div class="fill" data-width="90%"></div></div>
+                <div class="bar">
+                    <div class="fill" data-width="90%"></div>
+                </div>
             </div>
             <div class="card">
                 <div class="skill-title"><span>React.js / Next.js / State Management</span><span>85%</span></div>
-                <div class="bar"><div class="fill" data-width="85%"></div></div>
+                <div class="bar">
+                    <div class="fill" data-width="85%"></div>
+                </div>
             </div>
         </div>
     </section>
@@ -771,7 +851,8 @@
                     <span>E-Commerce Cyber Market</span>
                 </div>
                 <h3>Online Market Platform</h3><br>
-                <p>Zamonaviy to'lov tizimlari, tun/kun rejimi va aqlli filtrga ega bo'lgan Next.js premium internet do'koni.</p>
+                <p>Zamonaviy to'lov tizimlari, tun/kun rejimi va aqlli filtrga ega bo'lgan Next.js premium internet
+                    do'koni.</p>
             </div>
             <div class="card">
                 <div class="photo-box">
@@ -779,7 +860,8 @@
                     <span>Luxury 3D OS Portfolio</span>
                 </div>
                 <h3>Creative OS Portfolio</h3><br>
-                <p>3D effektlar, terminal simulyatori va gologrammali ilg'or animatsiyalar bilan boyitilgan shaxsiy veb-sayt.</p>
+                <p>3D effektlar, terminal simulyatori va gologrammali ilg'or animatsiyalar bilan boyitilgan shaxsiy
+                    veb-sayt.</p>
             </div>
         </div>
     </section>
@@ -788,7 +870,7 @@
     <section id="certificates" class="page">
         <h2>Premium Certificates</h2>
         <div class="certificates-grid">
-            
+
             <!-- Certificate 1 -->
             <div class="card" data-cert="js-expert">
                 <div class="photo-box">
@@ -797,7 +879,8 @@
                 </div>
                 <span class="cert-tech-tag">ECMAScript 2026</span>
                 <h3>JavaScript Expert Certification</h3>
-                <p>Murakkab algoritmlar, ma'lumotlar tuzilishi, asinxron so'rovlar va chuqur Javascript asboblari arxitekturasi.</p>
+                <p>Murakkab algoritmlar, ma'lumotlar tuzilishi, asinxron so'rovlar va chuqur Javascript asboblari
+                    arxitekturasi.</p>
                 <button class="verify-btn" onclick="verifyCert('js-expert', 'JavaScript Expert Certification')">
                     <i class="fa-solid fa-shield-halved"></i> VERIFY CREDENTIAL
                 </button>
@@ -825,7 +908,8 @@
                 </div>
                 <span class="cert-tech-tag">SSR / Next.js / Redux</span>
                 <h3>React & Next.js Advanced Dev</h3>
-                <p>Server-side rendering, statik avlod generatorlari va ko'p bosqichli holat menejmenti mukammalligi.</p>
+                <p>Server-side rendering, statik avlod generatorlari va ko'p bosqichli holat menejmenti mukammalligi.
+                </p>
                 <button class="verify-btn" onclick="verifyCert('react-dev', 'React & Next.js Advanced Developer')">
                     <i class="fa-solid fa-shield-halved"></i> VERIFY CREDENTIAL
                 </button>
@@ -839,7 +923,8 @@
                 </div>
                 <span class="cert-tech-tag">UI/UX Cyber-Glow</span>
                 <h3>Premium UI/UX Specialist</h3>
-                <p>Kelajak interfeyslari dizayni, silliq CSS animatsiyalar, 3D tilt mantiqi va yuqori estetik standartlar.</p>
+                <p>Kelajak interfeyslari dizayni, silliq CSS animatsiyalar, 3D tilt mantiqi va yuqori estetik
+                    standartlar.</p>
                 <button class="verify-btn" onclick="verifyCert('cyber-ui', 'Premium UI/UX Specialist')">
                     <i class="fa-solid fa-shield-halved"></i> VERIFY CREDENTIAL
                 </button>
@@ -853,7 +938,8 @@
                 </div>
                 <span class="cert-tech-tag">Crypto & API Shield</span>
                 <h3>Full-Stack API Integration</h3>
-                <p>Xavfsiz shifrlangan ma'lumot uzatish, OAuth, JWT tokenlar integratsiyasi va kiber xavfsiz protokollar.</p>
+                <p>Xavfsiz shifrlangan ma'lumot uzatish, OAuth, JWT tokenlar integratsiyasi va kiber xavfsiz
+                    protokollar.</p>
                 <button class="verify-btn" onclick="verifyCert('secure-api', 'Full-Stack API Integration Certificate')">
                     <i class="fa-solid fa-shield-halved"></i> VERIFY CREDENTIAL
                 </button>
@@ -924,7 +1010,7 @@
 
                 osc.type = type; // 'sine', 'square', 'sawtooth', 'triangle'
                 osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
-                
+
                 gainNode.gain.setValueAtTime(volume, audioCtx.currentTime);
                 gainNode.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + duration);
 
@@ -1134,7 +1220,7 @@
                         const x = e.clientX - rect.left;
                         const y = e.clientY - rect.top;
 
-                        const rotateX = -((y - rect.height / 2) / rect.height) * 10; 
+                        const rotateX = -((y - rect.height / 2) / rect.height) * 10;
                         const rotateY = ((x - rect.width / 2) / rect.width) * 10;
 
                         card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-5px)`;
@@ -1169,7 +1255,7 @@
             initAudio();
             const modal = document.getElementById('terminal-modal');
             const logContainer = document.getElementById('modal-log-container');
-            
+
             logContainer.innerHTML = ''; // Eski loglarni tozalash
             modal.style.display = 'flex';
 
@@ -1198,7 +1284,7 @@
                     p.innerText = log.text;
                     logContainer.appendChild(p);
                     logContainer.scrollTop = logContainer.scrollHeight;
-                    
+
                     // Har bir terminal qatori chop etilganda nozik tovush chiqarish
                     if (log.text.includes('SUCCESS') || log.text.includes('VERIFIED')) {
                         playSuccessSound();
@@ -1234,4 +1320,5 @@
         }
     </script>
 </body>
+
 </html>
