@@ -57,6 +57,34 @@
             pointer-events: none;
         }
 
+        /* Day mode: lighter background for Project click feedback */
+        body.day {
+            background: linear-gradient(180deg, #eaf7ff 0%, #dff9ff 40%, #f9fdff 100%);
+            color: #071028;
+        }
+
+        body.day header {
+            background: rgba(255, 255, 255, 0.85);
+            border-bottom: 1px solid rgba(7, 16, 40, 0.06);
+            box-shadow: 0 4px 30px rgba(7, 16, 40, 0.03);
+        }
+
+        body.day .card {
+            background: rgba(255, 255, 255, 0.9);
+            color: #071028;
+            border-color: rgba(7, 16, 40, 0.04);
+        }
+
+        body.day .photo-box {
+            background: linear-gradient(135deg, rgba(7, 16, 40, 0.02), rgba(189, 0, 255, 0.02));
+            color: #0b2a44;
+        }
+
+        body.day #particles-canvas {
+            opacity: 0.18;
+            transition: opacity 0.6s ease;
+        }
+
         header {
             position: fixed;
             top: 0;
@@ -439,6 +467,27 @@
         .card:hover {
             border-color: rgba(0, 247, 255, 0.25);
             box-shadow: 0 20px 45px rgba(0, 247, 255, 0.08), inset 0 0 15px rgba(255, 255, 255, 0.01);
+        }
+
+        /* Click / Press visual feedback for cards */
+        .card.clicked {
+            border-color: rgba(0, 247, 255, 0.35);
+            box-shadow: 0 30px 80px rgba(0, 247, 255, 0.18), inset 0 0 25px rgba(0, 247, 255, 0.06);
+            transform: perspective(1000px) translateY(-8px) scale(1.02) !important;
+        }
+
+        @keyframes clickPulse {
+            0% {
+                transform: perspective(1000px) translateY(0) scale(1);
+            }
+
+            50% {
+                transform: perspective(1000px) translateY(-10px) scale(1.04);
+            }
+
+            100% {
+                transform: perspective(1000px) translateY(0) scale(1);
+            }
         }
 
         .card h3 {
@@ -1150,7 +1199,7 @@
     <section id="projects" class="page">
         <h2>Premium Projects</h2>
         <div class="grid">
-            <div class="card" data-href="1.html">
+            <div class="card" data-action="about" data-href="1.html">
                 <div class="photo-box">
                     <i class="fa-solid fa-desktop"></i>
                     <span>Miraziz Portfolio</span>
@@ -1161,7 +1210,7 @@
                 <a class="verify-btn" href="1.html" target="_blank" rel="noopener">OPEN PROJECT</a>
             </div>
 
-            <div class="card" data-href="2.html">
+            <div class="card" data-action="app" data-href="2.html">
                 <div class="photo-box">
                     <i class="fa-solid fa-user"></i>
                     <span>About Page</span>
@@ -1171,7 +1220,7 @@
                 <a class="verify-btn" href="2.html" target="_blank" rel="noopener">OPEN PROJECT</a>
             </div>
 
-            <div class="card" data-href="3.html">
+            <div class="card" data-action="game" data-href="3.html">
                 <div class="photo-box">
                     <i class="fa-solid fa-folder-open"></i>
                     <span>Projects Demo</span>
@@ -1181,7 +1230,7 @@
                 <a class="verify-btn" href="3.html" target="_blank" rel="noopener">OPEN PROJECT</a>
             </div>
 
-            <div class="card" data-href="4.html">
+            <div class="card" data-action="app" data-href="4.html">
                 <div class="photo-box">
                     <i class="fa-solid fa-magic-wand-sparkles"></i>
                     <span>Interactive UI</span>
@@ -1191,7 +1240,7 @@
                 <a class="verify-btn" href="4.html" target="_blank" rel="noopener">OPEN PROJECT</a>
             </div>
 
-            <div class="card" data-href="5.html">
+            <div class="card" data-action="projects" data-href="5.html">
                 <div class="photo-box">
                     <i class="fa-solid fa-archive"></i>
                     <span>Extras</span>
@@ -1917,6 +1966,9 @@
                 document.querySelectorAll('.fill').forEach(bar => bar.style.width = '0');
             }
 
+            // ensure day-mode is cleared when navigating pages
+            setDayMode(false);
+
             if (pageId === 'home') {
                 resetAndStartTyping();
             }
@@ -1997,31 +2049,121 @@
         apply3DTilt();
 
         function bindCardClickActions() {
-            document.querySelectorAll('.card[data-target]').forEach(card => {
-                card.addEventListener('click', event => {
-                    if (event.target.closest('a') || event.target.closest('button')) return;
-                    showPage(card.dataset.target);
+            document.querySelectorAll('.card').forEach(card => {
+                // immediate visual feedback for pointer interactions
+                card.addEventListener('pointerdown', (e) => {
+                    card.classList.add('clicked');
                 });
-            });
+                card.addEventListener('pointerup', () => {
+                    setTimeout(() => card.classList.remove('clicked'), 220);
+                });
+                card.addEventListener('pointerleave', () => card.classList.remove('clicked'));
 
-            document.querySelectorAll('.card[data-href]').forEach(card => {
-                card.addEventListener('click', event => {
-                    if (event.target.closest('a') || event.target.closest('button')) return;
-                    window.open(card.dataset.href, '_blank');
-                });
+                // handle target navigation
+                if (card.dataset.target) {
+                    card.addEventListener('click', event => {
+                        if (event.target.closest('a') || event.target.closest('button')) return;
+                        playClickSound();
+                        card.classList.add('clicked');
+                        // if this card is inside Projects, show day-mode briefly
+                        if (card.closest('#projects')) {
+                            setDayMode(true);
+                            setTimeout(() => setDayMode(false), 1400);
+                        }
+
+                        setTimeout(() => {
+                            card.classList.remove('clicked');
+                            showPage(card.dataset.target);
+                        }, 220);
+                    });
+                }
+
+                // handle custom actions (about, game, app, projects)
+                if (card.dataset.action) {
+                    card.addEventListener('click', event => {
+                        if (event.target.closest('a') || event.target.closest('button')) return;
+                        playClickSound();
+                        card.classList.add('clicked');
+                        if (card.closest('#projects')) {
+                            setDayMode(true);
+                            setTimeout(() => setDayMode(false), 1400);
+                        }
+
+                        const action = card.dataset.action;
+                        const href = card.dataset.href || '';
+                        const title = (card.querySelector('h3') && card.querySelector('h3').innerText) || '';
+
+                        setTimeout(() => {
+                            card.classList.remove('clicked');
+                            if (action === 'about') {
+                                showPage('about');
+                            } else if (action === 'projects') {
+                                showPage('projects');
+                            } else if (action === 'app') {
+                                if (href) window.open(href, '_blank');
+                            } else if (action === 'game') {
+                                openGameModal(href, title);
+                            }
+                        }, 220);
+                    });
+                }
+
+                // handle external hrefs
+                if (card.dataset.href) {
+                    card.addEventListener('click', event => {
+                        if (event.target.closest('a') || event.target.closest('button')) return;
+                        playClickSound();
+                        card.classList.add('clicked');
+                        if (card.closest('#projects')) {
+                            setDayMode(true);
+                            setTimeout(() => setDayMode(false), 1400);
+                        }
+
+                        setTimeout(() => {
+                            card.classList.remove('clicked');
+                            window.open(card.dataset.href, '_blank');
+                        }, 220);
+                    });
+                }
+
+                // product preview cards (data-product)
+                if (card.dataset.product) {
+                    card.addEventListener('click', event => {
+                        if (event.target.closest('a') || event.target.closest('button')) return;
+                        playClickSound();
+                        card.classList.add('clicked');
+                        if (card.closest('#projects')) {
+                            setDayMode(true);
+                            setTimeout(() => setDayMode(false), 1400);
+                        }
+
+                        setTimeout(() => {
+                            card.classList.remove('clicked');
+                            openProductPreview(card.dataset.product || 'cube');
+                        }, 220);
+                    });
+                }
             });
         }
         bindCardClickActions();
         bindProductPreviewCards();
 
         function bindProductPreviewCards() {
+            // Only add pointer feedback here; click handling is centralized in bindCardClickActions
             document.querySelectorAll('.card.product-card').forEach(card => {
-                card.addEventListener('click', event => {
-                    if (event.target.closest('a') || event.target.closest('button')) return;
-                    const productType = card.dataset.product || 'cube';
-                    openProductPreview(productType);
-                });
+                card.addEventListener('pointerdown', () => card.classList.add('clicked'));
+                card.addEventListener('pointerup', () => setTimeout(() => card.classList.remove('clicked'), 220));
+                card.addEventListener('pointerleave', () => card.classList.remove('clicked'));
             });
+        }
+
+        // Toggle body day-mode for visual feedback
+        function setDayMode(on) {
+            if (on) {
+                document.body.classList.add('day');
+            } else {
+                document.body.classList.remove('day');
+            }
         }
 
         function openProductPreview(productType) {
@@ -2086,13 +2228,55 @@
                 descriptionElement.textContent = info.description;
             }
 
+            // ensure iframe removed if present
+            const previewCard = modal.querySelector('.preview-card');
+            const existingFrame = document.getElementById('preview-iframe');
+            if (existingFrame) existingFrame.remove();
+            // show preview info
+            const previewInfo = previewCard.querySelector('.preview-info');
+            if (previewInfo) previewInfo.style.display = 'flex';
+
+            modal.style.display = 'flex';
+        }
+
+        function openGameModal(href, title) {
+            playClickSound();
+            const modal = document.getElementById('product-modal');
+            const previewCard = modal.querySelector('.preview-card');
+            const previewInfo = previewCard.querySelector('.preview-info');
+            // hide preview info when showing iframe
+            if (previewInfo) previewInfo.style.display = 'none';
+
+            // create iframe
+            const iframe = document.createElement('iframe');
+            iframe.id = 'preview-iframe';
+            iframe.src = href || '';
+            iframe.style.width = '100%';
+            iframe.style.height = '420px';
+            iframe.style.border = 'none';
+            iframe.style.borderRadius = '12px';
+            iframe.style.background = '#fff';
+
+            previewCard.insertBefore(iframe, previewInfo);
+            // update title
+            const titleEl = document.getElementById('preview-title');
+            if (titleEl) titleEl.textContent = title || 'Game Preview';
+
             modal.style.display = 'flex';
         }
 
         function closeProductPreview() {
             playClickSound();
             const modal = document.getElementById('product-modal');
-            if (modal) modal.style.display = 'none';
+            if (modal) {
+                // remove iframe if exists and restore preview info
+                const iframe = document.getElementById('preview-iframe');
+                if (iframe) iframe.remove();
+                const previewCard = modal.querySelector('.preview-card');
+                const previewInfo = previewCard ? previewCard.querySelector('.preview-info') : null;
+                if (previewInfo) previewInfo.style.display = 'flex';
+                modal.style.display = 'none';
+            }
         }
 
         // --- 7. VERIFICATION TERMINAL SIMULATOR ---
@@ -2131,7 +2315,7 @@
                 { text: `--------------------------------------------------------`, delay: 3900, class: '' },
                 { text: `[INFO] Tizim ishonchli. Kiber-himoyalangan aloqa yopildi.`, delay: 4200, class: 'terminal-success' }
             ];
-             
+
             logs.forEach(log => {
                 setTimeout(() => {
                     const p = document.createElement('p');

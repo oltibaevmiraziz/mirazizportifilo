@@ -1,481 +1,372 @@
 <!DOCTYPE html>
 <html lang="uz">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Miraziz Portfolio - Loyihalar</title>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Poppins:wght@300;400;500;600;700&display=swap"
-        rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        :root {
-            --n-blue: #00f2ff;
-            --n-pink: #ff00ea;
-            --bg: #050505;
-            --card-bg: #12121a;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🏓 Top Sindirish</title>
+<link href="https://fonts.googleapis.com/css2?family=Righteous&family=Nunito:wght@700;900&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #020e1a;
+    font-family: 'Nunito', sans-serif;
+    color: #f0f0ff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+    user-select: none;
+  }
 
-        * {
-            box-sizing: border-box;
-            cursor: none !important;
-            /* Maxsus kursor */
-            scroll-behavior: smooth;
-        }
+  .back-btn {
+    align-self: flex-start;
+    color: rgba(103,232,249,0.8);
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 1rem;
+    margin-bottom: 10px;
+    transition: color 0.2s;
+    letter-spacing: 1px;
+  }
+  .back-btn:hover { color: #67e8f9; }
 
-        body {
-            margin: 0;
-            background: var(--bg);
-            color: white;
-            font-family: 'Poppins', sans-serif;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            overflow-x: hidden;
-        }
+  h1 {
+    font-family: 'Righteous', cursive;
+    font-size: 2.5rem;
+    color: #67e8f9;
+    letter-spacing: 3px;
+    margin-bottom: 8px;
+    text-shadow: 0 0 30px rgba(6,182,212,0.6);
+  }
 
-        /* --- BACKGROUND MATRIX EFFECT --- */
-        #matrix {
-            position: fixed;
-            top: 0;
-            left: 0;
-            z-index: -1;
-            opacity: 0.12;
-        }
+  .stats {
+    display: flex;
+    gap: 30px;
+    margin-bottom: 12px;
+    font-weight: 700;
+    font-size: 1rem;
+    color: rgba(240,240,255,0.6);
+  }
+  .stats span { color: #67e8f9; font-size: 1.2rem; }
 
-        /* --- CUSTOM SILLIQ KURSOR --- */
-        .c-dot {
-            width: 6px;
-            height: 6px;
-            background-color: var(--n-blue);
-            border-radius: 50%;
-            position: fixed;
-            pointer-events: none;
-            z-index: 20000;
-            transform: translate(-50%, -50%);
-            transition: width 0.2s, height 0.2s, background-color 0.2s;
-        }
+  #gameCanvas {
+    border: 2px solid rgba(6,182,212,0.4);
+    border-radius: 12px;
+    box-shadow: 0 0 40px rgba(6,182,212,0.25), inset 0 0 60px rgba(0,0,0,0.5);
+    display: block;
+    background: #020e1a;
+    touch-action: none;
+  }
 
-        .c-circle {
-            width: 36px;
-            height: 36px;
-            border: 1px solid rgba(0, 242, 255, 0.3);
-            border-radius: 50%;
-            position: fixed;
-            pointer-events: none;
-            z-index: 19999;
-            transform: translate(-50%, -50%);
-            transition: transform 0.08s ease-out, width 0.3s, height 0.3s;
-        }
+  .overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(2,14,26,0.95);
+    border: 1px solid rgba(6,182,212,0.4);
+    border-radius: 20px;
+    padding: 40px 50px;
+    text-align: center;
+    box-shadow: 0 0 50px rgba(6,182,212,0.3);
+    display: none;
+    flex-direction: column;
+    gap: 16px;
+    z-index: 10;
+    min-width: 240px;
+  }
+  .overlay.show { display: flex; }
+  .overlay h2 { font-family: 'Righteous', cursive; font-size: 2rem; color: #67e8f9; }
+  .overlay p { color: rgba(240,240,255,0.7); font-size: 1rem; }
 
-        body.hovering .c-dot {
-            width: 30px;
-            height: 30px;
-            background-color: rgba(0, 242, 255, 0.15);
-        }
+  .play-btn {
+    padding: 14px 40px;
+    background: #06b6d4;
+    color: #fff;
+    border: none;
+    border-radius: 50px;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 900;
+    font-size: 1.1rem;
+    cursor: pointer;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 20px rgba(6,182,212,0.5);
+  }
+  .play-btn:hover { transform: scale(1.07); box-shadow: 0 6px 30px rgba(6,182,212,0.7); }
 
-        body.hovering .c-circle {
-            width: 50px;
-            height: 50px;
-            border: 1px dashed var(--n-pink);
-            animation: rotateC 4s linear infinite;
-        }
+  .canvas-wrap { position: relative; }
 
-        @keyframes rotateC {
-            from {
-                transform: translate(-50%, -50%) rotate(0deg);
-            }
+  .controls { margin-top: 12px; color: rgba(240,240,255,0.4); font-size: 0.85rem; letter-spacing: 1px; }
 
-            to {
-                transform: translate(-50%, -50%) rotate(360deg);
-            }
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-            width: 100%;
-        }
-
-        /* --- NAVBAR --- */
-        .site-header {
-            border-bottom: 1px solid rgba(0, 242, 255, 0.2);
-            background: rgba(0, 0, 0, 0.85);
-            backdrop-filter: blur(10px);
-            position: relative;
-            z-index: 100;
-        }
-
-        .header-inner {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px 20px;
-        }
-
-        .logo {
-            font-family: 'Orbitron', sans-serif;
-            color: var(--n-blue);
-            text-decoration: none;
-            font-weight: 900;
-            font-size: 1.6rem;
-            text-shadow: 0 0 10px var(--n-blue);
-        }
-
-        .back-menu-btn {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 0.85rem;
-            color: var(--n-pink);
-            text-decoration: none;
-            padding: 8px 18px;
-            border: 1px solid var(--n-pink);
-            border-radius: 6px;
-            text-shadow: 0 0 5px var(--n-pink);
-            box-shadow: 0 0 10px rgba(255, 0, 234, 0.2);
-            transition: all 0.3s ease;
-            letter-spacing: 1px;
-        }
-
-        .back-menu-btn:hover {
-            color: #fff;
-            background: var(--n-pink);
-            box-shadow: 0 0 20px var(--n-pink);
-        }
-
-        /* --- HEADING --- */
-        .page-heading {
-            text-align: center;
-            margin: 50px 0;
-        }
-
-        .page-heading h1 {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 3.5rem;
-            color: var(--n-blue);
-            text-shadow: 0 0 15px var(--n-blue);
-            margin: 0;
-        }
-
-        .page-heading p {
-            color: #aaa;
-            font-size: 1.1rem;
-            margin-top: 12px;
-        }
-
-        /* --- LOYIHALAR GRID (3 QATOR DETALLI) --- */
-        .project-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 30px;
-            margin-bottom: 60px;
-        }
-
-        .project-card {
-            background: var(--card-bg);
-            border: 1px solid rgba(0, 242, 255, 0.12);
-            border-radius: 16px;
-            padding: 28px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
-            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            position: relative;
-        }
-
-        .project-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 3px;
-            background: linear-gradient(90deg, var(--n-blue), var(--n-pink));
-            opacity: 0;
-            transition: opacity 0.3s;
-        }
-
-        .project-card:hover::before {
-            opacity: 1;
-        }
-
-        .project-card:hover {
-            border-color: var(--n-pink);
-            box-shadow: 0 0 30px rgba(255, 0, 234, 0.2);
-            transform: translateY(-8px);
-        }
-
-        /* Maxsus Cook.uz neon effekti */
-        .project-card.featured-card {
-            border: 1px solid rgba(230, 126, 34, 0.4);
-            background: linear-gradient(145deg, #12121a 0%, #1e110b 100%);
-        }
-
-        .project-card.featured-card:hover {
-            border-color: #e67e22;
-            box-shadow: 0 0 32px rgba(230, 126, 34, 0.3);
-        }
-
-        .project-card h2 {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 1.4rem;
-            color: #fff;
-            margin-top: 0;
-            margin-bottom: 12px;
-        }
-
-        .featured-card h2 span {
-            color: #e67e22;
-        }
-
-        .project-card p {
-            color: #bbb;
-            font-size: 0.95rem;
-            line-height: 1.6;
-            margin-bottom: 25px;
-        }
-
-        .card-footer {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: auto;
-        }
-
-        .project-tag {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 0.75rem;
-            color: var(--n-blue);
-            background: rgba(0, 242, 255, 0.05);
-            padding: 4px 12px;
-            border-radius: 4px;
-            border: 1px solid rgba(0, 242, 255, 0.2);
-        }
-
-        .featured-card .project-tag {
-            color: #e67e22;
-            background: rgba(230, 126, 34, 0.05);
-            border-color: rgba(230, 126, 34, 0.3);
-        }
-
-        .open-project-btn {
-            color: var(--n-pink);
-            font-family: 'Orbitron', sans-serif;
-            font-size: 0.8rem;
-            font-weight: bold;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            text-decoration: none;
-            border-bottom: 1px solid transparent;
-            transition: all 0.3s;
-        }
-
-        .open-project-btn:hover {
-            border-bottom-color: var(--n-pink);
-            text-shadow: 0 0 5px var(--n-pink);
-        }
-
-        .featured-card .open-project-btn {
-            color: #e67e22;
-        }
-
-        .featured-card .open-project-btn:hover {
-            border-bottom-color: #e67e22;
-            text-shadow: 0 0 5px #e67e22;
-        }
-
-        /* --- CALLOUT --- */
-        .callout {
-            background: linear-gradient(135deg, #12121a 0%, #1a0b2e 100%);
-            border: 1px solid rgba(255, 0, 234, 0.2);
-            border-radius: 16px;
-            padding: 45px;
-            text-align: center;
-            margin-bottom: 60px;
-        }
-
-        .callout h2 {
-            font-family: 'Orbitron', sans-serif;
-            color: var(--n-pink);
-            text-shadow: 0 0 10px var(--n-pink);
-            margin-top: 0;
-            font-size: 2rem;
-        }
-
-        .callout p {
-            color: #ddd;
-            margin-bottom: 30px;
-            font-size: 1.1rem;
-        }
-
-        .button {
-            display: inline-block;
-            font-family: 'Orbitron', sans-serif;
-            text-decoration: none;
-            color: var(--n-blue);
-            border: 2px solid var(--n-blue);
-            padding: 14px 35px;
-            border-radius: 8px;
-            font-weight: bold;
-            letter-spacing: 1px;
-            text-shadow: 0 0 5px var(--n-blue);
-            box-shadow: 0 0 15px rgba(0, 242, 255, 0.2);
-            transition: 0.3s ease;
-        }
-
-        .button:hover {
-            color: #000;
-            background: var(--n-blue);
-            box-shadow: 0 0 30px var(--n-blue);
-        }
-
-        .site-footer {
-            text-align: center;
-            padding: 25px;
-            background: #000;
-            border-top: 1px solid rgba(255, 0, 234, 0.1);
-            color: #666;
-            font-size: 0.9rem;
-            margin-top: auto;
-        }
-
-        @media (max-width: 768px) {
-            .page-heading h1 {
-                font-size: 2.3rem;
-            }
-
-            .project-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
+  /* Touch slider */
+  .slider-wrap {
+    display: none;
+    width: 400px;
+    max-width: 96vw;
+    margin-top: 10px;
+    background: rgba(6,182,212,0.1);
+    border: 1px solid rgba(6,182,212,0.3);
+    border-radius: 12px;
+    padding: 12px 16px;
+    align-items: center;
+    gap: 10px;
+    color: rgba(240,240,255,0.5);
+    font-size: 0.85rem;
+  }
+  @media (max-width: 520px) {
+    .slider-wrap { display: flex; }
+    .controls { display: none; }
+  }
+  #padSlider { flex: 1; accent-color: #06b6d4; cursor: pointer; }
+</style>
 </head>
-
 <body>
 
-    <div class="c-dot"></div>
-    <div class="c-circle"></div>
-    <canvas id="matrix"></canvas>
+<a class="back-btn" href="index.html">← Bosh sahifa</a>
+<h1>🏓 TOP SINDIRISH</h1>
 
-    <header class="site-header">
-        <div class="container header-inner">
-            <a class='logo' href='index.html'>Miraziz PORTFOLIO</a>
-            <nav class="nav-menu">
-                <a class='back-menu-btn' href='index.html'>« MENUGA QAYTISH</a>
-            </nav>
-        </div>
-    </header>
+<div class="stats">
+  <div>Hisob: <span id="score">0</span></div>
+  <div>Rekord: <span id="best">0</span></div>
+  <div>Hayotlar: <span id="lives">3</span></div>
+</div>
 
-    <main class="container page-content">
-        <section class="page-heading">
-            <h1>Loyihalar</h1>
-            <p>Natija va funksionallikka yo'naltirilgan eksklyuziv ishlarim va platformalarim.</p>
-        </section>
+<div class="canvas-wrap">
+  <canvas id="gameCanvas" width="400" height="480"></canvas>
+  <div class="overlay show" id="overlay">
+    <h2>🏓 TOP SINDIRISH</h2>
+    <p>Sichqoncha yoki strelka tugmalar bilan raketani boshqaring. Barcha bloklarni sindiring!</p>
+    <button class="play-btn" onclick="startGame()">BOSHLASH ▶</button>
+  </div>
+</div>
 
-        <section class="project-grid">
+<div class="controls">🖱 Sichqoncha yoki ← → tugmalar — raketa boshqarish</div>
 
-            <article class="project-card featured-card">
-                <div>
-                    <h2><span>Cook.uz</span> - Kulinariya Portali</h2>
-                    <p>Milliy taomlar, kaboblar, modern fast food, dengiz delikateslari, salat va mevalar jamlangan,
-                        narxlari va porsiyalari aniq ko'rsatilgan to'liq raqamli menyu tizimi.</p>
-                </div>
-                <div class="card-footer">
-                    <span class="project-tag">HTML5 / CSS3 / Web App</span>
-                    <a class='open-project-btn' href='https://ir.tesla.com/' target='_blank' rel='noopener'
-                        rel='noopener' style='margin-left: 10px;'>Loyihani ko'rish →</a>
-                </div>
-            </article>
+<div class="slider-wrap">
+  <span>◀</span>
+  <input type="range" id="padSlider" min="0" max="100" value="50">
+  <span>▶</span>
+</div>
 
-            <article class="project-card">
-                <div>
-                    <h2>cyber decrypter platformasi</h2>
-                    <p>Foydalanuvchilar reytingini real vaqt rejimida saqlaydigan, animatsiyalarga boy kiber-arena
-                        uslubidagi kichik JS o'yinlar to'plami.</p>
-                </div>
-                <div class="card-footer">
-                    <span class="project-tag">JavaScript ES6</span>
-                    <a href="https://www.cnbc.com/quotes/TSLA" class="open-project-btn" target="_blank"
-                        rel="noopener">Ko'rish</a>
-                </div>
-            </article>
+<script>
+const canvas = document.getElementById('gameCanvas');
+const ctx = canvas.getContext('2d');
+const W = canvas.width, H = canvas.height;
 
-            <article class="project-card">
-                <div>
-                    <h2>Cyber-project platformasi</h2>
-                    <p>Egasining yutuqlari va xalqaro sertifikatlarini yuqori aniqlikda (HD) filtrlash, ko'rish hamda
-                        yuklab olish imkonini beruvchi tizim.</p>
-                </div>
-                <div class="card-footer">
-                    <span class="project-tag">UI / UX</span>
-                    <a class='open-project-btn' href="https://finance.yahoo.com/quote/TSLA/" target="_blank"
-                        rel="noopener">Ko'rish</a>
-                </div>
-            </article>
+const BRICK_ROWS = 5, BRICK_COLS = 8;
+const BRICK_W = 44, BRICK_H = 18, BRICK_PAD = 4, BRICK_OFFSET_X = 8, BRICK_OFFSET_Y = 40;
 
+const COLORS = [
+  ['#ef4444','#fca5a5'], ['#f97316','#fdba74'], ['#eab308','#fde047'],
+  ['#22c55e','#86efac'], ['#06b6d4','#67e8f9']
+];
 
-        </section>
+let paddle, ball, bricks, score, best, lives, gameRunning, animId, keys;
 
-        <section class="callout">
-            <h2>Yangi loyiha ustida ishlaymizmi?</h2>
-            <p>Menga murojaat qiling va siz uchun ham xuddi shunday yuqori tezlikda ishlovchi daxshatli tizim tayyorlab
-                beraman.</p>
-            <a class='button' href='2.html'>BOG'LANISH</a>
-        </section>
-    </main>
+function startGame() {
+  document.getElementById('overlay').classList.remove('show');
+  paddle = {x: W/2 - 45, y: H - 30, w: 90, h: 12, speed: 6};
+  ball = {x: W/2, y: H - 55, vx: 3.5, vy: -4, r: 8};
+  score = 0;
+  lives = 3;
+  best = parseInt(localStorage.getItem('breakoutBest') || 0);
+  keys = {};
+  gameRunning = true;
+  buildBricks();
+  updateStats();
+  cancelAnimationFrame(animId);
+  loop();
+}
 
-    <footer class="site-footer">
-        <div class="container">
-            <p>© 2026 Miraziz Portfolio. Barcha huquqlar himoyalangan.</p>
-        </div>
-    </footer>
+function buildBricks() {
+  bricks = [];
+  for (let r = 0; r < BRICK_ROWS; r++) {
+    for (let c = 0; c < BRICK_COLS; c++) {
+      bricks.push({
+        x: BRICK_OFFSET_X + c * (BRICK_W + BRICK_PAD),
+        y: BRICK_OFFSET_Y + r * (BRICK_H + BRICK_PAD),
+        w: BRICK_W, h: BRICK_H,
+        color: COLORS[r][0],
+        glow: COLORS[r][1],
+        alive: true
+      });
+    }
+  }
+}
 
-    <script>
-        const dot = document.querySelector('.c-dot');
-        const circle = document.querySelector('.c-circle');
-        const body = document.body;
+// Input
+document.addEventListener('keydown', e => { keys[e.key] = true; });
+document.addEventListener('keyup', e => { keys[e.key] = false; });
 
-        window.addEventListener('mousemove', (e) => {
-            dot.style.left = `${e.clientX}px`;
-            dot.style.top = `${e.clientY}px`;
-            circle.style.left = `${e.clientX}px`;
-            circle.style.top = `${e.clientY}px`;
-        });
+canvas.addEventListener('mousemove', e => {
+  const rect = canvas.getBoundingClientRect();
+  const scaleX = W / rect.width;
+  paddle.x = (e.clientX - rect.left) * scaleX - paddle.w / 2;
+  clampPaddle();
+});
 
-        const hoverables = document.querySelectorAll('a, button, .project-card');
-        hoverables.forEach(el => {
-            el.addEventListener('mouseover', () => body.classList.add('hovering'));
-            el.addEventListener('mouseout', () => body.classList.remove('hovering'));
-        });
+document.getElementById('padSlider').addEventListener('input', e => {
+  paddle.x = (e.target.value / 100) * (W - paddle.w);
+  clampPaddle();
+});
 
-        // MATRIX EFFECT
-        const canvas = document.getElementById('matrix');
-        const ctx = canvas.getContext('2d');
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-        let drops = Array(Math.floor(canvas.width / 16)).fill(1);
+function clampPaddle() {
+  if (paddle.x < 0) paddle.x = 0;
+  if (paddle.x + paddle.w > W) paddle.x = W - paddle.w;
+}
 
-        function drawMatrix() {
-            ctx.fillStyle = "rgba(5, 5, 5, 0.18)";
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-            ctx.fillStyle = "#00f2ff";
-            ctx.font = "15px monospace";
-            drops.forEach((y, i) => {
-                const text = "01"[Math.floor(Math.random() * 2)];
-                ctx.fillText(text, i * 16, y * 16);
-                if (y * 16 > canvas.height && Math.random() > 0.975) drops[i] = 0;
-                drops[i]++;
-            });
-        }
-        window.addEventListener('resize', () => {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-            drops = Array(Math.floor(canvas.width / 16)).fill(1);
-        });
-        setInterval(drawMatrix, 40);
-    </script>
+function updateStats() {
+  document.getElementById('score').textContent = score;
+  document.getElementById('best').textContent = best;
+  document.getElementById('lives').textContent = lives;
+}
+
+function loop() {
+  if (!gameRunning) return;
+  update();
+  draw();
+  animId = requestAnimationFrame(loop);
+}
+
+function update() {
+  // Keyboard paddle
+  if (keys['ArrowLeft'] || keys['a'] || keys['A']) { paddle.x -= paddle.speed; clampPaddle(); }
+  if (keys['ArrowRight'] || keys['d'] || keys['D']) { paddle.x += paddle.speed; clampPaddle(); }
+
+  // Ball move
+  ball.x += ball.vx;
+  ball.y += ball.vy;
+
+  // Wall bounce
+  if (ball.x - ball.r < 0) { ball.x = ball.r; ball.vx = Math.abs(ball.vx); }
+  if (ball.x + ball.r > W) { ball.x = W - ball.r; ball.vx = -Math.abs(ball.vx); }
+  if (ball.y - ball.r < 0) { ball.y = ball.r; ball.vy = Math.abs(ball.vy); }
+
+  // Paddle bounce
+  if (ball.y + ball.r >= paddle.y && ball.y + ball.r <= paddle.y + paddle.h + 4 &&
+      ball.x >= paddle.x - ball.r && ball.x <= paddle.x + paddle.w + ball.r && ball.vy > 0) {
+    const hit = (ball.x - (paddle.x + paddle.w/2)) / (paddle.w/2);
+    ball.vx = hit * 5.5;
+    ball.vy = -Math.abs(ball.vy);
+    const spd = Math.sqrt(ball.vx*ball.vx + ball.vy*ball.vy);
+    const maxSpd = 7;
+    if (spd > maxSpd) { ball.vx *= maxSpd/spd; ball.vy *= maxSpd/spd; }
+  }
+
+  // Ball lost
+  if (ball.y - ball.r > H) {
+    lives--;
+    updateStats();
+    if (lives <= 0) { endGame(false); return; }
+    ball.x = W/2; ball.y = H - 55;
+    ball.vx = (Math.random() > 0.5 ? 1 : -1) * 3.5;
+    ball.vy = -4;
+  }
+
+  // Brick collision
+  for (const b of bricks) {
+    if (!b.alive) continue;
+    if (ball.x + ball.r > b.x && ball.x - ball.r < b.x + b.w &&
+        ball.y + ball.r > b.y && ball.y - ball.r < b.y + b.h) {
+      b.alive = false;
+      score += 10;
+      if (score > best) { best = score; localStorage.setItem('breakoutBest', best); }
+      updateStats();
+
+      const overlapLeft = ball.x + ball.r - b.x;
+      const overlapRight = b.x + b.w - (ball.x - ball.r);
+      const overlapTop = ball.y + ball.r - b.y;
+      const overlapBottom = b.y + b.h - (ball.y - ball.r);
+      const minH = Math.min(overlapLeft, overlapRight);
+      const minV = Math.min(overlapTop, overlapBottom);
+      if (minH < minV) ball.vx = -ball.vx;
+      else ball.vy = -ball.vy;
+      break;
+    }
+  }
+
+  // Win check
+  if (bricks.every(b => !b.alive)) { endGame(true); }
+}
+
+function draw() {
+  ctx.fillStyle = '#020e1a';
+  ctx.fillRect(0, 0, W, H);
+
+  // Grid
+  ctx.strokeStyle = 'rgba(6,182,212,0.04)';
+  ctx.lineWidth = 0.5;
+  for (let i = 0; i < W; i += 20) { ctx.beginPath(); ctx.moveTo(i,0); ctx.lineTo(i,H); ctx.stroke(); }
+  for (let j = 0; j < H; j += 20) { ctx.beginPath(); ctx.moveTo(0,j); ctx.lineTo(W,j); ctx.stroke(); }
+
+  // Bricks
+  for (const b of bricks) {
+    if (!b.alive) continue;
+    ctx.shadowBlur = 12; ctx.shadowColor = b.glow;
+    ctx.fillStyle = b.color;
+    ctx.beginPath();
+    ctx.roundRect(b.x+1, b.y+1, b.w-2, b.h-2, 5);
+    ctx.fill();
+    // Shine
+    const grd = ctx.createLinearGradient(b.x, b.y, b.x, b.y+b.h);
+    grd.addColorStop(0, 'rgba(255,255,255,0.25)');
+    grd.addColorStop(1, 'rgba(255,255,255,0)');
+    ctx.fillStyle = grd;
+    ctx.beginPath();
+    ctx.roundRect(b.x+1, b.y+1, b.w-2, (b.h-2)*0.5, [5,5,0,0]);
+    ctx.fill();
+  }
+  ctx.shadowBlur = 0;
+
+  // Paddle
+  const pg = ctx.createLinearGradient(paddle.x, paddle.y, paddle.x+paddle.w, paddle.y);
+  pg.addColorStop(0, '#0891b2');
+  pg.addColorStop(0.5, '#67e8f9');
+  pg.addColorStop(1, '#0891b2');
+  ctx.fillStyle = pg;
+  ctx.shadowBlur = 20; ctx.shadowColor = '#06b6d4';
+  ctx.beginPath();
+  ctx.roundRect(paddle.x, paddle.y, paddle.w, paddle.h, 8);
+  ctx.fill();
+  ctx.shadowBlur = 0;
+
+  // Ball
+  ctx.shadowBlur = 25; ctx.shadowColor = '#67e8f9';
+  const bg = ctx.createRadialGradient(ball.x-2, ball.y-2, 1, ball.x, ball.y, ball.r);
+  bg.addColorStop(0, '#e0f7ff');
+  bg.addColorStop(0.5, '#67e8f9');
+  bg.addColorStop(1, '#0891b2');
+  ctx.fillStyle = bg;
+  ctx.beginPath();
+  ctx.arc(ball.x, ball.y, ball.r, 0, Math.PI*2);
+  ctx.fill();
+  ctx.shadowBlur = 0;
+
+  // Ball trail
+  ctx.fillStyle = 'rgba(103,232,249,0.15)';
+  ctx.beginPath();
+  ctx.arc(ball.x - ball.vx*2, ball.y - ball.vy*2, ball.r*0.7, 0, Math.PI*2);
+  ctx.fill();
+}
+
+function endGame(won) {
+  gameRunning = false;
+  cancelAnimationFrame(animId);
+  const ov = document.getElementById('overlay');
+  ov.innerHTML = won
+    ? `<h2>🎉 G'ALABA!</h2><p>Barcha bloklarni sindirdingiz!<br>Hisob: <strong style="color:#67e8f9;font-size:1.4rem">${score}</strong></p>
+       <button class="play-btn" onclick="startGame()">QAYTA ↺</button>`
+    : `<h2>💥 O'YIN TUGADI!</h2><p>Hisob: <strong style="color:#67e8f9;font-size:1.4rem">${score}</strong><br>Rekord: <strong style="color:#67e8f9">${best}</strong></p>
+       <button class="play-btn" onclick="startGame()">QAYTA ↺</button>`;
+  ov.classList.add('show');
+}
+
+// Draw initial frame
+ctx.fillStyle = '#020e1a';
+ctx.fillRect(0,0,W,H);
+</script>
 </body>
-
 </html>
