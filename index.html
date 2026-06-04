@@ -104,6 +104,43 @@
             opacity: 0.9;
         }
 
+        .notebook-svg {
+            display: flex;
+            justify-content: center;
+            margin: 0 auto 2rem;
+            width: min(100%, 420px);
+        }
+
+        .notebook-svg svg {
+            width: 160px;
+            height: 160px;
+            filter: drop-shadow(0 0 20px rgba(0, 255, 255, 0.2));
+            transition: transform 0.35s ease, filter 0.35s ease;
+        }
+
+        .notebook-svg:hover svg {
+            transform: rotate(6deg) scale(1.04);
+            filter: drop-shadow(0 0 28px rgba(0, 255, 255, 0.35));
+        }
+
+        .notebook-icon-light {
+            animation: glowPulse 3s ease-in-out infinite;
+        }
+
+        @keyframes glowPulse {
+
+            0%,
+            100% {
+                opacity: 0.94;
+                transform: scale(1);
+            }
+
+            50% {
+                opacity: 1;
+                transform: scale(1.02);
+            }
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -864,6 +901,108 @@
             font-weight: 500;
         }
 
+        .profile-card {
+            display: grid;
+            grid-template-columns: 120px 1fr;
+            gap: 30px;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 30px;
+            border-radius: 28px;
+            margin: 40px auto 40px;
+            max-width: 1060px;
+            box-shadow: 0 28px 80px rgba(0, 0, 0, 0.24);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .profile-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at top left, rgba(0, 247, 255, 0.14), transparent 35%),
+                radial-gradient(circle at bottom right, rgba(189, 0, 255, 0.12), transparent 30%);
+            pointer-events: none;
+        }
+
+        .profile-card>* {
+            position: relative;
+            z-index: 1;
+        }
+
+        .profile-icon {
+            display: grid;
+            place-items: center;
+            width: 100%;
+            aspect-ratio: 1;
+            border-radius: 28px;
+            background: rgba(255, 255, 255, 0.04);
+            box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.06);
+            transition: transform 0.35s ease, background 0.35s ease;
+        }
+
+        .profile-icon svg {
+            width: 80%;
+            height: 80%;
+            transform-origin: center;
+            transition: transform 0.35s ease;
+        }
+
+        .profile-icon.svg-hover {
+            background: rgba(0, 247, 255, 0.08);
+            transform: scale(1.04);
+        }
+
+        .profile-icon.svg-hover svg {
+            transform: rotate(8deg) scale(1.03);
+        }
+
+        .profile-info h3 {
+            margin-bottom: 14px;
+            font-family: var(--font-cyber);
+            font-size: 34px;
+            letter-spacing: 0.5px;
+            color: #fff;
+        }
+
+        .profile-info p {
+            max-width: 740px;
+            color: var(--muted);
+            line-height: 1.9;
+            margin-bottom: 24px;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 22px;
+        }
+
+        .info-item {
+            background: rgba(0, 0, 0, 0.25);
+            border: 1px solid rgba(255, 255, 255, 0.07);
+            padding: 18px 20px;
+            border-radius: 18px;
+        }
+
+        .info-item span {
+            display: block;
+            font-size: 11px;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 1.4px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .info-item strong {
+            display: block;
+            font-size: 15px;
+            color: #fff;
+            line-height: 1.5;
+        }
+
         form {
             display: flex;
             flex-direction: column;
@@ -942,6 +1081,15 @@
 
             .page {
                 padding: 120px 5% 60px;
+            }
+
+            .profile-card {
+                grid-template-columns: 1fr;
+                padding: 26px;
+            }
+
+            .info-grid {
+                grid-template-columns: 1fr;
             }
         }
 
@@ -1028,6 +1176,7 @@
                 <a href="#store" onclick="event.preventDefault(); showPage('store')" id="nav-store">Store</a>
                 <a href="#resources" onclick="event.preventDefault(); showPage('resources')"
                     id="nav-resources">Resources</a>
+                <a href="#" onclick="event.preventDefault(); openCvPage()" id="nav-cv">CV ni yuklash</a>
                 <a href="#all-pages" onclick="event.preventDefault(); showPage('all-pages')" id="nav-all-pages">Notbook
                     haqida</a>
                 <a href="#certificates" onclick="event.preventDefault(); showPage('certificates')"
@@ -1042,24 +1191,40 @@
         <div class="hero">
             <h1 id="typing"></h1>
             <p>Premium Frontend, interaktiv ilovalar va cyber dizayn tajribasi yarataman.</p>
-        </div>
-        <div class="grid">
-            <div class="card" data-target="projects">
-                <h3>Web Development</h3><br>
-                <p>Zamonaviy, o'ta tezkor, xavfsiz va optimal premium darajadagi yagona sahifali SPA va PWA tizimlari.
-                </p>
-            </div>
-            <div class="card" data-target="services">
-                <h3>UI/UX Design</h3><br>
-                <p>Mijoz va foydalanuvchi his-tuyg'ularini kiber-premium darajada ifodalovchi kreativ, interaktiv
-                    interfeyslar.</p>
-            </div>
-            <div class="card" data-target="apps">
-                <h3>Responsive Layout</h3><br>
-                <p>Smartfonlardan tortib eng ulkan o'yin monitorlarigacha mukammal kadr nisbati va dinamik grid tizimi.
-                </p>
+            <div class="hero-actions">
+                <button class="button pt-5" onclick="openCvPage()">CV ni yuklash</button>
             </div>
         </div>
+        <section class="">
+
+            <script>
+                document.addEventListener('DOMContentLoaded', () => {
+                    const icon = document.querySelector('.profile-svg');
+                    if (icon) {
+                        icon.addEventListener('mouseenter', () => icon.classList.add('svg-hover'));
+                        icon.addEventListener('mouseleave', () => icon.classList.remove('svg-hover'));
+                    }
+                });
+            </script>
+            <div class="grid">
+                <div class="card" data-target="projects">
+                    <h3>Web Development</h3><br>
+                    <p>Zamonaviy, o'ta tezkor, xavfsiz va optimal premium darajadagi yagona sahifali SPA va PWA
+                        tizimlari.
+                    </p>
+                </div>
+                <div class="card" data-target="services">
+                    <h3>UI/UX Design</h3><br>
+                    <p>Mijoz va foydalanuvchi his-tuyg'ularini kiber-premium darajada ifodalovchi kreativ, interaktiv
+                        interfeyslar.</p>
+                </div>
+                <div class="card" data-target="apps">
+                    <h3>Responsive Layout</h3><br>
+                    <p>Smartfonlardan tortib eng ulkan o'yin monitorlarigacha mukammal kadr nisbati va dinamik grid
+                        tizimi.
+                    </p>
+                </div>
+            </div>
     </section>
 
     <!-- ABOUT -->
@@ -1582,6 +1747,29 @@
     <!-- ALL PAGES (replaced with Notebook interactive) -->
     <section id="all-pages" class="page">
         <h2>Notbook haqida</h2>
+        <div class="notebook-svg">
+            <svg viewBox="0 0 240 240" xmlns="http://www.w3.org/2000/svg" class="notebook-icon-light" role="img"
+                aria-label="Notebook icon">
+                <defs>
+                    <linearGradient id="notebookGradient" x1="0" y1="0" x2="1" y2="1">
+                        <stop offset="0%" stop-color="#00f7ff" />
+                        <stop offset="100%" stop-color="#bd00ff" />
+                    </linearGradient>
+                </defs>
+                <rect x="20" y="20" width="200" height="200" rx="28" fill="rgba(14,24,45,0.95)"
+                    stroke="url(#notebookGradient)" stroke-width="6" />
+                <rect x="42" y="42" width="156" height="28" rx="10" fill="rgba(255,255,255,0.08)" />
+                <rect x="42" y="82" width="156" height="18" rx="9" fill="rgba(255,255,255,0.06)" />
+                <rect x="42" y="112" width="156" height="18" rx="9" fill="rgba(255,255,255,0.06)" />
+                <g opacity="0.75">
+                    <path d="M 42 132 h 156" stroke="rgba(255,255,255,0.15)" stroke-width="4" stroke-linecap="round" />
+                </g>
+                <circle cx="60" cy="178" r="12" fill="#00f7ff" />
+                <circle cx="98" cy="178" r="12" fill="#bd00ff" />
+                <circle cx="136" cy="178" r="12" fill="#39ff14" />
+                <circle cx="174" cy="178" r="12" fill="#ff4abf" />
+            </svg>
+        </div>
         <div class="w-full max-w-5xl flex flex-col lg:flex-row items-center justify-around gap-12 p-6">
             <div class="scene cursor-pointer p-20" onclick="explodeLaptop()">
                 <div id="laptop" class="laptop">
@@ -1659,6 +1847,12 @@
             function resetLaptop() {
                 laptop.classList.remove('exploded');
                 laptop.style.transform = "rotateX(60deg) rotateZ(-30deg)";
+            }
+
+            const notebookSvg = document.querySelector('.notebook-svg svg');
+            if (notebookSvg) {
+                notebookSvg.addEventListener('mouseenter', () => notebookSvg.style.transform = 'rotate(5deg) scale(1.05)');
+                notebookSvg.addEventListener('mouseleave', () => notebookSvg.style.transform = 'rotate(0deg) scale(1)');
             }
         </script>
     </section>
@@ -2145,6 +2339,11 @@
                 showPage(hashPage);
             }
         });
+
+        function openCvPage() {
+            const url = 'cv.html';
+            window.location.href = url;
+        }
 
         // --- 6. 3D CARD TILT EXPERIENCE ---
         function apply3DTilt() {

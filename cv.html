@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="uz">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CV ni yuklash — Miraziz Oltibaev</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        :root {
+            --bg: #020408;
+            --panel: rgba(10, 18, 36, 0.92);
+            --border: rgba(0, 247, 255, 0.12);
+            --accent: #00f7ff;
+            --text: #f4f9ff;
+            --muted: #8ba3b8;
+            --radius: 24px;
+            --shadow: 0 30px 70px rgba(0, 0, 0, 0.26);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            font-family: 'Inter', sans-serif;
+            background: radial-gradient(circle at top right, rgba(0, 247, 255, 0.12), transparent 22%),
+                radial-gradient(circle at bottom left, rgba(189, 0, 255, 0.12), transparent 18%),
+                linear-gradient(180deg, #020408 0%, #08101f 100%);
+            color: var(--text);
+            padding: 20px;
+        }
+
+        .page {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: grid;
+            gap: 24px;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+            padding: 20px 24px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+        }
+
+        .brand {
+            font-size: 1.15rem;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            color: var(--accent);
+            text-transform: uppercase;
+        }
+
+        .nav-link {
+            color: var(--text);
+            text-decoration: none;
+            border: 1px solid var(--border);
+            padding: 12px 18px;
+            border-radius: 999px;
+            transition: transform 0.2s ease, background 0.2s ease;
+        }
+
+        .nav-link:hover {
+            transform: translateY(-2px);
+            background: rgba(0, 247, 255, 0.08);
+        }
+
+        .hero-panel {
+            background: var(--panel);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 34px;
+            box-shadow: var(--shadow);
+            display: grid;
+            gap: 20px;
+        }
+
+        .hero-panel h1 {
+            font-size: clamp(2.5rem, 3.5vw, 3.6rem);
+            line-height: 1.05;
+            letter-spacing: -0.03em;
+        }
+
+        .hero-panel p {
+            max-width: 780px;
+            color: var(--muted);
+            line-height: 1.8;
+        }
+
+        .button {
+            background: linear-gradient(135deg, var(--accent), #bd00ff);
+            border: none;
+            color: #020408;
+            font-weight: 700;
+            padding: 16px 28px;
+            border-radius: 999px;
+            cursor: pointer;
+            font-size: 0.95rem;
+            box-shadow: 0 18px 40px rgba(0, 247, 255, 0.2);
+            transition: transform 0.2s ease, opacity 0.2s ease;
+            width: fit-content;
+        }
+
+        .button:hover {
+            transform: translateY(-3px);
+            opacity: 0.96;
+        }
+
+        .grid-two {
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 22px;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 28px;
+            box-shadow: var(--shadow);
+        }
+
+        .card h2 {
+            font-size: 1.5rem;
+            margin-bottom: 14px;
+        }
+
+        .card p,
+        .card li {
+            color: var(--muted);
+            line-height: 1.9;
+        }
+
+        .list {
+            list-style: none;
+            display: grid;
+            gap: 16px;
+            margin-top: 18px;
+            padding: 0;
+        }
+
+        .list li {
+            padding: 18px;
+            border-radius: 18px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .download-panel {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            align-items: flex-start;
+        }
+
+        .download-panel small {
+            color: var(--muted);
+        }
+
+        footer {
+            text-align: center;
+            padding: 18px 0;
+            color: var(--muted);
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 860px) {
+            .grid-two {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="page">
+        <header>
+            <div>
+                <div class="brand">CV ni yuklash</div>
+                <p style="color: var(--muted); margin-top: 8px;">Miraziz Oltibaev — Frontend Developer</p>
+            </div>
+            <a class="nav-link" href="index.html">Bosh sahifa</a>
+        </header>
+
+        <section class="hero-panel">
+            <h1>Mirazizning CV sahifasi</h1>
+            <p>Bundan keyin sahifani yuklab olishingiz mumkin. Pastdagi tugmaga bosib, CV faylini saqlang va keyin
+                qaytib boshqa bo'limlarni ko'ring.</p>
+            <div class="download-panel">
+                <button class="button" id="download-cv">Yuklab olish</button>
+                <small>Yuklab olingan fayl `Miraziz-CV.txt` nomi bilan saqlanadi.</small>
+            </div>
+        </section>
+
+        <div class="grid-two">
+            <article class="card">
+                <h2>Nimalarni bilaman</h2>
+                <ul class="list">
+                    <li><strong>HTML, CSS, JavaScript</strong> — toza, tez va responsiv saytlar yaratish.</li>
+                    <li><strong>UI/UX dizayn</strong> — zamonaviy va interaktiv interfeyslar loyihalash.</li>
+                    <li><strong>Frontend optimizatsiya</strong> — PWA, SPA va performansni yaxshilash.</li>
+                    <li><strong>Tailwind, Git</strong> va kiber futuristik stil ishlari.</li>
+                </ul>
+            </article>
+            <article class="card">
+                <h2>Saytlarim nima haqida</h2>
+                <ul class="list">
+                    <li><strong>Portfolio</strong> — shaxsiy ishlar, interaktiv sahifalar va professional loyihalar.
+                    </li>
+                    <li><strong>Expert app</strong> — modalar, gadjetlar, avtomobil va savdo ilovalari uchun namuna
+                        sahifalar.</li>
+                    <li><strong>Interaktiv demo</strong> — kiber stil va 3D elementlar bilan animatsion sahifalar.</li>
+                    <li><strong>Kontakt</strong> — suhbat, ish taklifi va hamkorlik uchun to'g'ridan-to'g'ri aloqa.
+                    </li>
+                </ul>
+            </article>
+        </div>
+
+        <footer>Miraziz Oltibaev — Xiva, IT Park, +998 95 000 0129</footer>
+    </div>
+
+    <script>
+        const downloadBtn = document.getElementById('download-cv');
+        const cvText = `Miraziz Oltibaev\nFrontend Developer\n\nTelefon: +998 95 000 0129\nEmail: miraziz@example.com\nManzil: Xiva, Uzbekistan\nTa'lim: IT Park\n\nNimalarni bilaman:\n- HTML, CSS, JavaScript\n- UI/UX dizayn\n- Responsive va PWA loyihalar\n- Tailwind va Git\n\nSaytlarim haqida:\n- Personal portfolio\n- Expert app sahifalar\n- Kiber dizayn demo sahifalar\n- Kontakt va aloqa bo'limi\n`;
+
+        downloadBtn.addEventListener('click', () => {
+            const blob = new Blob([cvText], { type: 'text/plain;charset=utf-8' });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = 'Miraziz-CV.txt';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            URL.revokeObjectURL(link.href);
+        });
+    </script>
+</body>
+
+</html>
