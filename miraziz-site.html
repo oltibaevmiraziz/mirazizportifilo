@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="uz">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Miraziz Site Demo</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Orbitron:wght@700;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        :root {
+            --bg: #02050c;
+            --card: rgba(10, 16, 32, 0.9);
+            --accent: #4fd8ff;
+            --text: #eef3fb;
+            --muted: #8aa2ba;
+            --border: rgba(79, 216, 255, 0.2);
+            --font-main: 'Inter', sans-serif;
+            --font-head: 'Orbitron', sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            min-height: 100vh;
+            background: #050b16;
+            color: var(--text);
+            font-family: var(--font-main);
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .page {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 24px;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+
+        .logo {
+            font-family: var(--font-head);
+            font-size: 22px;
+            letter-spacing: 2px;
+            color: var(--accent);
+        }
+
+        .back-link {
+            color: var(--text);
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 10px 18px;
+            border-radius: 12px;
+            transition: transform .2s, background .2s;
+        }
+
+        .back-link:hover {
+            transform: translateY(-2px);
+            background: rgba(79, 216, 255, 0.12);
+        }
+
+        .hero {
+            display: grid;
+            grid-template-columns: 1fr 420px;
+            gap: 40px;
+            align-items: center;
+            margin-top: 40px;
+        }
+
+        .hero-text h1 {
+            font-family: var(--font-head);
+            font-size: clamp(3rem, 4vw, 5rem);
+            line-height: 1;
+            margin-bottom: 18px;
+        }
+
+        .hero-text p {
+            color: var(--muted);
+            font-size: 1.05rem;
+            line-height: 1.75;
+            margin-bottom: 24px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .hero-buttons a {
+            padding: 14px 22px;
+            border-radius: 999px;
+            border: 1px solid var(--accent);
+            color: var(--text);
+            transition: background .2s, transform .2s;
+        }
+
+        .hero-buttons a:hover {
+            background: rgba(79, 216, 255, 0.14);
+            transform: translateY(-2px);
+        }
+
+        .hero-card {
+            background: var(--card);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 24px;
+            padding: 32px;
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.35);
+        }
+
+        .hero-card h2 {
+            font-size: 1.3rem;
+            margin-bottom: 18px;
+            color: #fff;
+        }
+
+        .hero-card p {
+            color: var(--muted);
+            line-height: 1.75;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 24px;
+            margin-top: 40px;
+        }
+
+        .feature {
+            background: var(--card);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 22px;
+            padding: 28px;
+            transition: transform .2s, border-color .2s;
+        }
+
+        .feature:hover {
+            transform: translateY(-4px);
+            border-color: var(--accent);
+        }
+
+        .feature-icon {
+            width: 52px;
+            height: 52px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(79, 216, 255, 0.14);
+            color: var(--accent);
+            margin-bottom: 18px;
+        }
+
+        .feature h3 {
+            font-size: 1.1rem;
+            margin-bottom: 12px;
+        }
+
+        .feature p {
+            color: var(--muted);
+            line-height: 1.7;
+        }
+
+        footer {
+            margin-top: 64px;
+            text-align: center;
+            padding: 20px 0;
+            color: rgba(238, 243, 251, 0.6);
+            font-size: 0.95rem;
+        }
+
+        @media (max-width: 900px) {
+            .hero {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 620px) {
+            .hero {
+                gap: 24px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="page">
+        <header>
+            <div class="logo">MIRAZIZ SITE</div>
+            <a class="back-link" href="index.html">← Back to Portfolio</a>
+        </header>
+        <section class="hero">
+            <div class="hero-text">
+                <h1>Miraziz HTML Demo</h1>
+                <p>Bu sahifa oddiy, zamonaviy va professional frontend dizayn asosida tuzilgan. Sizning portfolio,
+                    loyiha yoki xizmat sahifangiz sifatida ishlashi mumkin.</p>
+                <div class="hero-buttons">
+                    <a href="#features">Features</a>
+                    <a href="#contact">Contact</a>
+                </div>
+            </div>
+            <div class="hero-card">
+                <h2>Sayt xususiyatlari</h2>
+                <p>Responsive dizayn, aniq tipografiya, premium kiber estetikasi va foydalanuvchi uchun intuitiv
+                    interaktiv elementlar.</p>
+            </div>
+        </section>
+        <section id="features" class="features">
+            <div class="feature">
+                <div class="feature-icon"><i class="fa-solid fa-bolt"></i></div>
+                <h3>Fast Performance</h3>
+                <p>Tez yuklanadigan sahifa, kam fayl o‘lchamlari va toza kod bilan yanada yaxshi ishlash.</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon"><i class="fa-solid fa-paintbrush"></i></div>
+                <h3>Clean UI</h3>
+                <p>Minimal, ammo kuchli vizual dizayn bo‘lib, foydalanuvchilar e'tiborini to‘g‘ri joyga qaratadi.</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon"><i class="fa-solid fa-mobile-screen-button"></i></div>
+                <h3>Responsive</h3>
+                <p>Mobil va desktop qurilmalarda mukammal ko‘rinish, har doim moslashuvchan tarzda ishlaydi.</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon"><i class="fa-solid fa-shield-halved"></i></div>
+                <h3>Secure Design</h3>
+                <p>Sahifa tuzilishi oddiy, ammo ishonchli; xavfsizlik va sifatsizlashtirilgan kontent uchun ideal
+                    boshlang‘ich.</p>
+            </div>
+        </section>
+        <section id="contact"
+            style="margin-top: 40px; background: rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.06); border-radius:24px; padding:28px;">
+            <h2 style="font-size:1.8rem; margin-bottom:16px;">Bog‘lanish</h2>
+            <p style="color: var(--muted); line-height:1.8;">Siz bu sahifani portfolioga qo‘shishingiz va unga boshqa
+                ishlanmalar, sertifikatlar yoki xizmat sahifalarini havola qilishingiz mumkin.</p>
+            <p style="margin-top:18px;">Email: <strong>miraziz.oltibaev@example.com</strong></p>
+            <p>Telegram: <strong>@miraziz_oltibaev</strong></p>
+        </section>
+        <footer>© 2026 Miraziz Oltibaev — Demo HTML sayt</footer>
+    </div>
+</body>
+
+</html>

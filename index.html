@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Miraziz | Cyber Premium Portfolio</title>
+    <title>Miraziz Oltibaev | Cyber Premium Portfolio</title>
     <!-- Sarlavhalar va kiber-shriftlar uchun Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -279,6 +279,124 @@
             position: relative;
             transition: border-color 0.4s, box-shadow 0.4s;
             overflow: hidden;
+        }
+
+        .card[data-target],
+        .card[data-href] {
+            cursor: pointer;
+        }
+
+        .card[data-target]:hover,
+        .card[data-href]:hover {
+            box-shadow: 0 25px 60px rgba(0, 247, 255, 0.12);
+        }
+
+        .product-card .photo-box {
+            min-height: 235px;
+            background: linear-gradient(135deg, rgba(0, 247, 255, 0.12), rgba(189, 0, 255, 0.18));
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: inset 0 0 35px rgba(0, 247, 255, 0.1);
+            transform-style: preserve-3d;
+        }
+
+        .product-card .photo-box::before {
+            content: "";
+            position: absolute;
+            inset: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 14px;
+            transform: translateZ(30px);
+            pointer-events: none;
+        }
+
+        .card.product-card {
+            cursor: pointer;
+        }
+
+        .product-card h3 {
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .modal-body {
+            min-height: 520px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 26px;
+            padding: 30px 20px;
+        }
+
+        .preview-card {
+            width: min(90vw, 620px);
+            max-width: 620px;
+            position: relative;
+            border-radius: 30px;
+            padding: 24px;
+            background: transparent;
+            border: 1px solid rgba(0, 247, 255, 0.14);
+            box-shadow: 0 0 45px rgba(0, 247, 255, 0.16);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 24px;
+        }
+
+        .preview-info {
+            width: min(88vw, 560px);
+            color: #eaf6ff;
+            text-align: center;
+        }
+
+        .preview-info h3 {
+            font-family: var(--font-cyber);
+            font-size: 28px;
+            letter-spacing: 1px;
+            margin-bottom: 14px;
+            color: #fff;
+        }
+
+        .preview-info p {
+            font-size: 16px;
+            line-height: 1.7;
+            color: var(--muted);
+            max-width: 520px;
+            margin: 0 auto;
+        }
+
+        .preview-card::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            border-radius: 30px;
+            padding: 2px;
+            background: linear-gradient(180deg, rgba(0, 247, 255, 0.35), rgba(189, 0, 255, 0.35));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            animation: pulseFrame 2.8s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        @keyframes pulseFrame {
+
+            0%,
+            100% {
+                box-shadow: 0 0 25px rgba(0, 247, 255, 0.18);
+            }
+
+            50% {
+                box-shadow: 0 0 45px rgba(189, 0, 255, 0.28);
+            }
+        }
+
+        .modal .close-modal.preview-close {
+            right: 20px;
+            top: 20px;
         }
 
         /* Karta burchaklaridagi neon detallar */
@@ -753,7 +871,7 @@
     <canvas id="particles-canvas"></canvas>
 
     <header>
-        <a href="#" class="logo" onclick="showPage('home')">Miraziz<span>.</span></a>
+        <a href="#" class="logo" onclick="event.preventDefault(); showPage('home')">Miraziz Oltibaev</a>
 
         <div class="nav-container">
             <!-- Web Audio Control -->
@@ -769,12 +887,29 @@
             </div>
 
             <nav id="nav-menu">
-                <a onclick="showPage('home')" class="active-nav" id="nav-home">Home</a>
-                <a onclick="showPage('about')" id="nav-about">About</a>
-                <a onclick="showPage('skills')" id="nav-skills">Skills</a>
-                <a onclick="showPage('projects')" id="nav-projects">Projects</a>
-                <a onclick="showPage('certificates')" id="nav-certificates">Certificates</a>
-                <a onclick="showPage('contact')" id="nav-contact">Contact</a>
+                <a href="#home" onclick="event.preventDefault(); showPage('home')" class="active-nav"
+                    id="nav-home">Home</a>
+                <a href="#about" onclick="event.preventDefault(); showPage('about')" id="nav-about">About</a>
+                <a href="#experience" onclick="event.preventDefault(); showPage('experience')"
+                    id="nav-experience">Experience</a>
+                <a href="#testimonials" onclick="event.preventDefault(); showPage('testimonials')"
+                    id="nav-testimonials">Testimonials</a>
+                <a href="#highlights" onclick="event.preventDefault(); showPage('highlights')"
+                    id="nav-highlights">Highlights</a>
+                <a href="#services" onclick="event.preventDefault(); showPage('services')"
+                    id="nav-services">Services</a>
+                <a href="#skills" onclick="event.preventDefault(); showPage('skills')" id="nav-skills">Skills</a>
+                <a href="#projects" onclick="event.preventDefault(); showPage('projects')"
+                    id="nav-projects">Projects</a>
+                <a href="#apps" onclick="event.preventDefault(); showPage('apps')" id="nav-apps">Apps</a>
+                <a href="#store" onclick="event.preventDefault(); showPage('store')" id="nav-store">Store</a>
+                <a href="#resources" onclick="event.preventDefault(); showPage('resources')"
+                    id="nav-resources">Resources</a>
+                <a href="#all-pages" onclick="event.preventDefault(); showPage('all-pages')" id="nav-all-pages">All
+                    Pages</a>
+                <a href="#certificates" onclick="event.preventDefault(); showPage('certificates')"
+                    id="nav-certificates">Certificates</a>
+                <a href="#contact" onclick="event.preventDefault(); showPage('contact')" id="nav-contact">Contact</a>
             </nav>
         </div>
     </header>
@@ -783,20 +918,20 @@
     <section id="home" class="page active">
         <div class="hero">
             <h1 id="typing"></h1>
-            <p>Professional Frontend Developer & Creative Cyber Designer</p>
+            <p>Premium Frontend, interaktiv ilovalar va cyber dizayn tajribasi yarataman.</p>
         </div>
         <div class="grid">
-            <div class="card">
+            <div class="card" data-target="projects">
                 <h3>Web Development</h3><br>
                 <p>Zamonaviy, o'ta tezkor, xavfsiz va optimal premium darajadagi yagona sahifali SPA va PWA tizimlari.
                 </p>
             </div>
-            <div class="card">
+            <div class="card" data-target="services">
                 <h3>UI/UX Design</h3><br>
                 <p>Mijoz va foydalanuvchi his-tuyg'ularini kiber-premium darajada ifodalovchi kreativ, interaktiv
                     interfeyslar.</p>
             </div>
-            <div class="card">
+            <div class="card" data-target="apps">
                 <h3>Responsive Layout</h3><br>
                 <p>Smartfonlardan tortib eng ulkan o'yin monitorlarigacha mukammal kadr nisbati va dinamik grid tizimi.
                 </p>
@@ -807,12 +942,182 @@
     <!-- ABOUT -->
     <section id="about" class="page">
         <h2>About Me</h2>
-        <div class="card" style="max-width: 850px; margin: 0 auto;">
+        <div class="card" data-target="contact" style="max-width: 850px; margin: 0 auto;">
             <h3>Kiber Identifikatsiya</h3><br>
-            <p>Salom! Mening ismim Miraziz. Men yuqori darajadagi yuklanishga chidamli, vizual jihatdan mukammal va
+            <p>Salom! Mening ismim Miraziz Oltibaev. Men yuqori darajadagi yuklanishga chidamli, vizual jihatdan
+                mukammal va
                 premium darajadagi Frontend loyihalarni ishlab chiqish bilan shug'ullanaman. Strukturaviy toza kod
                 yozish, har bir pikselga alohida e'tibor qaratish va foydalanuvchi tajribasini (UX) eng oliy darajaga
                 olib chiqish mening asosiy kiber-missiyamdir.</p>
+        </div>
+    </section>
+
+    <!-- HIGHLIGHTS -->
+    <section id="highlights" class="page">
+        <h2>Top 10 Highlights</h2>
+        <div class="grid">
+            <div class="card" data-target="projects">
+                <div class="photo-box">
+                    <i class="fa-solid fa-code"></i>
+                    <span>Frontend Mastery</span>
+                </div>
+                <h3>Premium Frontend Development</h3><br>
+                <p>HTML/CSS/JavaScript asosida yuqori sifatli, interaktiv va professional web sahifalar yaratildi.</p>
+            </div>
+            <div class="card" data-target="services">
+                <div class="photo-box">
+                    <i class="fa-solid fa-paintbrush"></i>
+                    <span>UI/UX Vision</span>
+                </div>
+                <h3>Cyber UI/UX Design</h3><br>
+                <p>Foydalanuvchi tajribasini kiber-premium uslubda yetkazadigan estetik va responsiv interfeyslar.</p>
+            </div>
+            <div class="card" data-target="apps">
+                <div class="photo-box">
+                    <i class="fa-solid fa-mobile-screen-button"></i>
+                    <span>Responsive Strategy</span>
+                </div>
+                <h3>Responsive Layouts</h3><br>
+                <p>Har bir sahifa mobil, planshet va desktop qurilmalarda mukammal ishlashga moslashtirildi.</p>
+            </div>
+            <div class="card" data-target="certificates">
+                <div class="photo-box">
+                    <i class="fa-solid fa-certificate"></i>
+                    <span>Certificates</span>
+                </div>
+                <h3>Sertifikatlar bo‘limi</h3><br>
+                <p>5 ta Coursera sertifikatlarining havolalari va tekshirish knopkalari bilan to‘liq bo‘lim mavjud.</p>
+            </div>
+            <div class="card" data-target="resources">
+                <div class="photo-box">
+                    <i class="fa-solid fa-file-pdf"></i>
+                    <span>PDF Resources</span>
+                </div>
+                <h3>Local Resource Files</h3><br>
+                <p>Mahalliy mashinada saqlangan 5 ta PDF resursga barcha kerakli havolalar qo‘shildi.</p>
+            </div>
+            <div class="card" data-target="all-pages">
+                <div class="photo-box">
+                    <i class="fa-solid fa-browser"></i>
+                    <span>Live Demo</span>
+                </div>
+                <h3>Miraziz Web Site</h3><br>
+                <p>Yangi demo HTML sahifa yaratildi va `Resources` bo‘limidan kirish havolasi qo‘yildi.</p>
+            </div>
+            <div class="card" data-target="projects">
+                <div class="photo-box">
+                    <i class="fa-solid fa-folder-open"></i>
+                    <span>Projects Showcase</span>
+                </div>
+                <h3>Interactive Project Cards</h3><br>
+                <p>5 ta loyiha kartochkasi bilan `Projects` bo‘limida demo va loyiha havolalari mavjud.</p>
+            </div>
+            <div class="card" data-target="apps">
+                <div class="photo-box">
+                    <i class="fa-solid fa-bag-shopping"></i>
+                    <span>Apps Gallery</span>
+                </div>
+                <h3>Shop & App Previews</h3><br>
+                <p>Moda, gadget va uy bo‘limlariga oid ichki foydalanish uchun ilovalar namunalari qo‘shildi.</p>
+            </div>
+            <div class="card" data-target="certificates">
+                <div class="photo-box">
+                    <i class="fa-solid fa-shield-halved"></i>
+                    <span>Terminal System</span>
+                </div>
+                <h3>Verification Modal</h3><br>
+                <p>Sertifikatlarni tasdiqlash uchun kiber terminal ko‘rinishidagi interaktiv modal qo‘shildi.</p>
+            </div>
+            <div class="card" data-target="resources">
+                <div class="photo-box">
+                    <i class="fa-solid fa-graduation-cap"></i>
+                    <span>Learning Paths</span>
+                </div>
+                <h3>Study & Resources</h3><br>
+                <p>AI, ta’lim va professional rivojlanish uchun onlayn manbalar hamda foydali saytlar kiritildi.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- EXPERIENCE -->
+    <section id="experience" class="page">
+        <h2>Experience</h2>
+        <div class="grid">
+            <div class="card" data-target="about">
+                <div class="photo-box">
+                    <i class="fa-solid fa-briefcase"></i>
+                    <span>Professional Journey</span>
+                </div>
+                <h3>6+ Years in Web Development</h3><br>
+                <p>Ko‘p tarmoqli frontend loyihalarni yaratish va takomillashtirish bo‘yicha real tajriba.</p>
+            </div>
+            <div class="card" data-target="contact">
+                <div class="photo-box">
+                    <i class="fa-solid fa-users"></i>
+                    <span>Team Collaboration</span>
+                </div>
+                <h3>50+ Collaborations</h3><br>
+                <p>Jamoaviy ish tajribasi, mijozlar bilan yaqin hamkorlik va oqilona ishlash samaradorligi.</p>
+            </div>
+            <div class="card" data-target="projects">
+                <div class="photo-box">
+                    <i class="fa-solid fa-rocket"></i>
+                    <span>Fast Delivery</span>
+                </div>
+                <h3>Rapid Project Launches</h3><br>
+                <p>Yuqori tezlikda testlar o'tkazilgan, taqdimotga tayyor responsive saytlarni yaratish.</p>
+            </div>
+            <div class="card" data-target="services">
+                <div class="photo-box">
+                    <i class="fa-solid fa-award"></i>
+                    <span>Top Results</span>
+                </div>
+                <h3>Creative Cyber Design</h3><br>
+                <p>Har bir loyiha uchun alohida kiber ta’sir va premium tajriba strategiyasi ishlab chiqildi.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- SERVICES -->
+    <section id="services" class="page">
+        <h2>Services</h2>
+        <div class="grid">
+            <div class="card" data-target="projects">
+                <div class="photo-box">
+                    <i class="fa-solid fa-code"></i>
+                    <span>Web Development</span>
+                </div>
+                <h3>Custom Frontend Builds</h3><br>
+                <p>Yagona sahifali SPA, korporativ saytlar va interaktiv veb-ilovalarni yuqori tezlik va foydalanuvchi
+                    qulayligi bilan yarataman.</p>
+            </div>
+            <div class="card" data-target="projects">
+                <div class="photo-box">
+                    <i class="fa-solid fa-palette"></i>
+                    <span>UI/UX Design</span>
+                </div>
+                <h3>Design & User Flow</h3><br>
+                <p>Premium UI/UX dizayn va interaktiv vizual effektlar orqali foydalanuvchilarga intuitiv tajriba
+                    taqdim etaman.</p>
+            </div>
+            <div class="card" data-target="apps">
+                <div class="photo-box">
+                    <i class="fa-solid fa-mobile-screen-button"></i>
+                    <span>Responsive Apps</span>
+                </div>
+                <h3>Mobile & Desktop Responsive</h3><br>
+                <p>Har bir loyihani smartfonlardan katerlargacha mukammal ko‘rinish, silliq animatsiya va ishlash
+                    tezligi bilan taqdim etaman.</p>
+            </div>
+            <div class="card" data-target="resources">
+                <div class="photo-box">
+                    <i class="fa-solid fa-shield-halved"></i>
+                    <span>Secure Systems</span>
+                </div>
+                <h3>Performance & Security</h3><br>
+                <p>Veb loyihalarda xavfsizlik, shifrlash va tezkor yuklanish tamoyillari bo‘yicha eng yaxshi amaliyotlar
+                    joriy qilinadi.</p>
+            </div>
         </div>
     </section>
 
@@ -845,27 +1150,374 @@
     <section id="projects" class="page">
         <h2>Premium Projects</h2>
         <div class="grid">
-            <div class="card">
+            <div class="card" data-href="1.html">
                 <div class="photo-box">
-                    <i class="fa-solid fa-cart-shopping"></i>
-                    <span>E-Commerce Cyber Market</span>
+                    <i class="fa-solid fa-desktop"></i>
+                    <span>Miraziz Portfolio</span>
                 </div>
-                <h3>Online Market Platform</h3><br>
-                <p>Zamonaviy to'lov tizimlari, tun/kun rejimi va aqlli filtrga ega bo'lgan Next.js premium internet
-                    do'koni.</p>
+                <h3>Miraziz Portfolio (Main)</h3><br>
+                <p>Sizning asosiy portfolio sahifangiz — interaktiv hero, matrix effekt va light/dark rejim namunasi.
+                </p>
+                <a class="verify-btn" href="1.html" target="_blank" rel="noopener">OPEN PROJECT</a>
             </div>
-            <div class="card">
+
+            <div class="card" data-href="2.html">
                 <div class="photo-box">
-                    <i class="fa-solid fa-microchip"></i>
-                    <span>Luxury 3D OS Portfolio</span>
+                    <i class="fa-solid fa-user"></i>
+                    <span>About Page</span>
                 </div>
-                <h3>Creative OS Portfolio</h3><br>
-                <p>3D effektlar, terminal simulyatori va gologrammali ilg'or animatsiyalar bilan boyitilgan shaxsiy
-                    veb-sayt.</p>
+                <h3>About - Miraziz Portfolio</h3><br>
+                <p>Dasturchi haqida batafsil ma'lumot va loyihaga oid kontekstli sahifa.</p>
+                <a class="verify-btn" href="2.html" target="_blank" rel="noopener">OPEN PROJECT</a>
+            </div>
+
+            <div class="card" data-href="3.html">
+                <div class="photo-box">
+                    <i class="fa-solid fa-folder-open"></i>
+                    <span>Projects Demo</span>
+                </div>
+                <h3>Projects Showcase</h3><br>
+                <p>Turli loyihalar demo sahifasi va interaktiv misollar to'plami.</p>
+                <a class="verify-btn" href="3.html" target="_blank" rel="noopener">OPEN PROJECT</a>
+            </div>
+
+            <div class="card" data-href="4.html">
+                <div class="photo-box">
+                    <i class="fa-solid fa-magic-wand-sparkles"></i>
+                    <span>Interactive UI</span>
+                </div>
+                <h3>Interactive UI Experiments</h3><br>
+                <p>Maxsus animatsiyalar, maxsus kursor va ilg'or UI elementlari namunalari.</p>
+                <a class="verify-btn" href="4.html" target="_blank" rel="noopener">OPEN PROJECT</a>
+            </div>
+
+            <div class="card" data-href="5.html">
+                <div class="photo-box">
+                    <i class="fa-solid fa-archive"></i>
+                    <span>Extras</span>
+                </div>
+                <h3>Extras & Utilities</h3><br>
+                <p>Qo'shimcha sahifalar, back-home tugmasi va yordamchi komponentlar namunasi.</p>
+                <a class="verify-btn" href="5.html" target="_blank" rel="noopener">OPEN PROJECT</a>
             </div>
         </div>
     </section>
 
+    <!-- APPS -->
+    <section id="apps" class="page">
+        <h2>Shop & Cart Apps</h2>
+        <div class="grid">
+            <div class="card" data-href="https://www.zara.com/">
+                <div class="photo-box">
+                    <i class="fa-solid fa-tshirt"></i>
+                    <span>Style Studio</span>
+                </div>
+                <h3>Fashion Outlet</h3><br>
+                <p>Eng so‘nggi kiyim-kechak trendlarini va zamonaviy onlayn do‘konlarni bir sahifada.</p>
+                <a class="verify-btn" href="https://www.zara.com/" target="_blank" rel="noopener">OPEN APP</a>
+            </div>
+            <div class="card" data-href="https://www.hm.com/">
+                <div class="photo-box">
+                    <i class="fa-solid fa-handbag"></i>
+                    <span>Boutique Lane</span>
+                </div>
+                <h3>Urban Boutique</h3><br>
+                <p>Kiyin uchun aksessuarlar, sumkalar va moda detallarini bir joydan toping.</p>
+                <a class="verify-btn" href="https://www.hm.com/" target="_blank" rel="noopener">OPEN APP</a>
+            </div>
+            <div class="card" data-href="https://www.etsy.com/c/jewelry-and-accessories">
+                <div class="photo-box">
+                    <i class="fa-solid fa-headphones-simple"></i>
+                    <span>Accessory Hub</span>
+                </div>
+                <h3>Gadget & Style</h3><br>
+                <p>Telefon aksessuarlari, soatlar, zargarlik buyumlari va dizayn aksessuarlar.</p>
+                <a class="verify-btn" href="https://www.etsy.com/c/jewelry-and-accessories" target="_blank"
+                    rel="noopener">OPEN APP</a>
+            </div>
+            <div class="card" data-href="https://www.autotrader.com/cars-for-sale">
+                <div class="photo-box">
+                    <i class="fa-solid fa-car-side"></i>
+                </div>
+                <span>Auto Mall</span>
+                <h3>Car Store</h3><br>
+                <p>Avtomobil ehtiyot qismlari, aksessuarlar va zamonaviy transport bozorini ko‘ring.</p>
+                <a class="verify-btn" href="https://www.autotrader.com/cars-for-sale" target="_blank"
+                    rel="noopener">OPEN APP</a>
+            </div>
+            <div class="card" data-href="https://www.nike.com/">
+                <div class="photo-box">
+                    <i class="fa-solid fa-shoe-prints"></i>
+                    <span>Shoe Shelf</span>
+                </div>
+                <h3>Footwear Market</h3><br>
+                <p>Sport va moda poyabzallarini topish uchun ajoyib onlayn bozor.</p>
+                <a class="verify-btn" href="https://www.nike.com/" target="_blank" rel="noopener">OPEN APP</a>
+            </div>
+            <div class="card" data-href="https://www.target.com/">
+                <div class="photo-box">
+                    <i class="fa-solid fa-bag-shopping"></i>
+                    <span>Style Cart</span>
+                </div>
+                <h3>Shopping Cart</h3><br>
+                <p>Moda, aksessuarlar va uy hayoti uchun yagona xarid savati.</p>
+                <a class="verify-btn" href="https://www.target.com/" target="_blank" rel="noopener">OPEN APP</a>
+            </div>
+            <div class="card" data-href="https://www.amazon.com/gp/browse.html?node=1055398">
+                <div class="photo-box">
+                    <i class="fa-solid fa-store"></i>
+                    <span>Retail Market</span>
+                </div>
+                <h3>Retail Mall</h3><br>
+                <p>Mahsulotlarni solishtirish va kechki xaridlar uchun yagona onlayn bozor.</p>
+                <a class="verify-btn" href="https://www.amazon.com/gp/browse.html?node=1055398" target="_blank"
+                    rel="noopener">OPEN APP</a>
+            </div>
+            <div class="card" data-href="https://www.uniqlo.com/">
+                <div class="photo-box">
+                    <i class="fa-solid fa-box-open"></i>
+                    <span>Bazaar Basket</span>
+                </div>
+                <h3>Bazaar Basket</h3><br>
+                <p>Onlayn bozorlar va umumiy savdo do‘konlari uchun to‘plangan savat sahifasi.</p>
+                <a class="verify-btn" href="https://www.uniqlo.com/" target="_blank" rel="noopener">OPEN APP</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- STORE -->
+    <section id="store" class="page">
+        <h2>3D Product Showcase</h2>
+        <div class="grid">
+            <div class="card product-card" data-product="car">
+                <div class="photo-box">
+                    <i class="fa-solid fa-car-side"></i>
+                    <span>Avtomobil</span>
+                </div>
+                <h3>Futuristic Car</h3><br>
+                <p>Texnologik, ziyonli ichki xususiyatlar va kiber uslubdagi dizayn bilan taqdim etilgan avtomobil.</p>
+            </div>
+            <div class="card product-card" data-product="sneaker">
+                <div class="photo-box">
+                    <i class="fa-solid fa-shoe-prints"></i>
+                    <span>Krasovka</span>
+                </div>
+                <h3>Sports Sneaker</h3><br>
+                <p>Yengil, futuristik dizayn va 3D yostiqcha bilan krossovka tajribasi.</p>
+            </div>
+            <div class="card product-card" data-product="jacket">
+                <div class="photo-box">
+                    <i class="fa-solid fa-jacket"></i>
+                    <span>Kurtka</span>
+                </div>
+                <h3>Cyber Jacket</h3><br>
+                <p>Yuqori himoya, premium materiallar va futuristik naqshli dizayn.</p>
+            </div>
+            <div class="card product-card" data-product="watch">
+                <div class="photo-box">
+                    <i class="fa-solid fa-watch-smart"></i>
+                    <span>Soat</span>
+                </div>
+                <h3>Smart Watch</h3><br>
+                <p>Yoynada yorug'lik chirog'i, kiber interfeys va yuqori aniqlikdagi sensorlar.</p>
+            </div>
+            <div class="card product-card" data-product="phone">
+                <div class="photo-box">
+                    <i class="fa-solid fa-mobile-screen-button"></i>
+                    <span>Telefon</span>
+                </div>
+                <h3>Future Phone</h3><br>
+                <p>Minimal ramka, holografik ekran va yuqori tezlikdagi 5G aloqa bilan.</p>
+            </div>
+            <div class="card product-card" data-product="laptop">
+                <div class="photo-box">
+                    <i class="fa-solid fa-laptop-code"></i>
+                    <span>Laptop</span>
+                </div>
+                <h3>Workstation Laptop</h3><br>
+                <p>Yuqori quvvat, shaffof korpus va 3D tasvir uchun maxsus GPU.</p>
+            </div>
+            <div class="card product-card" data-product="bike">
+                <div class="photo-box">
+                    <i class="fa-solid fa-bicycle"></i>
+                    <span>Velosiped</span>
+                </div>
+                <h3>Electric Bike</h3><br>
+                <p>Yorqin LED chiroqlar, avtonom stabilizatsiya va mashina uslubidagi ramka.</p>
+            </div>
+            <div class="card product-card" data-product="glasses">
+                <div class="photo-box">
+                    <i class="fa-solid fa-sunglasses"></i>
+                    <span>Ko‘zoynak</span>
+                </div>
+                <h3>AR Glasses</h3><br>
+                <p>Qoʻllanmalar va virtual qatlamlar bilan ishlovchi stilize AR ko‘zoynak.</p>
+            </div>
+            <div class="card product-card" data-product="bag">
+                <div class="photo-box">
+                    <i class="fa-solid fa-bag-shopping"></i>
+                    <span>Sumka</span>
+                </div>
+                <h3>Luxury Bag</h3><br>
+                <p>Yumshoq teri, kiber panellar va ko‘p funksiyali ichki bo‘limlar.</p>
+            </div>
+            <div class="card product-card" data-product="helmet">
+                <div class="photo-box">
+                    <i class="fa-solid fa-helmet-safety"></i>
+                    <span>Shlem</span>
+                </div>
+                <h3>3D Helmet</h3><br>
+                <p>Futuristik qorovul shlemi, shaffof vizor va kiber himoya elementlari.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- RESOURCES -->
+    <section id="resources" class="page">
+        <h2>Resources</h2>
+        <div class="grid">
+            <div class="card">
+                <div class="photo-box">
+                    <i class="fa-solid fa-file-pdf"></i>
+                    <span>Certificate PDFs</span>
+                </div>
+                <h3>Training Documents</h3><br>
+                <p>Quyidagi PDF fayllar sizning ilg‘or AI va loyiha boshqaruvi kurslaringizni qo‘llab-quvvatlaydi.</p>
+                <ul style="list-style:none; padding:0; margin-top:18px; display:flex; flex-direction:column; gap:10px;">
+                    <li><a class="verify-btn"
+                            href="file:///C:/Users/User/Downloads/AWS%20Generative%20AI%20and%20AI%20Agents%20with%20Amazon%20Bedrock1.pdf"
+                            target="_blank" rel="noopener noreferrer"
+                            onclick="event.stopPropagation(); window.open(this.href, '_blank'); return false;">AWS
+                            Generative AI & AI Agents with Amazon Bedrock</a></li>
+                    <li><a class="verify-btn"
+                            href="file:///C:/Users/User/Downloads/Generative%20AI%20for%20Educators1.pdf"
+                            target="_blank" rel="noopener noreferrer"
+                            onclick="event.stopPropagation(); window.open(this.href, '_blank'); return false;">Generative
+                            AI for Educators</a></li>
+                    <li><a class="verify-btn" href="file:///C:/Users/User/Downloads/Google%20AI%20Essentials1.pdf"
+                            target="_blank" rel="noopener noreferrer"
+                            onclick="event.stopPropagation(); window.open(this.href, '_blank'); return false;">Google AI
+                            Essentials</a></li>
+                    <li><a class="verify-btn" href="file:///C:/Users/User/Downloads/Generative%20AI%20Automation1.pdf"
+                            target="_blank" rel="noopener noreferrer"
+                            onclick="event.stopPropagation(); window.open(this.href, '_blank'); return false;">Generative
+                            AI Automation</a></li>
+                    <li><a class="verify-btn"
+                            href="file:///C:/Users/User/Downloads/CHatGPT%20for%20Project%20Management%20-%20Leveraging%20AI%20for%20Success1.pdf"
+                            target="_blank" rel="noopener noreferrer"
+                            onclick="event.stopPropagation(); window.open(this.href, '_blank'); return false;">ChatGPT
+                            for Project Management - Leveraging AI for Success</a></li>
+                </ul>
+            </div>
+            <div class="card">
+                <div class="photo-box">
+                    <i class="fa-solid fa-graduation-cap"></i>
+                    <span>Learning Paths</span>
+                </div>
+                <h3>Online Study Links</h3><br>
+                <p>Qisqa muddat ichida bilimlaringizni oshirish uchun eng yaxshi AI va biznes yo‘nalishidagi manbalar.
+                </p>
+                <ul style="list-style:none; padding:0; margin-top:18px; display:flex; flex-direction:column; gap:10px;">
+                    <li><a class="verify-btn" href="https://www.coursera.org/" target="_blank"
+                            rel="noopener noreferrer">Coursera Platform</a></li>
+                    <li><a class="verify-btn" href="https://www.udemy.com/" target="_blank"
+                            rel="noopener noreferrer">Udemy AI Kurslari</a></li>
+                    <li><a class="verify-btn" href="https://www.edx.org/" target="_blank" rel="noopener noreferrer">edX
+                            Texnologiya Kurslari</a></li>
+                    <li><a class="verify-btn" href="https://www.pluralsight.com/" target="_blank"
+                            rel="noopener noreferrer">Pluralsight Professional</a></li>
+                </ul>
+            </div>
+            <div class="card">
+                <div class="photo-box">
+                    <i class="fa-solid fa-toolbox"></i>
+                    <span>Tools & Assets</span>
+                </div>
+                <h3>Project Resources</h3><br>
+                <p>Web, UI/UX va AI loyihalaringizni kuchaytiruvchi ishlatiladigan vositalar va shablonlar.</p>
+                <ul style="list-style:none; padding:0; margin-top:18px; display:flex; flex-direction:column; gap:10px;">
+                    <li><a class="verify-btn" href="https://www.figma.com/" target="_blank"
+                            rel="noopener noreferrer">Figma Design Resources</a></li>
+                    <li><a class="verify-btn" href="https://github.com/" target="_blank"
+                            rel="noopener noreferrer">GitHub Repositories</a></li>
+                    <li><a class="verify-btn" href="https://www.iconfinder.com/" target="_blank"
+                            rel="noopener noreferrer">Icon & UI Assets</a></li>
+                    <li><a class="verify-btn" href="https://fonts.google.com/" target="_blank"
+                            rel="noopener noreferrer">Google Fonts</a></li>
+                </ul>
+            </div>
+            <div class="card">
+                <div class="photo-box">
+                    <i class="fa-solid fa-globe"></i>
+                    <span>My Web Project</span>
+                </div>
+                <h3>Live Website</h3><br>
+                <p>O‘zim yaratgan tashqi web sayt demo-sahifasi. Bu sahifa portfoliodan tashqarida, alohida namuna
+                    sifatida ishlaydi.</p>
+                <a class="verify-btn" href="miraziz-site.html" target="_blank" rel="noopener noreferrer">OPEN SITE</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ALL PAGES -->
+    <section id="all-pages" class="page">
+        <h2>All HTML Pages</h2>
+        <div class="grid">
+            <div class="card">
+                <div class="photo-box">
+                    <i class="fa-solid fa-file-code"></i>
+                    <span>HTML Pages</span>
+                </div>
+                <h3>Available HTML Files</h3><br>
+                <p>Quyidagi barcha HTML sahifalar portfolioda mavjud. Ularni klik qilib ochishingiz mumkin.</p>
+                <ul style="list-style:none; padding:0; margin-top:18px; display:flex; flex-direction:column; gap:10px;">
+                    <li><a class="verify-btn" href="1.html" target="_blank" rel="noopener noreferrer">1.html</a></li>
+                    <li><a class="verify-btn" href="2.html" target="_blank" rel="noopener noreferrer">2.html</a></li>
+                    <li><a class="verify-btn" href="3.html" target="_blank" rel="noopener noreferrer">3.html</a></li>
+                    <li><a class="verify-btn" href="4.html" target="_blank" rel="noopener noreferrer">4.html</a></li>
+                    <li><a class="verify-btn" href="5.html" target="_blank" rel="noopener noreferrer">5.html</a></li>
+                    <li><a class="verify-btn" href="Cyber%20Decrypter.html" target="_blank"
+                            rel="noopener noreferrer">Cyber Decrypter.html</a></li>
+                    <li><a class="verify-btn" href="cyber-project.html" target="_blank"
+                            rel="noopener noreferrer">cyber-project.html</a></li>
+                    <li><a class="verify-btn" href="miraziz-site.html" target="_blank"
+                            rel="noopener noreferrer">miraziz-site.html</a></li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- TESTIMONIALS -->
+    <section id="testimonials" class="page">
+        <h2>Testimonials</h2>
+        <div class="grid">
+            <div class="card" data-target="contact">
+                <div class="photo-box">
+                    <i class="fa-solid fa-comment-dots"></i>
+                    <span>Client Review</span>
+                </div>
+                <h3>Professional & Efficient</h3><br>
+                <p>“Miraziz bilan ishlash juda oson bo‘ldi — loyiha aniq vaqtida tugadi va natija juda yuqori darajada.”
+                </p>
+            </div>
+            <div class="card" data-target="contact">
+                <div class="photo-box">
+                    <i class="fa-solid fa-user-check"></i>
+                    <span>Team Feedback</span>
+                </div>
+                <h3>Creative Execution</h3><br>
+                <p>“UI/UX dizayn g‘oyalari zamonaviy va intuitiv. Har bir detalga e'tibor qaratildi.”</p>
+            </div>
+            <div class="card" data-target="contact">
+                <div class="photo-box">
+                    <i class="fa-solid fa-chart-line"></i>
+                    <span>Performance</span>
+                </div>
+                <h3>Reliable Quality</h3><br>
+                <p>“Saytlar tez ishlaydi, toza ko‘rinadi va mobil qurilmalarda mukammal moslashadi.”</p>
+            </div>
+        </div>
+    </section>
     <!-- CERTIFICATES (5 TA MUKAMMAL KARTA) -->
     <section id="certificates" class="page">
         <h2>Premium Certificates</h2>
@@ -884,6 +1536,11 @@
                 <button class="verify-btn" onclick="verifyCert('js-expert', 'JavaScript Expert Certification')">
                     <i class="fa-solid fa-shield-halved"></i> VERIFY CREDENTIAL
                 </button>
+                <a class="verify-btn" href="https://coursera-certificate-images.s3.amazonaws.com/38EXTTAVXW7W"
+                    target="_blank" rel="noopener noreferrer"
+                    onclick="event.stopPropagation(); window.open(this.href, '_blank'); return false;">
+                    <i class="fa-solid fa-certificate"></i> VIEW CERTIFICATE
+                </a>
             </div>
 
             <!-- Certificate 2 -->
@@ -898,6 +1555,11 @@
                 <button class="verify-btn" onclick="verifyCert('fe-architecture', 'Frontend Architecture Master')">
                     <i class="fa-solid fa-shield-halved"></i> VERIFY CREDENTIAL
                 </button>
+                <a class="verify-btn" href="https://coursera-certificate-images.s3.amazonaws.com/8399MOZ3A1OW"
+                    target="_blank" rel="noopener noreferrer"
+                    onclick="event.stopPropagation(); window.open(this.href, '_blank'); return false;">
+                    <i class="fa-solid fa-certificate"></i> VIEW CERTIFICATE
+                </a>
             </div>
 
             <!-- Certificate 3 -->
@@ -913,6 +1575,11 @@
                 <button class="verify-btn" onclick="verifyCert('react-dev', 'React & Next.js Advanced Developer')">
                     <i class="fa-solid fa-shield-halved"></i> VERIFY CREDENTIAL
                 </button>
+                <a class="verify-btn" href="https://coursera-certificate-images.s3.amazonaws.com/39C31ZB3VHKQ"
+                    target="_blank" rel="noopener noreferrer"
+                    onclick="event.stopPropagation(); window.open(this.href, '_blank'); return false;">
+                    <i class="fa-solid fa-certificate"></i> VIEW CERTIFICATE
+                </a>
             </div>
 
             <!-- Certificate 4 -->
@@ -928,6 +1595,11 @@
                 <button class="verify-btn" onclick="verifyCert('cyber-ui', 'Premium UI/UX Specialist')">
                     <i class="fa-solid fa-shield-halved"></i> VERIFY CREDENTIAL
                 </button>
+                <a class="verify-btn" href="https://coursera-certificate-images.s3.amazonaws.com/5UJJ03PQ04BJ"
+                    target="_blank" rel="noopener noreferrer"
+                    onclick="event.stopPropagation(); window.open(this.href, '_blank'); return false;">
+                    <i class="fa-solid fa-certificate"></i> VIEW CERTIFICATE
+                </a>
             </div>
 
             <!-- Certificate 5 -->
@@ -943,6 +1615,47 @@
                 <button class="verify-btn" onclick="verifyCert('secure-api', 'Full-Stack API Integration Certificate')">
                     <i class="fa-solid fa-shield-halved"></i> VERIFY CREDENTIAL
                 </button>
+                <a class="verify-btn" href="https://coursera-certificate-images.s3.amazonaws.com/9R5VAK1SVSCO"
+                    target="_blank" rel="noopener noreferrer"
+                    onclick="event.stopPropagation(); window.open(this.href, '_blank'); return false;">
+                    <i class="fa-solid fa-certificate"></i> VIEW CERTIFICATE
+                </a>
+            </div>
+
+            <!-- Additional downloadable certificates and PDFs -->
+            <div class="card" style="grid-column: 1 / -1;">
+                <div class="photo-box">
+                    <i class="fa-solid fa-file-pdf"></i>
+                    <span>Sertifikatlar</span>
+                </div>
+                <h3>Certificate PDFs</h3>
+                <p>Quyidagi PDF fayllar sertifikat mavzulari bilan moslashtirilgan, kurs nomlari va rasmiy taqdimotlar:
+                </p>
+                <ul style="list-style:none; padding:0; margin-top:12px; display:flex; flex-direction:column; gap:8px;">
+                    <li><a class="verify-btn"
+                            href="file:///C:/Users/User/Downloads/AWS%20Generative%20AI%20and%20AI%20Agents%20with%20Amazon%20Bedrock1.pdf"
+                            target="_blank" rel="noopener noreferrer"
+                            onclick="event.stopPropagation(); window.open(this.href, '_blank'); return false;">AWS
+                            Generative AI & AI Agents with Amazon Bedrock</a></li>
+                    <li><a class="verify-btn"
+                            href="file:///C:/Users/User/Downloads/Generative%20AI%20for%20Educators1.pdf"
+                            target="_blank" rel="noopener noreferrer"
+                            onclick="event.stopPropagation(); window.open(this.href, '_blank'); return false;">Generative
+                            AI for Educators</a></li>
+                    <li><a class="verify-btn" href="file:///C:/Users/User/Downloads/Google%20AI%20Essentials1.pdf"
+                            target="_blank" rel="noopener noreferrer"
+                            onclick="event.stopPropagation(); window.open(this.href, '_blank'); return false;">Google AI
+                            Essentials</a></li>
+                    <li><a class="verify-btn" href="file:///C:/Users/User/Downloads/Generative%20AI%20Automation1.pdf"
+                            target="_blank" rel="noopener noreferrer"
+                            onclick="event.stopPropagation(); window.open(this.href, '_blank'); return false;">Generative
+                            AI Automation</a></li>
+                    <li><a class="verify-btn"
+                            href="file:///C:/Users/User/Downloads/CHatGPT%20for%20Project%20Management%20-%20Leveraging%20AI%20for%20Success1.pdf"
+                            target="_blank" rel="noopener noreferrer"
+                            onclick="event.stopPropagation(); window.open(this.href, '_blank'); return false;">ChatGPT
+                            for Project Management - Leveraging AI for Success</a></li>
+                </ul>
             </div>
 
         </div>
@@ -954,8 +1667,8 @@
         <div class="card contact-container">
             <div class="contact-info">
                 <h3>Aloqa Ma'lumotlari</h3>
-                <p><span>Email:</span><strong>miraziz@example.com</strong></p>
-                <p><span>Telegram:</span><strong>@miraziz_dev</strong></p>
+                <p><span>Email:</span><strong>miraziz.oltibaev@example.com</strong></p>
+                <p><span>Telegram:</span><strong>@miraziz_oltibaev</strong></p>
                 <p><span>Telefon:</span><strong>+998 90 123 45 67</strong></p>
             </div>
             <form onsubmit="event.preventDefault(); triggerSubmit();">
@@ -983,8 +1696,29 @@
         </div>
     </div>
 
+    <div class="modal" id="product-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title">
+                    <i class="fa-solid fa-car"></i>
+                    <span>Product Preview</span>
+                </div>
+                <span class="close-modal preview-close" onclick="closeProductPreview()">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="preview-card">
+                    <div class="preview-info">
+                        <h3 id="preview-title">Mahsulot ma'lumotlari</h3>
+                        <p id="preview-description">Mahsulot haqida aniq ma'lumot shu yerda paydo bo‘ladi. Har bir
+                            kartaga bosilganda maxsus ta'rif ko‘rsatiladi.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <footer>
-        © 2026 Miraziz Portfolio. Zamonaviy kiber texnologiyalar va blokcheyn imzo tizimi asosida yaratildi.
+        © 2026 Miraziz Oltibaev Portfolio. Zamonaviy kiber texnologiyalar va blokcheyn imzo tizimi asosida yaratildi.
     </footer>
 
     <script>
@@ -1154,11 +1888,15 @@
 
         // --- 4. NAVIGATION PAGES MANAGER ---
         function showPage(pageId) {
+            if (!pageId) return;
+            const pageElement = document.getElementById(pageId);
+            if (!pageElement) return;
+
             playClickSound();
             document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
             document.querySelectorAll('nav a').forEach(link => link.classList.remove('active-nav'));
 
-            document.getElementById(pageId).classList.add('active');
+            pageElement.classList.add('active');
             const targetNavLink = document.getElementById('nav-' + pageId);
             if (targetNavLink) targetNavLink.classList.add('active-nav');
 
@@ -1166,6 +1904,7 @@
             navMenu.classList.remove('open');
 
             window.scrollTo({ top: 0, behavior: 'smooth' });
+            window.location.hash = pageId;
 
             // Trigger skills fill animation
             if (pageId === 'skills') {
@@ -1207,9 +1946,26 @@
             }
         }
 
+        function handleInitialPage() {
+            const hashPage = window.location.hash.replace('#', '');
+            if (hashPage && document.getElementById(hashPage)) {
+                showPage(hashPage);
+            } else {
+                showPage('home');
+            }
+        }
+
         window.onload = () => {
             resetAndStartTyping();
+            handleInitialPage();
         };
+
+        window.addEventListener('hashchange', () => {
+            const hashPage = window.location.hash.replace('#', '');
+            if (hashPage) {
+                showPage(hashPage);
+            }
+        });
 
         // --- 6. 3D CARD TILT EXPERIENCE ---
         function apply3DTilt() {
@@ -1239,6 +1995,105 @@
             });
         }
         apply3DTilt();
+
+        function bindCardClickActions() {
+            document.querySelectorAll('.card[data-target]').forEach(card => {
+                card.addEventListener('click', event => {
+                    if (event.target.closest('a') || event.target.closest('button')) return;
+                    showPage(card.dataset.target);
+                });
+            });
+
+            document.querySelectorAll('.card[data-href]').forEach(card => {
+                card.addEventListener('click', event => {
+                    if (event.target.closest('a') || event.target.closest('button')) return;
+                    window.open(card.dataset.href, '_blank');
+                });
+            });
+        }
+        bindCardClickActions();
+        bindProductPreviewCards();
+
+        function bindProductPreviewCards() {
+            document.querySelectorAll('.card.product-card').forEach(card => {
+                card.addEventListener('click', event => {
+                    if (event.target.closest('a') || event.target.closest('button')) return;
+                    const productType = card.dataset.product || 'cube';
+                    openProductPreview(productType);
+                });
+            });
+        }
+
+        function openProductPreview(productType) {
+            playClickSound();
+            const modal = document.getElementById('product-modal');
+            const titleElement = document.getElementById('preview-title');
+            const descriptionElement = document.getElementById('preview-description');
+
+            const previewData = {
+                car: {
+                    title: 'Kiber avtomobil',
+                    description: 'Bu yuqori texnologiyali mahsulot avtomobillar uchun yaratilgan. Maʼlumotlar va dizayn ko‘rinishi shu yerda ko‘rsatiladi.'
+                },
+                sneaker: {
+                    title: 'Premium sneaker',
+                    description: 'Futuristik sneaker sport va kiber-stilni birlashtiradi, qulaylik hamda zamonaviy ko‘rinish beradi.'
+                },
+                jacket: {
+                    title: 'Cyber jaket',
+                    description: 'Issiq va zamonaviy jaket kiber dizayn bilan yaratilgan, kundalik va maxsus ko‘rinish uchun ideal.'
+                },
+                watch: {
+                    title: 'Smart watch',
+                    description: 'Yuqori aniqlikdagi soat real vaqt maʼlumotlari va futuristik aksessuar xususiyatiga ega.'
+                },
+                phone: {
+                    title: 'Cyber telefon',
+                    description: 'Yuqori tezlikli smartfon katta ekran, ilg‘or kamera va kiber interfeysga ega.'
+                },
+                laptop: {
+                    title: 'Ultra noutbuk',
+                    description: 'Yengil, kuchli va zamonaviy dizaynli noutbuk, kodlash va ijod uchun ideal.'
+                },
+                bike: {
+                    title: 'Futuristik velosiped',
+                    description: 'Energiya tejovchi velosiped va shahar uchun oqlangan kiber transport modelidir.'
+                },
+                glasses: {
+                    title: 'AR ko‘zoynak',
+                    description: 'Aqlli ko‘zoynak real va virtual dunyoni birlashtiruvchi yangi kuzatuv tajribasini taqdim etadi.'
+                },
+                bag: {
+                    title: 'Zamonaviy sumka',
+                    description: 'Sifatli material va oqlangan shaklga ega sumka, har kuni uchun mustahkam va chiroyli.'
+                },
+                helmet: {
+                    title: 'Kiber shlem',
+                    description: 'Xavfsizlik va futuristik ko‘rinish, sport va kiber faoliyat uchun mos mahsulot.'
+                },
+                cube: {
+                    title: 'Mahsulot maʼlumoti',
+                    description: 'Har bir mahsulotga alohida taʼrif yoziladi va shu yerda ko‘rsatiladi.'
+                }
+            };
+
+            const info = previewData[productType] || previewData.cube;
+
+            if (titleElement) {
+                titleElement.textContent = info.title;
+            }
+            if (descriptionElement) {
+                descriptionElement.textContent = info.description;
+            }
+
+            modal.style.display = 'flex';
+        }
+
+        function closeProductPreview() {
+            playClickSound();
+            const modal = document.getElementById('product-modal');
+            if (modal) modal.style.display = 'none';
+        }
 
         // --- 7. VERIFICATION TERMINAL SIMULATOR ---
         function generateFakeHash(length) {
@@ -1298,6 +2153,7 @@
         }
 
         function closeTerminal() {
+
             playClickSound();
             document.getElementById('terminal-modal').style.display = 'none';
         }

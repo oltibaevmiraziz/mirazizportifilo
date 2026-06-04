@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html lang="uz">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Miraziz Oltibaev | Cyber Premium Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Poppins:wght@300;600&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --neon-blue: #00f2ff;
+      --neon-pink: #ff00ea;
+      --bg-dark: #050505;
+      --card-bg: rgba(255, 255, 255, 0.05);
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg-dark);
+      color: white;
+      font-family: 'Poppins', sans-serif;
+      overflow-x: hidden;
+    }
+
+    #matrix {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: -1;
+      opacity: 0.2;
+    }
+
+    .nav-container {
+      display: flex;
+      justify-content: flex-start;
+      padding: 20px 0 0 30px;
+    }
+
+    .crazy-menu-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      font-family: 'Orbitron', sans-serif;
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: var(--neon-blue);
+      background: rgba(0, 0, 0, 0.6);
+      border: 2px solid var(--neon-blue);
+      padding: 12px 24px;
+      border-radius: 0px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 0 15px rgba(0, 242, 255, 0.3), inset 0 0 10px rgba(0, 242, 255, 0.2);
+      transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+      clip-path: polygon(90% 0, 100% 35%, 100% 100%, 0 100%, 0 0);
+    }
+
+    .crazy-menu-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 0, 234, 0.4), transparent);
+      transition: 0.5s;
+    }
+
+    .crazy-menu-btn:hover::before {
+      left: 100%;
+    }
+
+    .crazy-menu-btn:hover {
+      color: #000;
+      background: var(--neon-blue);
+      border-color: var(--neon-pink);
+      box-shadow: 0 0 30px var(--neon-blue), 0 0 10px var(--neon-pink);
+      transform: scale(1.05) translateY(-2px);
+    }
+
+    header {
+      text-align: center;
+      padding: 20px;
+      background: rgba(0, 0, 0, 0.8);
+      border-bottom: 3px solid var(--neon-blue);
+      box-shadow: 0 0 20px var(--neon-blue);
+      margin-top: 15px;
+    }
+
+    h1 {
+      font-family: 'Orbitron';
+      font-size: 2rem;
+      color: var(--neon-blue);
+      margin: 0;
+      text-shadow: 0 0 10px var(--neon-blue);
+    }
+
+    header p {
+      margin: 5px 0 0 0;
+      color: #aaa;
+      font-size: 1rem;
+    }
+
+    .dashboard {
+      max-width: 1400px;
+      margin: 20px auto;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+    }
+
+    .top-games-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .bottom-games-column {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 30px;
+      max-width: 900px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .card {
+      background: var(--card-bg);
+      backdrop-filter: blur(15px);
+      border: 1px solid rgba(0, 242, 255, 0.3);
+      border-radius: 20px;
+      padding: 25px;
+      transition: 0.3s;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .card:hover {
+      border-color: var(--neon-pink);
+      box-shadow: 0 0 20px var(--neon-pink);
+    }
+
+    .game-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+      font-family: 'Orbitron';
+      color: var(--neon-blue);
+    }
+
+    .game-header h2 {
+      margin: 0;
+      font-size: 1.2rem;
+    }
+
+    iframe {
+      width: 100%;
+      height: 420px;
+      border: none;
+      border-radius: 10px;
+      background: #faf8ef;
+    }
+
+    .expand-btn {
+      background: var(--neon-blue);
+      color: black;
+      border: none;
+      padding: 5px 12px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 0.8rem;
+      font-weight: bold;
+      font-family: 'Orbitron';
+    }
+
+    .expand-btn:hover {
+      background: var(--neon-pink);
+      color: white;
+      box-shadow: 0 0 15px var(--neon-pink);
+    }
+
+    .game-controls {
+      display: flex;
+      gap: 10px;
+      margin: 15px 0;
+    }
+
+    input[type="text"],
+    input[type="number"] {
+      background: rgba(0, 0, 0, 0.5);
+      border: 2px solid var(--neon-blue);
+      color: white;
+      padding: 12px;
+      border-radius: 10px;
+      font-family: 'Orbitron';
+      text-align: center;
+      font-size: 1.1rem;
+      outline: none;
+    }
+
+    input[type="text"]:focus,
+    input[type="number"]:focus {
+      border-color: var(--neon-pink);
+      box-shadow: 0 0 10px var(--neon-pink);
+    }
+
+    .btn-main {
+      background: var(--neon-blue);
+      color: black;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 10px;
+      font-weight: bold;
+      cursor: pointer;
+      font-family: 'Orbitron';
+      transition: 0.3s;
+    }
+
+    .btn-main:hover {
+      background: var(--neon-pink);
+      color: white;
+      box-shadow: 0 0 15px var(--neon-pink);
+    }
+
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.1);
+      color: white;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .game-msg {
+      min-height: 25px;
+      margin: 10px 0;
+      font-family: 'Orbitron';
+      font-size: 1.1rem;
+      text-align: center;
+      color: #ccc;
+    }
+
+    .ttt-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      max-width: 300px;
+      margin: 15px auto;
+    }
+
+    .ttt-cell {
+      width: 90px;
+      height: 90px;
+      background: rgba(0, 0, 0, 0.6);
+      border: 2px solid var(--neon-blue);
+      border-radius: 10px;
+      font-family: 'Orbitron';
+      font-size: 2.5rem;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      user-select: none;
+      transition: 0.2s;
+    }
+
+    .ttt-cell:hover {
+      box-shadow: 0 0 10px var(--neon-blue);
+    }
+
+    .ttt-cell.x-glow {
+      color: var(--neon-pink);
+      text-shadow: 0 0 15px var(--neon-pink);
+      border-color: var(--neon-pink);
+    }
+
+    .ttt-cell.o-glow {
+      color: var(--neon-blue);
+      text-shadow: 0 0 15px var(--neon-blue);
+      border-color: var(--neon-blue);
+    }
+
+    .reaction-area {
+      width: 100%;
+      height: 140px;
+      background: rgba(0, 0, 0, 0.4);
+      border: 2px dashed var(--neon-blue);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Orbitron';
+      font-size: 1.2rem;
+      border-radius: 10px;
+      cursor: pointer;
+      user-select: none;
+      transition: background 0.1s ease;
+    }
+
+    .bomb-area {
+      width: 100%;
+      height: 220px;
+      background: rgba(0, 0, 0, 0.6);
+      border: 2px solid rgba(255, 0, 0, 0.3);
+      position: relative;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .bomb-item {
+      width: 45px;
+      height: 45px;
+      background: #ff3333;
+      border-radius: 50%;
+      position: absolute;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      cursor: pointer;
+      box-shadow: 0 0 15px #ff3333;
+    }
+
+    .typing-word {
+      font-size: 2.2rem;
+      font-weight: bold;
+      color: var(--neon-blue);
+      text-align: center;
+      margin: 15px 0;
+      font-family: 'Orbitron';
+      text-shadow: 0 0 10px var(--neon-blue);
+    }
+
+    .typing-status {
+      display: flex;
+      justify-content: space-between;
+      font-family: 'Orbitron';
+    }
+
+    .lang-selector {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      margin-bottom: 15px;
+    }
+
+    .lang-btn {
+      background: rgba(0, 0, 0, 0.5);
+      color: #fff;
+      border: 2px solid rgba(255, 255, 255, 0.2);
+      padding: 8px 16px;
+      font-family: 'Orbitron';
+      cursor: pointer;
+      border-radius: 5px;
+    }
+
+    .lang-btn.active {
+      background: var(--neon-pink);
+      border-color: var(--neon-pink);
+      box-shadow: 0 0 15px var(--neon-pink);
+    }
+
+    .alphabet-box {
+      background: rgba(0, 0, 0, 0.6);
+      border-radius: 15px;
+      padding: 25px;
+      text-align: center;
+      border: 2px solid var(--neon-blue);
+      margin: 15px 0;
+    }
+
+    .big-letter {
+      font-size: 5.5rem;
+      font-weight: bold;
+      color: var(--neon-blue);
+      font-family: 'Orbitron';
+      text-shadow: 0 0 25px rgba(0, 242, 255, 0.8);
+    }
+
+    .pronunciation {
+      font-size: 1.6rem;
+      color: var(--neon-pink);
+      font-family: 'Orbitron';
+    }
+
+    .example-word {
+      font-size: 1.3rem;
+      color: #eee;
+    }
+
+    footer {
+      text-align: center;
+      padding: 30px;
+      background: rgba(0, 0, 0, 0.9);
+      color: #555;
+      font-family: 'Orbitron';
+      border-top: 1px solid #222;
+      margin-top: 40px;
+    }
+
+    @media (max-width: 992px) {
+      .top-games-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <canvas id="matrix"></canvas>
+
+  <div class="nav-container">
+    <a class='crazy-menu-btn' href='index.html'>◀ Menuga qaytish</a>
+
+    <header>
+      <h1>ULTIMATE GAMING HUB</h1>
+      <p>Interaktiv va qiziqarli neon kiberpank o'yinlar olami</p>
+    </header>
+
+    <div class="dashboard">
+
+      <!-- TEPADA YONMA-YON TURADIGAN 3 TA ASOSIY O'YIN -->
+      <div class="top-games-grid">
+        <!-- LUMBERJACK -->
+        <div class="card">
+          <div class="game-header">
+            <h2>LumberJack</h2>
+            <button class="expand-btn" onclick="toggleFull(this)">FULL SCREEN</button>
+          </div>
+          <iframe src="https://tbot.xyz/lumber/"></iframe>
+        </div>
+
+        <!-- 2048 CLASSIC -->
+        <div class="card">
+          <div class="game-header">
+            <h2>2048 Classic</h2>
+            <button class="expand-btn" onclick="toggleFull(this)">FULL SCREEN</button>
+          </div>
+          <iframe src="https://2048.org/"></iframe>
+        </div>
+
+        <!-- CHESS PUZZLE -->
+        <div class="card">
+          <div class="game-header">
+            <h2>Chess Puzzle</h2>
+            <button class="expand-btn" onclick="toggleFull(this)">FULL SCREEN</button>
+          </div>
+          <iframe src="https://lichess.org/training/frame?theme=brown&bg=dark"></iframe>
+        </div>
+      </div>
+
+      <hr style="border: 1px solid rgba(0, 242, 255, 0.2); width: 100%;">
+
+      <!-- PASTDA INTERAKTIV O'YINLAR -->
+      <div class="bottom-games-column">
+
+        <!-- TIC-TAC-TOE -->
+        <div class="card">
+          <div class="game-header">
+            <h2>Tic-Tac-Toe (X va O)</h2>
+          </div>
+          <p style="text-align: center; margin: 0;">Do'stingiz bilan navbatma-navbat o'ynang!</p>
+          <div class="ttt-grid" id="tttGrid">
+            <div class="ttt-cell" data-index="0"></div>
+            <div class="ttt-cell" data-index="1"></div>
+            <div class="ttt-cell" data-index="2"></div>
+            <div class="ttt-cell" data-index="3"></div>
+            <div class="ttt-cell" data-index="4"></div>
+            <div class="ttt-cell" data-index="5"></div>
+            <div class="ttt-cell" data-index="6"></div>
+            <div class="ttt-cell" data-index="7"></div>
+            <div class="ttt-cell" data-index="8"></div>
+          </div>
+          <p id="tttStatus" class="game-msg" style="color: var(--neon-blue);">X ning navbati</p>
+          <button id="tttReset" class="btn-main btn-secondary" style="width: 100%;">O'yinni yangilash</button>
+        </div>
+
+        <!-- ANAGRAM MASTER -->
+        <div class="card">
+          <div class="game-header">
+            <h2>Til O'rganish: Anagram Master</h2>
+          </div>
+          <p style="text-align: center; margin: 5px 0;">So'zni to'g'ri tartibda toping:</p>
+          <div id="scrambled-word" class="typing-word" style="color: #0f0; text-shadow: 0 0 10px #0f0;">GRANOE</div>
+          <div style="display: flex; flex-direction: column; gap: 10px; align-items: center;">
+            <input type="text" id="guess-input" style="width: 80%;" placeholder="Javobni yoz..." autocomplete="off">
+            <button class="btn-main" onclick="checkAnagram()" style="width: 85%;">TEKSHIRISH</button>
+          </div>
+          <p id="game-msg" class="game-msg"></p>
+          <div style="font-size: 1.4rem; font-family:'Orbitron'; text-align: center;">Score: <span id="score"
+              style="color:var(--neon-blue)">0</span></div>
+        </div>
+
+        <!-- ENGLISH ALPHABET -->
+        <div class="card">
+          <div class="game-header">
+            <h2>English Alphabet (A-Z)</h2>
+          </div>
+          <p style="text-align: center; margin: 0 0 10px 0;">Harflarni oxirigacha talaffuzi va misollar bilan o'rganing!
+          </p>
+          <div class="lang-selector">
+            <button id="btnEn" class="lang-btn active" onclick="setLanguage('en')">Englishcha</button>
+            <button id="btnRu" class="lang-btn" onclick="setLanguage('ru')">Ruscha</button>
+          </div>
+          <div class="alphabet-box">
+            <div id="alphaLetter" class="big-letter">A</div>
+            <div id="alphaPronounce" class="pronunciation">[ ey ]</div>
+            <div id="alphaExample" class="example-word">Apple (Olma)</div>
+          </div>
+          <div class="game-controls" style="justify-content: center; flex-wrap: wrap;">
+            <button id="btnPrev" class="btn-main btn-secondary">Orqaga</button>
+            <button id="btnNext" class="btn-main">Oldinga</button>
+            <button id="btnResetAlpha" class="btn-main btn-secondary">Boshiga qaytish</button>
+          </div>
+        </div>
+
+        <!-- TAXMIN QILING -->
+        <div class="card">
+          <div class="game-header">
+            <h2>Taxmin qiling (1-20)</h2>
+          </div>
+          <p>1 dan 20 gacha sonni taxmin qiling. O'zgarishni tekshiring.</p>
+          <div class="game-controls" style="flex-direction: column;">
+            <input id="guessInput" type="number" min="1" max="20" placeholder="1-20" />
+            <button id="guessButton" class="btn-main">Taxmin qil</button>
+          </div>
+          <p id="guessMessage" class="game-msg">O'yinni boshlash uchun son kiriting.</p>
+          <button id="newGameButton" class="btn-main btn-secondary">Yangi o'yin</button>
+        </div>
+
+        <!-- TEZ BOSISH -->
+        <div class="card">
+          <div class="game-header">
+            <h2>Tez bosish (Reaction Time)</h2>
+          </div>
+          <p>Boshlashni bosing, ekran <span style="color:#24cc4f; font-weight:bold;">YASHIL</span> bo'lganda unga tez
+            bosing!</p>
+          <button id="startReactionButton" class="btn-main" style="margin-bottom: 10px;">Boshlash</button>
+          <div id="reactionArea" class="reaction-area">Kutilmoqda...</div>
+          <p id="reactionTime" class="game-msg" style="color: var(--neon-blue); margin-top: 10px;"></p>
+        </div>
+
+        <!-- MEGA BOMB -->
+        <div class="card">
+          <div class="game-header">
+            <h2>Mega Bomb</h2>
+          </div>
+          <p>Paydo bo'lgan bombalarni (💣) tezda bosib portlating! (Vaqt: 15 soniya).</p>
+          <button id="bombStartButton" class="btn-main" style="margin-bottom: 10px;">Mega bombni boshlash</button>
+          <p id="bombMessage" class="game-msg">Boshlash tugmasini bosing.</p>
+          <div id="bombInfo" class="game-msg" style="color: var(--neon-pink); font-weight: bold;">Ball: 0</div>
+          <div id="bombArea" class="bomb-area"></div>
+        </div>
+
+        <!-- TEZ YOZISH -->
+        <div class="card">
+          <div class="game-header">
+            <h2>Tez yozish (Typing Speed)</h2>
+          </div>
+          <p>1 daqiqa ichida chiqadigan so'zlarni tez yozib Enter yoki Tekshirishni bosing.</p>
+          <div id="typingWord" class="typing-word">Kutilmoqda...</div>
+          <div class="game-controls" style="flex-direction: column; gap: 10px;">
+            <input id="typingInput" type="text" placeholder="So'zni yozing..." autocomplete="off" disabled />
+            <div style="display: flex; gap: 10px; width: 100%;">
+              <button id="typingButton" class="btn-main" style="flex: 1;" disabled>Tekshirish</button>
+              <button id="typingStartButton" class="btn-main btn-secondary" style="flex: 1;">Boshlash</button>
+            </div>
+          </div>
+          <div class="typing-status">
+            <span id="typingTimer" style="color: var(--neon-pink);">Vaqt: 60s</span>
+            <span id="typingScore" style="color: var(--neon-blue);">Ball: 0</span>
+          </div>
+          <p id="typingMessage" class="game-msg" style="margin-top: 10px;"></p>
+        </div>
+
+      </div>
+    </div>
+
+    <footer>
+      <p>© 2026 Menga Juda Zor Portfolio. Ultimate Gaming Hub.</p>
+    </footer>
+
+    <script>
+      function toggleFull(btn) {
+        const iframe = btn.parentElement.nextElementSibling;
+        if (!document.fullscreenElement) {
+          iframe.requestFullscreen().catch(err => { iframe.classList.toggle('full-screen-mode'); });
+        } else { document.exitFullscreen(); }
+      }
+
+      // MATRIX DIGITAL RAIN (Neon Blue Theme)
+      const canvas = document.getElementById('matrix');
+      const ctx = canvas.getContext('2d');
+      canvas.width = window.innerWidth; canvas.height = window.innerHeight;
+      const drops = Array(Math.floor(canvas.width / 16)).fill(1);
+      function draw() {
+        ctx.fillStyle = "rgba(5, 5, 5, 0.15)"; ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.fillStyle = "#00f2ff"; ctx.font = "15px monospace";
+        drops.forEach((y, i) => {
+          ctx.fillText("01"[Math.floor(Math.random() * 2)], i * 16, y * 16);
+          if (y * 16 > canvas.height && Math.random() > 0.975) drops[i] = 0;
+          drops[i]++;
+        });
+      }
+      setInterval(draw, 40);
+      window.addEventListener('resize', () => { canvas.width = window.innerWidth; canvas.height = window.innerHeight; });
+
+      // TIC-TAC-TOE
+      const tttGrid = document.getElementById('tttGrid');
+      const tttStatus = document.getElementById('tttStatus');
+      const tttReset = document.getElementById('tttReset');
+      let tttBoard = ["", "", "", "", "", "", "", "", ""];
+      let tttCurrentPlayer = "X";
+      let tttGameActive = true;
+      const tttWinningConditions = [[0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6], [1, 4, 7], [2, 5, 8], [0, 4, 8], [2, 4, 6]];
+
+      function handleCellClick(e) {
+        const cell = e.target;
+        if (!cell.classList.contains('ttt-cell')) return;
+        const idx = parseInt(cell.getAttribute('data-index'));
+        if (tttBoard[idx] !== "" || !tttGameActive) return;
+        tttBoard[idx] = tttCurrentPlayer;
+        cell.textContent = tttCurrentPlayer;
+        cell.classList.add(tttCurrentPlayer === "X" ? "x-glow" : "o-glow");
+        checkTTTResult();
+      }
+
+      function checkTTTResult() {
+        let won = false;
+        for (let cond of tttWinningConditions) {
+          if (tttBoard[cond[0]] && tttBoard[cond[0]] === tttBoard[cond[1]] && tttBoard[cond[1]] === tttBoard[cond[2]]) { won = true; break; }
+        }
+        if (won) { tttStatus.textContent = `${tttCurrentPlayer} G'ALABA QOZONDI! 🏆`; tttStatus.style.color = "var(--neon-pink)"; tttGameActive = false; return; }
+        if (!tttBoard.includes("")) { tttStatus.textContent = "DURANG! 🤝"; tttStatus.style.color = "#fff"; tttGameActive = false; return; }
+        tttCurrentPlayer = tttCurrentPlayer === "X" ? "O" : "X";
+        tttStatus.textContent = `${tttCurrentPlayer} ning navbati`;
+        tttStatus.style.color = tttCurrentPlayer === "X" ? "var(--neon-pink)" : "var(--neon-blue)";
+      }
+
+      tttReset.addEventListener('click', () => {
+        tttBoard.fill(""); tttCurrentPlayer = "X"; tttGameActive = true; tttStatus.textContent = "X ning navbati"; tttStatus.style.color = "var(--neon-blue)";
+        document.querySelectorAll('.ttt-cell').forEach(c => { c.textContent = ""; c.className = "ttt-cell"; });
+      });
+      tttGrid.addEventListener('click', handleCellClick);
+
+      // ANAGRAM
+      const words = [{ s: "GRANOE", r: "orange" }, { s: "APLEP", r: "apple" }, { s: "ANABNA", r: "banana" }, { s: "MANGO", r: "mango" }];
+      let cur = 0, score = 0;
+      function checkAnagram() {
+        const val = document.getElementById('guess-input').value.toLowerCase().trim();
+        const msg = document.getElementById('game-msg');
+        if (val === words[cur].r) {
+          score++; document.getElementById('score').innerText = score;
+          msg.innerText = "BARAKALLA! 🏆"; msg.style.color = "lime";
+          setTimeout(() => {
+            cur = Math.floor(Math.random() * words.length);
+            document.getElementById('scrambled-word').innerText = words[cur].s;
+            document.getElementById('guess-input').value = ""; msg.innerText = "";
+          }, 1000);
+        } else { msg.innerText = "XATO!"; msg.style.color = "red"; }
+      }
+
+      // ALPHABET
+      const alphabetData = [
+        { letter: "A", prEn: "[ ey ]", prRu: "[ эй ]", exEn: "Apple (Olma)", exRu: "Apple (Яблоко)" },
+        { letter: "B", prEn: "[ bee ]", prRu: "[ би ]", exEn: "Boy (Bola)", exRu: "Boy (Мальчик)" },
+        { letter: "C", prEn: "[ see ]", prRu: "[ си ]", exEn: "Cat (Mushuk)", exRu: "Cat (Кошка)" },
+        { letter: "D", prEn: "[ dee ]", prRu: "[ ди ]", exEn: "Dog (Kuchuk)", exRu: "Dog (Собака)" }
+      ];
+      let currentAlphaIndex = 0, currentLanguage = 'en';
+      function updateAlphabetCard() {
+        const item = alphabetData[currentAlphaIndex] || alphabetData[0];
+        document.getElementById('alphaLetter').textContent = item.letter;
+        document.getElementById('alphaPronounce').textContent = currentLanguage === 'en' ? item.prEn : item.prRu;
+        document.getElementById('alphaExample').textContent = currentLanguage === 'en' ? item.exEn : item.exRu;
+      }
+      function setLanguage(lang) {
+        currentLanguage = lang;
+        document.getElementById('btnEn').classList.toggle('active', lang === 'en');
+        document.getElementById('btnRu').classList.toggle('active', lang === 'ru');
+        updateAlphabetCard();
+      }
+      document.getElementById('btnNext').addEventListener('click', () => { if (currentAlphaIndex < alphabetData.length - 1) { currentAlphaIndex++; updateAlphabetCard(); } });
+      document.getElementById('btnPrev').addEventListener('click', () => { if (currentAlphaIndex > 0) { currentAlphaIndex--; updateAlphabetCard(); } });
+      document.getElementById('btnResetAlpha').addEventListener('click', () => { currentAlphaIndex = 0; updateAlphabetCard(); });
+      updateAlphabetCard();
+
+      // TAXMIN QILING
+      let secretRandomNumber = Math.floor(Math.random() * 20) + 1;
+      document.getElementById('guessButton').addEventListener('click', () => {
+        let g = parseInt(document.getElementById('guessInput').value);
+        let m = document.getElementById('guessMessage');
+        if (isNaN(g)) { m.textContent = "Iltimos, son kiriting!"; return; }
+        if (g === secretRandomNumber) m.textContent = "To'g'ri topdingiz! 🎉";
+        else m.textContent = g < secretRandomNumber ? "Kattaroq son... 📈" : "Kichikroq son... 📉";
+      });
+      document.getElementById('newGameButton').addEventListener('click', () => { secretRandomNumber = Math.floor(Math.random() * 20) + 1; document.getElementById('guessMessage').textContent = "Yangi o'yin boshlandi! Son o'zgardi."; document.getElementById('guessInput').value = ""; });
+
+      // TEZ BOSISH (Reaction Time) - Anti Cheat Tizimi Bilan
+      let rStart, rTimeout, rState = "idle"; // idle, waiting, ready
+      const rArea = document.getElementById('reactionArea');
+      const rTimeText = document.getElementById('reactionTime');
+
+      document.getElementById('startReactionButton').addEventListener('click', () => {
+        rArea.style.background = "#ff3333"; rArea.textContent = "Kuting..."; rTimeText.textContent = "";
+        rState = "waiting";
+        clearTimeout(rTimeout);
+        rTimeout = setTimeout(() => {
+          if (rState === "waiting") {
+            rArea.style.background = "#24cc4f"; rArea.textContent = "BOSING!!!";
+            rStart = new Date().getTime();
+            rState = "ready";
+          }
+        }, Math.random() * 3000 + 2000);
+      });
+
+      rArea.addEventListener('click', () => {
+        if (rState === "waiting") {
+          clearTimeout(rTimeout);
+          rState = "idle";
+          rArea.style.background = "rgba(0, 0, 0, 0.4)"; rArea.textContent = "Foul! Vaqtidan oldin bosdingiz.";
+        } else if (rState === "ready") {
+          const diff = (new Date().getTime() - rStart) / 1000;
+          rTimeText.textContent = `Tezlik: ${diff}s! ⚡`;
+          rArea.style.background = "rgba(0, 0, 0, 0.4)"; rArea.textContent = "Ajoyib!";
+          rState = "idle";
+        }
+      });
+
+      // MEGA BOMB
+      const bArea = document.getElementById('bombArea');
+      let bScore = 0, bActive = false, bTimer, bSpawn;
+      document.getElementById('bombStartButton').addEventListener('click', () => {
+        if (bActive) return; bActive = true; bScore = 0;
+        document.getElementById('bombInfo').textContent = `Ball: ${bScore}`;
+        document.getElementById('bombMessage').textContent = "O'yin ketmoqda...";
+        bArea.innerHTML = "";
+        let tl = 15;
+        bTimer = setInterval(() => {
+          tl--;
+          if (tl <= 0) {
+            clearInterval(bTimer); clearInterval(bSpawn); bActive = false; bArea.innerHTML = "";
+            document.getElementById('bombMessage').textContent = `Tugadi! Yakuniy Ball: ${bScore}`;
+          }
+        }, 1000);
+        bSpawn = setInterval(() => {
+          if (!bActive) return;
+          const b = document.createElement('div'); b.className = 'bomb-item'; b.textContent = "💣";
+          b.style.left = `${Math.random() * (bArea.clientWidth - 45)}px`; b.style.top = `${Math.random() * (bArea.clientHeight - 45)}px`;
+          b.addEventListener('click', () => { bScore += 10; document.getElementById('bombInfo').textContent = `Ball: ${bScore}`; b.remove(); });
+          bArea.appendChild(b); setTimeout(() => b.remove(), 1200);
+        }, 600);
+      });
+
+      // TEZ YOZISH (Typing Speed)
+      const wList = ["javascript", "portfolio", "kiberpank", "dasturchi", "neon", "html", "css", "gaming", "matrix", "internet"];
+      let cWord = "", tScore = 0, tTime = 60, tInt;
+      const tInput = document.getElementById('typingInput');
+      const tBtn = document.getElementById('typingButton');
+
+      document.getElementById('typingStartButton').addEventListener('click', () => {
+        tScore = 0; tTime = 60; tInput.disabled = false; tBtn.disabled = false; tInput.value = "";
+        document.getElementById('typingScore').textContent = `Ball: ${tScore}`;
+        document.getElementById('typingTimer').textContent = `Vaqt: ${tTime}s`;
+        document.getElementById('typingMessage').textContent = "O'yin boshlandi, tez yozing!";
+        tInput.focus(); cWord = wList[Math.floor(Math.random() * wList.length)]; document.getElementById('typingWord').textContent = cWord;
+        clearInterval(tInt);
+        tInt = setInterval(() => {
+          tTime--; document.getElementById('typingTimer').textContent = `Vaqt: ${tTime}s`;
+          if (tTime <= 0) {
+            clearInterval(tInt); tInput.disabled = true; tBtn.disabled = true;
+            document.getElementById('typingWord').textContent = "Tamom!";
+            document.getElementById('typingMessage').textContent = `Vaqt tugadi! Siz to'plagan jami ball: ${tScore}`;
+          }
+        }, 1000);
+      });
+
+      function chk() {
+        if (tInput.value.trim().toLowerCase() === cWord) {
+          tScore += 5; document.getElementById('typingScore').textContent = `Ball: ${tScore}`;
+          tInput.value = ""; cWord = wList[Math.floor(Math.random() * wList.length)];
+          document.getElementById('typingWord').textContent = cWord;
+        }
+      }
+      tBtn.addEventListener('click', chk);
+      tInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') chk(); });
+    </script>
+</body>
+
+</html>

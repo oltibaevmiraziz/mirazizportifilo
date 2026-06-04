@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="uz">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Miraziz Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Poppins:wght@300;600&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --neon-blue: #00f2ff;
+            --neon-pink: #ff00ea;
+            --bg-dark: #050505;
+            --card-bg: rgba(18, 18, 26, 0.75);
+            --text-color: white;
+            --nav-bg: rgba(0, 0, 0, 0.9);
+            --nav-link-color: #ccc;
+            --card-p-color: #aaa;
+        }
+
+        /* Oq rejim (Light Mode) uchun stillar */
+        body.light-mode {
+            --bg-dark: #ffffff;
+            --card-bg: rgba(240, 240, 245, 0.85);
+            --text-color: #111111;
+            --nav-bg: rgba(255, 255, 255, 0.95);
+            --nav-link-color: #333333;
+            --card-p-color: #555555;
+        }
+
+        body {
+            margin: 0;
+            background: var(--bg-dark);
+            color: var(--text-color);
+            font-family: 'Poppins', sans-serif;
+            overflow-x: hidden;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+
+        #matrix {
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            opacity: 0.25;
+            transition: opacity 0.3s ease;
+        }
+
+        /* Oq rejimda matritsa fonini yashirish */
+        body.light-mode #matrix {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 0 20px;
+            box-sizing: border-box;
+        }
+
+        /* --- HEADER & NAVIGATION --- */
+        .site-header {
+            background: var(--nav-bg);
+            border-bottom: 2px solid var(--neon-blue);
+            box-shadow: 0 0 20px rgba(0, 242, 255, 0.3);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            transition: background 0.3s ease;
+        }
+
+        .header-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+
+        .logo {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--neon-blue);
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.4rem;
+            text-shadow: 0 0 10px var(--neon-blue);
+            letter-spacing: 1px;
+            white-space: nowrap;
+            z-index: 101;
+        }
+
+        .nav-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .nav-menu {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .nav-menu a {
+            color: var(--nav-link-color);
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 600;
+            padding: 6px 12px;
+            border: 1px solid transparent;
+            white-space: nowrap;
+            transition: all 0.2s ease;
+        }
+
+        .nav-menu a:hover,
+        .nav-menu a.active {
+            color: var(--neon-pink);
+            border-color: var(--neon-pink);
+            text-shadow: 0 0 5px var(--neon-pink);
+            box-shadow: 0 0 10px rgba(255, 0, 234, 0.2);
+            background: rgba(255, 0, 234, 0.05);
+        }
+
+        /* Burger Menu Button (Faqat telefonda chiqadi) */
+        .burger-menu {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            padding: 5px;
+            z-index: 101;
+        }
+
+        .burger-menu span {
+            display: block;
+            width: 25px;
+            height: 3px;
+            background: var(--neon-blue);
+            transition: 0.3s ease;
+        }
+
+        /* Theme Toggle Button */
+        .theme-toggle {
+            background: transparent;
+            border: 2px solid var(--neon-blue);
+            color: var(--neon-blue);
+            padding: 6px 12px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.8rem;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 0 10px rgba(0, 242, 255, 0.2);
+            transition: all 0.3s ease;
+            clip-path: polygon(85% 0, 100% 40%, 100% 100%, 0 100%, 0 0);
+        }
+
+        .theme-toggle:hover {
+            background: var(--neon-blue);
+            color: #000;
+            box-shadow: 0 0 15px var(--neon-blue);
+        }
+
+        body.light-mode .theme-toggle {
+            border-color: var(--neon-pink);
+            color: var(--neon-pink);
+            box-shadow: 0 0 10px rgba(255, 0, 234, 0.2);
+        }
+
+        body.light-mode .theme-toggle:hover {
+            background: var(--neon-pink);
+            color: #fff;
+            box-shadow: 0 0 15px var(--neon-pink);
+        }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            align-items: center;
+            padding: 60px 0;
+        }
+
+        .hero-text span {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--neon-pink);
+            text-shadow: 0 0 8px var(--neon-pink);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 0.9rem;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .hero-text h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.8rem;
+            color: var(--text-color);
+            margin: 0 0 20px 0;
+            line-height: 1.2;
+            text-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+        }
+
+        body.light-mode .hero-text h1 {
+            text-shadow: none;
+        }
+
+        .hero-text p {
+            color: var(--card-p-color);
+            font-size: 1.05rem;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .button {
+            display: inline-block;
+            text-decoration: none;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: bold;
+            font-size: 0.95rem;
+            color: #000;
+            background: var(--neon-blue);
+            padding: 14px 28px;
+            border: 2px solid var(--neon-blue);
+            box-shadow: 0 0 15px rgba(0, 242, 255, 0.4);
+            transition: 0.3s ease;
+            clip-path: polygon(90% 0, 100% 35%, 100% 100%, 0 100%, 0 0);
+            text-align: center;
+        }
+
+        .button:hover {
+            background: transparent;
+            color: var(--neon-blue);
+            box-shadow: 0 0 25px var(--neon-blue);
+            transform: translateY(-2px);
+        }
+
+        body.light-mode .button {
+            color: #fff;
+        }
+
+        body.light-mode .button:hover {
+            color: var(--neon-blue);
+        }
+
+        .button-secondary {
+            background: transparent;
+            color: var(--neon-pink);
+            border-color: var(--neon-pink);
+            box-shadow: 0 0 15px rgba(255, 0, 234, 0.2);
+        }
+
+        .button-secondary:hover {
+            background: var(--neon-pink);
+            color: #000;
+            box-shadow: 0 0 25px var(--neon-pink);
+        }
+
+        body.light-mode .button-secondary:hover {
+            color: #fff;
+        }
+
+        /* Hero Karta */
+        .hero-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(15px);
+            border: 1px solid var(--neon-blue);
+            box-shadow: 0 0 25px rgba(0, 242, 255, 0.15);
+            padding: 30px;
+            position: relative;
+            clip-path: polygon(100% 0, 100% 85%, 85% 100%, 0 100%, 0 0);
+            transition: background 0.3s ease;
+        }
+
+        .hero-card::before {
+            content: 'STATUS: ACTIVE';
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.7rem;
+            color: var(--neon-blue);
+            opacity: 0.7;
+        }
+
+        .hero-card h2 {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--neon-blue);
+            margin-top: 0;
+            text-shadow: 0 0 10px var(--neon-blue);
+        }
+
+        .hero-card ul {
+            padding-left: 20px;
+            margin: 0;
+        }
+
+        .hero-card li {
+            margin-bottom: 10px;
+            color: var(--nav-link-color);
+        }
+
+        .hero-card li::marker {
+            color: var(--neon-pink);
+        }
+
+        /* --- FEATURES GRID --- */
+        .features {
+            padding: 60px 0;
+        }
+
+        .features h2 {
+            font-family: 'Orbitron', sans-serif;
+            text-align: center;
+            font-size: 2.2rem;
+            color: var(--text-color);
+            margin-bottom: 40px;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+        }
+
+        body.light-mode .features h2 {
+            text-shadow: none;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+        }
+
+        .feature-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(0, 242, 255, 0.2);
+            padding: 25px;
+            transition: 0.3s all ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+        }
+
+        body.light-mode .feature-card {
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .feature-card:hover {
+            border-color: var(--neon-pink);
+            box-shadow: 0 0 20px rgba(255, 0, 234, 0.25);
+            transform: translateY(-5px);
+        }
+
+        .feature-card h3 {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--neon-blue);
+            margin-top: 0;
+            font-size: 1.3rem;
+            transition: 0.3s;
+        }
+
+        .feature-card:hover h3 {
+            color: var(--text-color);
+            text-shadow: 0 0 10px var(--neon-blue);
+        }
+
+        body.light-mode .feature-card:hover h3 {
+            text-shadow: none;
+            color: var(--neon-pink);
+        }
+
+        .feature-card p {
+            color: var(--card-p-color);
+            font-size: 0.95rem;
+            line-height: 1.5;
+            margin: 10px 0 20px 0;
+        }
+
+        .feature-card a {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--neon-pink);
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+            display: inline-block;
+            transition: 0.3s;
+        }
+
+        .feature-card a:hover {
+            color: var(--text-color);
+            text-shadow: 0 0 8px var(--neon-pink);
+        }
+
+        body.light-mode .feature-card a:hover {
+            text-shadow: none;
+            color: var(--neon-blue);
+        }
+
+        /* --- RESPONSIVE MEDIA QUERIES (Siz so'ragan kichik ekranlar uchun) --- */
+
+        @media (max-width: 1024px) {
+            .feature-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .hero-text h1 {
+                font-size: 2.3rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+
+            /* Burger menyu tugmasini ko'rsatish */
+            .burger-menu {
+                display: flex;
+            }
+
+            /* Navigatsiya menyusini telefonga moslab yashirish */
+            .nav-menu {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 70%;
+                height: 100vh;
+                background: rgba(5, 5, 5, 0.98);
+                border-left: 2px solid var(--neon-blue);
+                flex-direction: column;
+                justify-content: center;
+                gap: 20px;
+                padding: 20px;
+                transition: 0.4s ease;
+                box-shadow: -10px 0 30px rgba(0, 242, 255, 0.2);
+            }
+
+            body.light-mode .nav-menu {
+                background: rgba(255, 255, 255, 0.98);
+                border-left: 2px solid var(--neon-pink);
+            }
+
+            /* Menyu ochilgandagi holat */
+            .nav-menu.active {
+                right: 0;
+            }
+
+            .nav-menu a {
+                font-size: 1.1rem;
+                width: 100%;
+                text-align: center;
+                padding: 10px;
+            }
+
+            /* Burger animation */
+            .burger-menu.toggle span:nth-child(1) {
+                transform: rotate(-45deg) translate(-5px, 6px);
+            }
+
+            .burger-menu.toggle span:nth-child(2) {
+                opacity: 0;
+            }
+
+            .burger-menu.toggle span:nth-child(3) {
+                transform: rotate(45deg) translate(-5px, -6px);
+            }
+
+            /* Hero qismini telefonda ketma-ket qilish */
+            .hero {
+                grid-template-columns: 1fr;
+                padding: 30px 0;
+                gap: 30px;
+            }
+
+            .hero-text h1 {
+                font-size: 2rem;
+            }
+
+            .hero-buttons .button {
+                width: 100%;
+            }
+
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo {
+                font-size: 1.1rem;
+            }
+
+            .hero-text h1 {
+                font-size: 1.7rem;
+            }
+
+            .theme-toggle {
+                padding: 5px 10px;
+                font-size: 0.75rem;
+            }
+        }
+
+        /* --- FOOTER --- */
+        .site-footer {
+            background: rgba(0, 0, 0, 0.9);
+            border-top: 1px solid rgba(0, 242, 255, 0.2);
+            padding: 20px 0;
+            text-align: center;
+            color: #666;
+            font-size: 0.9rem;
+            margin-top: auto;
+            transition: background 0.3s ease;
+        }
+
+        body.light-mode .site-footer {
+            background: #f5f5f7;
+            color: #888;
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+
+<body>
+
+    <canvas id="matrix"></canvas>
+
+    <header class="site-header">
+        <div class="container header-inner">
+            <a class='logo' href='index.html'>PORTFOLIO.EXE</a>
+            <div class="nav-wrapper">
+                <nav class="nav-menu" id="navMenu">
+                    <a class='active' href='index.html'>Bosh sahifa</a>
+                    <a href='2.html'>About</a>
+                    <a href='3.html'>Loyihalar</a>
+                    <a href='index.html#certificates'>Sertifikatlar</a>
+                    <a href='4.html'>O'yinlar</a>
+                    <a href='5.html'>Kalkulyator</a>
+                </nav>
+
+                <!-- Rejimni o'zgartirish tugmasi -->
+                <button class="theme-toggle" id="themeBtn">🌞 Light Mode</button>
+
+                <!-- Burger Menu (Telefonda chiqadigan tugma) -->
+                <button class="burger-menu" id="burgerBtn">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero container">
+            <div class="hero-text">
+                <span>[ ONLINE TERMINAL ACCESS ]</span>
+                <h1>Yaxshi dizayn, aniq ma'lumot, kuchli taassurot</h1>
+                <p>Men kreativ va professional portfel yarataman. Hamma sahifalar alohida, o'yinlar va kiber-funksiyalar
+                    mavjud.
+                    5 ta professional sertifikatni ko'rsatish uchun maxsus sahifa tayyorlandi.</p>
+                <div class="hero-buttons">
+                    <a class='button' href='2.html'>Men haqimda</a>
+                    <a class='button button-secondary' href='3.html'>Loyihalar</a>
+                </div>
+            </div>
+
+            <div class="hero-card">
+                <div class="hero-card-inner">
+                    <h2>Eng yaxshi xizmat</h2>
+                    <p>Portfel, loyiha, sertifikatlar, hammasi uchun alohida xavfsiz platformalar.</p>
+                    <ul>
+                        <li>Kreativ Kiber Dizayn</li>
+                        <li>Neonli Qulay Navigatsiya</li>
+                        <li>Interaktiv O'yinlar</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section class="features container">
+            <h2>Mavjud Tizim Bo'limlari</h2>
+            <div class="feature-grid">
+                <article class="feature-card">
+                    <h3>About sahifa</h3>
+                    <p>Men haqimda, ko'nikmalarim va aloqa ma'lumotim.</p>
+                    <a href='2.html'>KIRISH_XIZMATI »</a>
+                </article>
+
+                <article class="feature-card">
+                    <h3>Loyihalar</h3>
+                    <p>Oxirgi ishlagan loyihalar, veb-saytlar va portfolio namunalar.</p>
+                    <a href='3.html'>KIRISH_XIZMATI »</a>
+                </article>
+
+                <article class="feature-card">
+                    <h3>Sertifikatlar</h3>
+                    <p>Sertifikatlarni ko'rish va o'rnatilgan yuklash paneli.</p>
+                    <a href='index.html#certificates'>KIRISH_XIZMATI »</a>
+                </article>
+
+                <article class="feature-card">
+                    <h3>O'yinlar</h3>
+                    <p>Interaktiv kichik o'yinlar bilan qiziqarli tajriba.</p>
+                    <a href='4.html'>KIRISH_XIZMATI »</a>
+                </article>
+
+                <article class="feature-card">
+                    <h3>Kalkulyator</h3>
+                    <p>Oddiy va qulay ishlash uchun kalkulyator.</p>
+                    <a href='5.html'>KIRISH_XIZMATI »</a>
+                </article>
+
+                <article class="feature-card">
+                    <h3>Mening sahifam</h3>
+                    <p>Men haqimda batafsil ma'lumot, tajribam va ko'nikmalarim.</p>
+                    <a href='https://www.reuters.com/companies/TSLA.O' target='_blank' rel='noopener'>KIRISH_XIZMATI
+                        »</a>
+                </article>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <p>© 2026 Menga Juda Zor Portfolio. Barchasi alohida sahifa bilan tayyor.</p>
+        </div>
+    </footer>
+
+    <script>
+        // --- MATRIX FON SAMARASI ---
+        const canvas = document.getElementById('matrix');
+        const ctx = canvas.getContext('2d');
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        let drops = Array(Math.floor(canvas.width / 16)).fill(1);
+
+        function draw() {
+            if (document.body.classList.contains('light-mode')) {
+                return;
+            }
+            ctx.fillStyle = "rgba(5, 5, 5, 0.15)";
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            ctx.fillStyle = "#0f0";
+            ctx.font = "15px monospace";
+
+            drops.forEach((y, i) => {
+                const text = "01"[Math.floor(Math.random() * 2)];
+                ctx.fillText(text, i * 16, y * 16);
+
+                if (y * 16 > canvas.height && Math.random() > 0.975) {
+                    drops[i] = 0;
+                }
+                drops[i]++;
+            });
+        }
+
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            drops = Array(Math.floor(canvas.width / 16)).fill(1); // Ekran o'zgarganda xatolik bo'lmasligi uchun
+        });
+
+        setInterval(draw, 40);
+
+        // --- DARK / LIGHT MODE LOGIKASI ---
+        const themeBtn = document.getElementById('themeBtn');
+
+        themeBtn.addEventListener('click', () => {
+            document.body.classList.toggle('light-mode');
+
+            if (document.body.classList.contains('light-mode')) {
+                themeBtn.textContent = '🌙 Dark Mode';
+            } else {
+                themeBtn.textContent = '🌞 Light Mode';
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+            }
+        });
+
+        // --- TELEFON UCHUN BURGER MENYU LOGIKASI ---
+        const burgerBtn = document.getElementById('burgerBtn');
+        const navMenu = document.getElementById('navMenu');
+
+        burgerBtn.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+            burgerBtn.classList.toggle('toggle');
+        });
+
+        // Menyu ochilganda tashqariga bosilsa yopilishi uchun
+        document.addEventListener('click', (e) => {
+            if (!burgerBtn.contains(e.target) && !navMenu.contains(e.target)) {
+                navMenu.classList.remove('active');
+                burgerBtn.classList.remove('toggle');
+            }
+        });
+    </script>
+</body>
+
+</html>
