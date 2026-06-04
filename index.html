@@ -31,6 +31,79 @@
             --font-mono: 'Share Tech Mono', monospace;
         }
 
+        /* Laptop 3D interactive styles (from user's notebook snippet) */
+        .scene {
+            perspective: 1200px;
+        }
+
+        .laptop {
+            position: relative;
+            width: 320px;
+            height: 220px;
+            transform-style: preserve-3d;
+            transition: transform 0.8s ease-in-out;
+            transform: rotateX(60deg) rotateZ(-30deg);
+        }
+
+        .part {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 8px;
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 14px;
+            color: white;
+            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.3);
+        }
+
+        .screen {
+            background: #1e293b;
+            transform: translateZ(40px);
+            border: 4px solid #334155;
+        }
+
+        .keyboard {
+            background: #334155;
+            transform: translateZ(20px);
+            border: 2px solid #475569;
+        }
+
+        .motherboard {
+            background: #065f46;
+            transform: translateZ(0px);
+            border: 2px solid #047857;
+            font-size: 12px;
+        }
+
+        .base {
+            background: #0f172a;
+            transform: translateZ(-20px);
+        }
+
+        .exploded .screen {
+            transform: translateZ(140px) translateY(-40px);
+            opacity: 0.9;
+        }
+
+        .exploded .keyboard {
+            transform: translateZ(70px);
+            opacity: 0.9;
+        }
+
+        .exploded .motherboard {
+            transform: translateZ(0px) scale(0.95);
+            opacity: 1;
+        }
+
+        .exploded .base {
+            transform: translateZ(-70px) translateY(40px);
+            opacity: 0.9;
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -912,6 +985,7 @@
             }
         }
     </style>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 </head>
 
 <body>
@@ -954,8 +1028,8 @@
                 <a href="#store" onclick="event.preventDefault(); showPage('store')" id="nav-store">Store</a>
                 <a href="#resources" onclick="event.preventDefault(); showPage('resources')"
                     id="nav-resources">Resources</a>
-                <a href="#all-pages" onclick="event.preventDefault(); showPage('all-pages')" id="nav-all-pages">All
-                    Pages</a>
+                <a href="#all-pages" onclick="event.preventDefault(); showPage('all-pages')" id="nav-all-pages">Notbook
+                    haqida</a>
                 <a href="#certificates" onclick="event.preventDefault(); showPage('certificates')"
                     id="nav-certificates">Certificates</a>
                 <a href="#contact" onclick="event.preventDefault(); showPage('contact')" id="nav-contact">Contact</a>
@@ -1505,32 +1579,88 @@
         </div>
     </section>
 
-    <!-- ALL PAGES -->
+    <!-- ALL PAGES (replaced with Notebook interactive) -->
     <section id="all-pages" class="page">
-        <h2>All HTML Pages</h2>
-        <div class="grid">
-            <div class="card">
-                <div class="photo-box">
-                    <i class="fa-solid fa-file-code"></i>
-                    <span>HTML Pages</span>
+        <h2>Notbook haqida</h2>
+        <div class="w-full max-w-5xl flex flex-col lg:flex-row items-center justify-around gap-12 p-6">
+            <div class="scene cursor-pointer p-20" onclick="explodeLaptop()">
+                <div id="laptop" class="laptop">
+                    <div class="part screen">
+                        <div class="text-center">
+                            <span class="block text-xs text-blue-300">ASUS NanoEdge</span>
+                            Full HD Ekran
+                        </div>
+                    </div>
+                    <div class="part keyboard">
+                        <div class="grid grid-cols-5 gap-1 w-4/5 p-2 bg-slate-800 rounded opacity-60 text-[8px]">
+                            <div class="bg-slate-700 h-3 rounded"></div>
+                            <div class="bg-slate-700 h-3 rounded"></div>
+                            <div class="bg-slate-700 h-3 rounded"></div>
+                            <div class="bg-slate-700 h-3 rounded"></div>
+                            <div class="bg-slate-700 h-3 rounded"></div>
+                        </div>
+                    </div>
+                    <div class="part motherboard flex-col gap-1 p-4">
+                        <div class="flex justify-between w-full">
+                            <span class="bg-yellow-600 px-1 rounded text-[10px]">Intel Core i7</span>
+                            <span class="bg-blue-600 px-1 rounded text-[10px]">RAM 16GB</span>
+                        </div>
+                        <div class="w-full bg-slate-800 h-4 rounded mt-2 relative flex items-center justify-center">
+                            <span class="text-[9px] text-green-300">NVMe SSD 1TB</span>
+                        </div>
+                        <div class="text-[11px] text-emerald-200 mt-2">Ona Plata (Motherboard)</div>
+                    </div>
+                    <div class="part base">
+                        <div class="absolute bottom-2 text-center text-xs text-slate-500 w-full">
+                            Asosiy Korpus & Batareya
+                        </div>
+                    </div>
                 </div>
-                <h3>Available HTML Files</h3><br>
-                <p>Quyidagi barcha HTML sahifalar portfolioda mavjud. Ularni klik qilib ochishingiz mumkin.</p>
-                <ul style="list-style:none; padding:0; margin-top:18px; display:flex; flex-direction:column; gap:10px;">
-                    <li><a class="verify-btn" href="1.html" target="_blank" rel="noopener noreferrer">1.html</a></li>
-                    <li><a class="verify-btn" href="2.html" target="_blank" rel="noopener noreferrer">2.html</a></li>
-                    <li><a class="verify-btn" href="3.html" target="_blank" rel="noopener noreferrer">3.html</a></li>
-                    <li><a class="verify-btn" href="4.html" target="_blank" rel="noopener noreferrer">4.html</a></li>
-                    <li><a class="verify-btn" href="5.html" target="_blank" rel="noopener noreferrer">5.html</a></li>
-                    <li><a class="verify-btn" href="Cyber%20Decrypter.html" target="_blank"
-                            rel="noopener noreferrer">Cyber Decrypter.html</a></li>
-                    <li><a class="verify-btn" href="cyber-project.html" target="_blank"
-                            rel="noopener noreferrer">cyber-project.html</a></li>
-                    <li><a class="verify-btn" href="miraziz-site.html" target="_blank"
-                            rel="noopener noreferrer">miraziz-site.html</a></li>
-                </ul>
             </div>
+
+            <div
+                class="bg-slate-800/50 p-6 rounded-2xl border border-slate-700 backdrop-blur-sm w-full max-w-sm flex flex-col gap-4 z-10">
+                <h2 class="text-xl font-bold text-slate-200">Boshqaruv Paneli</h2>
+                <p class="text-xs text-slate-400 leading-relaxed">
+                    Noutbuk modeliga bosganda komponentlar bir-biridan ajraladi. Quyidagi tugma orqali uni qayta
+                    yig'ishingiz mumkin.
+                </p>
+
+                <button onclick="resetLaptop()"
+                    class="w-full bg-blue-600 hover:bg-blue-500 active:bg-blue-700 text-white font-semibold py-3 px-6 rounded-xl shadow-lg shadow-blue-600/30 transition-all duration-200 transform hover:-translate-y-0.5">
+                    🔄 Asliga Qaytarish
+                </button>
+
+                <div class="mt-2 pt-4 border-t border-slate-700/50">
+                    <span class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Komponentlar:</span>
+                    <ul class="text-xs text-slate-300 space-y-1.5 mt-2">
+                        <li class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-slate-400"></span>
+                            Displey moduli</li>
+                        <li class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-slate-500"></span>
+                            Topcase (Klaviatura paneli)</li>
+                        <li class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+                            Tizim platasi va Sovutish tizimi</li>
+                        <li class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-slate-900"></span>
+                            Pastki qopqoq va Akkumulyator</li>
+                    </ul>
+                </div>
+            </div>
+
         </div>
+
+        <script>
+            const laptop = document.getElementById('laptop');
+
+            function explodeLaptop() {
+                laptop.classList.add('exploded');
+                laptop.style.transform = "rotateX(70deg) rotateZ(-45deg)";
+            }
+
+            function resetLaptop() {
+                laptop.classList.remove('exploded');
+                laptop.style.transform = "rotateX(60deg) rotateZ(-30deg)";
+            }
+        </script>
     </section>
 
     <!-- TESTIMONIALS -->
