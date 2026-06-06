@@ -1,590 +1,311 @@
 <!DOCTYPE html>
 <html lang="uz">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>🌌 Kosmik Labirint</title>
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@400;600&display=swap" rel="stylesheet">
-<style>
-  * { margin: 0; padding: 0; box-sizing: border-box; }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Miraziz Oltibaev | Cyber Premium Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Poppins:wght@300;600&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --n-blue: #00f2ff;
+            --n-pink: #ff00ea;
+            --bg: #050505;
+        }
 
-  body {
-    background: #000008;
-    font-family: 'Exo 2', sans-serif;
-    color: #e0e8ff;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 16px;
-    overflow-x: hidden;
-  }
+        body {
+            margin: 0;
+            background: var(--bg);
+            color: white;
+            font-family: 'Poppins', sans-serif;
+            overflow-x: hidden;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
 
-  /* Starfield */
-  body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background-image:
-      radial-gradient(1px 1px at 8% 12%, rgba(255,255,255,0.8) 0%, transparent 100%),
-      radial-gradient(1px 1px at 22% 55%, rgba(255,255,255,0.5) 0%, transparent 100%),
-      radial-gradient(1.5px 1.5px at 38% 8%, rgba(180,200,255,0.7) 0%, transparent 100%),
-      radial-gradient(1px 1px at 55% 70%, rgba(255,255,255,0.6) 0%, transparent 100%),
-      radial-gradient(1px 1px at 70% 30%, rgba(255,255,255,0.4) 0%, transparent 100%),
-      radial-gradient(2px 2px at 85% 85%, rgba(200,180,255,0.5) 0%, transparent 100%),
-      radial-gradient(1px 1px at 92% 18%, rgba(255,255,255,0.7) 0%, transparent 100%),
-      radial-gradient(1px 1px at 15% 88%, rgba(255,255,255,0.4) 0%, transparent 100%),
-      radial-gradient(1px 1px at 47% 42%, rgba(255,255,255,0.3) 0%, transparent 100%),
-      radial-gradient(1.5px 1.5px at 63% 92%, rgba(180,220,255,0.6) 0%, transparent 100%);
-    pointer-events: none;
-    z-index: 0;
-    animation: twinkle 5s ease-in-out infinite alternate;
-  }
+        #matrix {
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            opacity: 0.15;
+        }
 
-  @keyframes twinkle {
-    0% { opacity: 0.7; }
-    100% { opacity: 1; }
-  }
+        /* Navbar va Bosh sahifaga qaytish tugmasi stili */
+        .navbar {
+            padding: 15px 20px;
+            display: flex;
+            justify-content: flex-start;
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(5px);
+        }
 
-  .back-btn {
-    align-self: flex-start;
-    color: rgba(100,200,255,0.7);
-    text-decoration: none;
-    font-weight: 600;
-    font-size: 0.9rem;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    z-index: 1;
-    margin-bottom: 8px;
-    transition: color 0.2s;
-  }
-  .back-btn:hover { color: #64c8ff; }
+        .back-home-btn {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.85rem;
+            color: var(--n-pink);
+            text-decoration: none;
+            padding: 8px 16px;
+            border: 1px solid var(--n-pink);
+            border-radius: 6px;
+            text-shadow: 0 0 5px var(--n-pink);
+            box-shadow: 0 0 10px rgba(255, 0, 234, 0.2), inset 0 0 5px rgba(255, 0, 234, 0.1);
+            transition: all 0.3s ease-in-out;
+            letter-spacing: 1px;
+            display: inline-flex;
+            align-items: center;
+        }
 
-  h1 {
-    font-family: 'Orbitron', monospace;
-    font-size: clamp(1.4rem, 5vw, 2.2rem);
-    font-weight: 900;
-    letter-spacing: 4px;
-    text-transform: uppercase;
-    z-index: 1;
-    margin-bottom: 10px;
-    background: linear-gradient(90deg, #00cfff, #bf7fff, #00cfff);
-    background-size: 200% auto;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    animation: textFlow 4s linear infinite;
-  }
-  @keyframes textFlow {
-    0% { background-position: 0% center; }
-    100% { background-position: 200% center; }
-  }
+        .back-home-btn:hover {
+            color: #fff;
+            background: var(--n-pink);
+            box-shadow: 0 0 20px var(--n-pink), 0 0 40px var(--n-pink);
+            text-shadow: 0 0 8px #fff;
+            transform: translateX(-3px);
+        }
 
-  .hud {
-    display: flex;
-    gap: 24px;
-    margin-bottom: 12px;
-    z-index: 1;
-    font-family: 'Orbitron', monospace;
-    font-size: 0.75rem;
-    letter-spacing: 2px;
-    color: rgba(180,220,255,0.6);
-  }
-  .hud-item { display: flex; flex-direction: column; align-items: center; gap: 2px; }
-  .hud-val {
-    font-size: 1.2rem;
-    font-weight: 700;
-    color: #00dfff;
-    text-shadow: 0 0 12px rgba(0,220,255,0.8);
-  }
+        header {
+            text-align: center;
+            padding: 20px;
+            border-bottom: 2px solid var(--n-blue);
+            box-shadow: 0 0 15px var(--n-blue);
+            background: rgba(0, 0, 0, 0.8);
+        }
 
-  .canvas-wrap {
-    position: relative;
-    z-index: 1;
-  }
+        header h1 {
+            font-family: 'Orbitron';
+            color: var(--n-blue);
+            text-shadow: 0 0 10px var(--n-blue);
+            margin: 0;
+            font-size: 1.8rem;
+        }
 
-  #mazeCanvas {
-    display: block;
-    border-radius: 12px;
-    border: 1px solid rgba(0,200,255,0.25);
-    box-shadow:
-      0 0 0 1px rgba(0,200,255,0.1),
-      0 0 40px rgba(0,150,255,0.15),
-      0 0 80px rgba(100,0,255,0.1),
-      inset 0 0 60px rgba(0,0,20,0.8);
-  }
+        header p {
+            margin: 5px 0 0 0;
+            font-size: 0.9rem;
+            opacity: 0.8;
+            color: var(--n-blue);
+        }
 
-  .start-screen, .win-screen {
-    position: absolute;
-    inset: 0;
-    border-radius: 12px;
-    background: rgba(0,0,15,0.92);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 18px;
-    z-index: 10;
-    backdrop-filter: blur(4px);
-  }
-  .win-screen { display: none; }
+        .main-container {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            box-sizing: border-box;
+        }
 
-  .screen-title {
-    font-family: 'Orbitron', monospace;
-    font-size: clamp(1.2rem, 4vw, 1.8rem);
-    font-weight: 900;
-    letter-spacing: 3px;
-    text-align: center;
-    color: #00dfff;
-    text-shadow: 0 0 20px rgba(0,220,255,0.8), 0 0 40px rgba(0,150,255,0.4);
-  }
-  .screen-sub {
-    color: rgba(180,210,255,0.6);
-    font-size: 0.85rem;
-    letter-spacing: 1px;
-    text-align: center;
-    line-height: 1.7;
-    max-width: 280px;
-  }
+        .card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(0, 242, 255, 0.25);
+            border-radius: 16px;
+            padding: 25px;
+            width: 100%;
+            /* Telefon ekranlari uchun moslashuvchan kenglik */
+            max-width: 340px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            transition: 0.4s;
+            box-sizing: border-box;
+        }
 
-  .neon-btn {
-    padding: 12px 36px;
-    background: transparent;
-    border: 1px solid rgba(0,200,255,0.6);
-    border-radius: 50px;
-    font-family: 'Orbitron', monospace;
-    font-size: 0.85rem;
-    font-weight: 700;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    color: #00dfff;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 0 20px rgba(0,200,255,0.2), inset 0 0 20px rgba(0,200,255,0.05);
-    text-shadow: 0 0 10px rgba(0,220,255,0.8);
-  }
-  .neon-btn:hover {
-    background: rgba(0,200,255,0.1);
-    box-shadow: 0 0 30px rgba(0,200,255,0.5), inset 0 0 20px rgba(0,200,255,0.1);
-    transform: scale(1.05);
-  }
+        .card:hover {
+            border-color: var(--n-pink);
+            box-shadow: 0 0 25px rgba(255, 0, 234, 0.4);
+            transform: translateY(-5px);
+        }
 
-  .level-badge {
-    font-family: 'Orbitron', monospace;
-    font-size: 0.7rem;
-    letter-spacing: 2px;
-    color: #bf7fff;
-    text-shadow: 0 0 10px rgba(180,100,255,0.6);
-    border: 1px solid rgba(180,100,255,0.3);
-    padding: 4px 14px;
-    border-radius: 20px;
-  }
+        .card h2 {
+            font-family: 'Orbitron';
+            font-size: 1.2rem;
+            margin-top: 0;
+            margin-bottom: 15px;
+            text-align: center;
+            letter-spacing: 1px;
+        }
 
-  /* Mobile D-pad */
-  .dpad-wrap {
-    display: none;
-    flex-direction: column;
-    align-items: center;
-    gap: 6px;
-    margin-top: 14px;
-    z-index: 1;
-  }
-  .dpad-row { display: flex; gap: 6px; }
-  .dpad-btn {
-    width: 52px; height: 52px;
-    background: rgba(0,200,255,0.08);
-    border: 1px solid rgba(0,200,255,0.3);
-    border-radius: 10px;
-    color: #00dfff;
-    font-size: 1.3rem;
-    cursor: pointer;
-    display: flex; align-items: center; justify-content: center;
-    user-select: none;
-    transition: background 0.15s;
-    -webkit-tap-highlight-color: transparent;
-  }
-  .dpad-btn:active { background: rgba(0,200,255,0.25); }
+        #calc-disp {
+            width: 100%;
+            box-sizing: border-box;
+            height: 60px;
+            background: #000;
+            border: 1px solid var(--n-blue);
+            color: var(--n-blue);
+            font-family: 'Orbitron';
+            text-align: right;
+            padding: 10px 15px;
+            font-size: 1.8rem;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: inset 0 0 10px rgba(0, 242, 255, 0.2);
+        }
 
-  @media (max-width: 540px) {
-    .dpad-wrap { display: flex; }
-  }
-</style>
+        .calc-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+        }
+
+        .c-btn {
+            height: 55px;
+            /* Telefonlarda bosish oson bo'lishi uchun biroz kattalashtirildi */
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(0, 242, 255, 0.4);
+            color: white;
+            font-family: 'Orbitron';
+            font-size: 1.2rem;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: 0.25s ease;
+            -webkit-tap-highlight-color: transparent;
+            /* Mobil ekranda bosgandagi ko'k soyani yo'qotadi */
+        }
+
+        .c-btn:hover {
+            background: var(--n-blue);
+            color: #000;
+            box-shadow: 0 0 15px var(--n-blue);
+            border-color: var(--n-blue);
+        }
+
+        .c-btn.btn-equal {
+            background: var(--n-pink);
+            border-color: var(--n-pink);
+        }
+
+        .c-btn.btn-equal:hover {
+            background: #ff40f0;
+            color: white;
+            box-shadow: 0 0 15px var(--n-pink);
+            border-color: #ff40f0;
+        }
+
+        .c-btn.btn-clear {
+            color: #ff3333;
+            border-color: rgba(255, 51, 51, 0.4);
+        }
+
+        .c-btn.btn-clear:hover {
+            background: #ff3333;
+            color: white;
+            box-shadow: 0 0 15px #ff3333;
+            border-color: #ff3333;
+        }
+
+        /* Mobil qurilmalar uchun moslashtirish (Ekran 400px dan kichik bo'lganda) */
+        @media (max-width: 400px) {
+            .card {
+                padding: 15px;
+            }
+
+            .calc-grid {
+                gap: 8px;
+            }
+
+            .c-btn {
+                height: 50px;
+                font-size: 1.1rem;
+            }
+
+            #calc-disp {
+                font-size: 1.5rem;
+                height: 55px;
+            }
+        }
+    </style>
 </head>
+
 <body>
+    <canvas id="matrix"></canvas>
 
-<a class="back-btn" href="index.html">← Bosh sahifa</a>
-<h1>🌌 Kosmik Labirint</h1>
+    <div class="navbar">
+        <a class='back-home-btn' href='index.html'>« BOSH SAHIFAGA QAYTISH</a>
+    </div>
 
-<div class="hud">
-  <div class="hud-item"><span>DARAJA</span><span class="hud-val" id="lvl">1</span></div>
-  <div class="hud-item"><span>VAQT</span><span class="hud-val" id="time">00:00</span></div>
-  <div class="hud-item"><span>QADAM</span><span class="hud-val" id="steps">0</span></div>
-  <div class="hud-item"><span>REKORD</span><span class="hud-val" id="best">--</span></div>
-</div>
+    <header>
+        <h1>Kalkulyator</h1>
+        <p>Oson va tez hisoblash vositasi</p>
+    </header>
 
-<div class="canvas-wrap">
-  <canvas id="mazeCanvas"></canvas>
+    <div class="main-container">
+        <div class="card">
+            <h2>Neon Calculator</h2>
+            <input type="text" id="calc-disp" disabled placeholder="0">
+            <div class="calc-grid">
+                <button class="c-btn" onclick="cInp('7')">7</button>
+                <button class="c-btn" onclick="cInp('8')">8</button>
+                <button class="c-btn" onclick="cInp('9')">9</button>
+                <button class="c-btn" onclick="cInp('/')">/</button>
 
-  <div class="start-screen" id="startScreen">
-    <div class="level-badge" id="startBadge">DARAJA 1</div>
-    <div class="screen-title">🚀 KOSMIK LABIRINT</div>
-    <div class="screen-sub">Chiqishni toping va keyingi galaktikaga o'ting.<br>O'q tugmalar yoki WASD bilan boshqaring.</div>
-    <button class="neon-btn" onclick="beginGame()">UCHISH ▶</button>
-  </div>
+                <button class="c-btn" onclick="cInp('4')">4</button>
+                <button class="c-btn" onclick="cInp('5')">5</button>
+                <button class="c-btn" onclick="cInp('6')">6</button>
+                <button class="c-btn" onclick="cInp('*')">*</button>
 
-  <div class="win-screen" id="winScreen">
-    <div class="level-badge" id="winBadge">DARAJA TUGADI</div>
-    <div class="screen-title" id="winTitle">PORTAL OCHILDI!</div>
-    <div class="screen-sub" id="winSub">Vaqt: 00:00 | Qadam: 0</div>
-    <button class="neon-btn" id="nextBtn" onclick="nextLevel()">KEYINGI DARAJA →</button>
-  </div>
-</div>
+                <button class="c-btn" onclick="cInp('1')">1</button>
+                <button class="c-btn" onclick="cInp('2')">2</button>
+                <button class="c-btn" onclick="cInp('3')">3</button>
+                <button class="c-btn" onclick="cInp('-')">-</button>
 
-<div class="dpad-wrap">
-  <div class="dpad-row"><div class="dpad-btn" id="dUp">↑</div></div>
-  <div class="dpad-row">
-    <div class="dpad-btn" id="dLeft">←</div>
-    <div class="dpad-btn" id="dDown">↓</div>
-    <div class="dpad-btn" id="dRight">→</div>
-  </div>
-</div>
+                <button class="c-btn btn-clear" onclick="cClr()">C</button>
+                <button class="c-btn" onclick="cInp('0')">0</button>
+                <button class="c-btn btn-equal" onclick="cRes()">=</button>
+                <button class="c-btn" onclick="cInp('+')">+</button>
+            </div>
+        </div>
+    </div>
 
-<script>
-const canvas = document.getElementById('mazeCanvas');
-const ctx = canvas.getContext('2d');
+    <script>
+        // Matrix Effect
+        const c = document.getElementById('matrix');
+        const ctx = c.getContext('2d');
 
-// Responsive canvas size
-const MAX_SIZE = Math.min(window.innerWidth - 32, 480);
-const CS = Math.floor(MAX_SIZE);
-canvas.width = CS;
-canvas.height = CS;
+        function resizeMatrix() {
+            c.width = window.innerWidth;
+            c.height = window.innerHeight;
+        }
+        resizeMatrix();
+        window.addEventListener('resize', resizeMatrix);
 
-let level = 1;
-let COLS, ROWS, CELL;
-let maze, player, exit_, steps, timerInt, seconds, gameActive, particles;
+        const drops = Array(Math.floor(c.width / 16)).fill(1);
 
-function getLevelConfig(lvl) {
-  const sizes = [11,13,15,17,19,21,23];
-  const size = sizes[Math.min(lvl-1, sizes.length-1)];
-  return { cols: size, rows: size };
-}
+        function draw() {
+            ctx.fillStyle = "rgba(0,0,0,0.1)";
+            ctx.fillRect(0, 0, c.width, c.height);
+            ctx.fillStyle = "#00f2ff";
+            ctx.font = "15px monospace";
+            drops.forEach((y, i) => {
+                ctx.fillText("01"[Math.floor(Math.random() * 2)], i * 16, y * 16);
+                if (y * 16 > c.height && Math.random() > 0.975) drops[i] = 0;
+                drops[i]++;
+            });
+        }
+        setInterval(draw, 40);
 
-// Maze generation — Recursive Backtracking
-function generateMaze(cols, rows) {
-  const grid = Array.from({length: rows}, () =>
-    Array.from({length: cols}, () => ({ n:true, s:true, e:true, w:true, visited:false }))
-  );
+        // Calc Logic
+        const d = document.getElementById('calc-disp');
+        function cInp(v) { d.value += v; }
+        function cClr() { d.value = ""; }
+        function cRes() { try { d.value = eval(d.value); } catch { d.value = "Error"; } }
 
-  function carve(cx, cy) {
-    grid[cy][cx].visited = true;
-    const dirs = [{dx:0,dy:-1,d:'n',od:'s'},{dx:0,dy:1,d:'s',od:'n'},{dx:1,dy:0,d:'e',od:'w'},{dx:-1,dy:0,d:'w',od:'e'}];
-    dirs.sort(() => Math.random()-0.5);
-    for (const {dx,dy,d,od} of dirs) {
-      const nx=cx+dx, ny=cy+dy;
-      if (nx>=0&&nx<cols&&ny>=0&&ny<rows&&!grid[ny][nx].visited) {
-        grid[cy][cx][d] = false;
-        grid[ny][nx][od] = false;
-        carve(nx,ny);
-      }
-    }
-  }
-  carve(0,0);
-  return grid;
-}
-
-function initLevel() {
-  const cfg = getLevelConfig(level);
-  COLS = cfg.cols; ROWS = cfg.rows;
-  CELL = Math.floor(CS / COLS);
-  maze = generateMaze(COLS, ROWS);
-  player = {x:0, y:0};
-  exit_ = {x:COLS-1, y:ROWS-1};
-  steps = 0;
-  seconds = 0;
-  particles = [];
-  gameActive = false;
-  document.getElementById('lvl').textContent = level;
-  updateHUD();
-}
-
-function beginGame() {
-  document.getElementById('startScreen').style.display = 'none';
-  document.getElementById('winScreen').style.display = 'none';
-  gameActive = true;
-  clearInterval(timerInt);
-  timerInt = setInterval(() => { seconds++; updateHUD(); }, 1000);
-  draw();
-}
-
-function nextLevel() {
-  level++;
-  document.getElementById('winScreen').style.display = 'none';
-  initLevel();
-  document.getElementById('startBadge').textContent = `DARAJA ${level}`;
-  document.getElementById('startScreen').style.display = 'flex';
-  draw();
-}
-
-function updateHUD() {
-  document.getElementById('steps').textContent = steps;
-  const m = String(Math.floor(seconds/60)).padStart(2,'0');
-  const s = String(seconds%60).padStart(2,'0');
-  document.getElementById('time').textContent = `${m}:${s}`;
-}
-
-function move(dx, dy) {
-  if (!gameActive) return;
-  const {x,y} = player;
-  const cell = maze[y][x];
-  if (dx===1 && !cell.e) player.x++;
-  else if (dx===-1 && !cell.w) player.x--;
-  else if (dy===1 && !cell.s) player.y++;
-  else if (dy===-1 && !cell.n) player.y--;
-  else return;
-
-  steps++;
-  updateHUD();
-  spawnTrail(player.x, player.y);
-
-  if (player.x === exit_.x && player.y === exit_.y) {
-    winLevel();
-  }
-  draw();
-}
-
-function spawnTrail(gx, gy) {
-  const cx = gx*CELL + CELL/2;
-  const cy = gy*CELL + CELL/2;
-  for (let i=0; i<6; i++) {
-    particles.push({
-      x: cx, y: cy,
-      vx: (Math.random()-0.5)*2,
-      vy: (Math.random()-0.5)*2,
-      life: 1, decay: 0.07 + Math.random()*0.05,
-      r: 1.5 + Math.random()*2,
-      hue: 180 + Math.random()*60
-    });
-  }
-}
-
-function winLevel() {
-  gameActive = false;
-  clearInterval(timerInt);
-
-  // Save best
-  const key = `maze_best_${level}`;
-  const prev = localStorage.getItem(key);
-  if (!prev || seconds < parseInt(prev)) localStorage.setItem(key, seconds);
-  const best = localStorage.getItem(key);
-  document.getElementById('best').textContent = `${best}s`;
-
-  const m = String(Math.floor(seconds/60)).padStart(2,'0');
-  const s = String(seconds%60).padStart(2,'0');
-  document.getElementById('winBadge').textContent = `DARAJA ${level} TUGADI`;
-  document.getElementById('winTitle').textContent = level < 7 ? '🌀 PORTAL OCHILDI!' : '🏆 GALAKTIKA ZABT ETILDI!';
-  document.getElementById('winSub').textContent = `Vaqt: ${m}:${s} | Qadam: ${steps}`;
-  document.getElementById('nextBtn').textContent = level < 7 ? 'KEYINGI DARAJA →' : 'QAYTA BOSHLASH ↺';
-
-  setTimeout(() => {
-    document.getElementById('winScreen').style.display = 'flex';
-  }, 600);
-
-  // Big explosion particles
-  const cx = exit_.x*CELL + CELL/2;
-  const cy = exit_.y*CELL + CELL/2;
-  for (let i=0; i<40; i++) {
-    const angle = (i/40)*Math.PI*2;
-    const spd = 2 + Math.random()*3;
-    particles.push({
-      x: cx, y: cy,
-      vx: Math.cos(angle)*spd,
-      vy: Math.sin(angle)*spd,
-      life: 1, decay: 0.02,
-      r: 2 + Math.random()*3,
-      hue: Math.random()*360
-    });
-  }
-  draw();
-}
-
-// ---- DRAW ----
-let animFrame;
-function draw() {
-  cancelAnimationFrame(animFrame);
-  animFrame = requestAnimationFrame(_draw);
-}
-
-function _draw() {
-  ctx.clearRect(0, 0, CS, CS);
-
-  // Deep space background
-  ctx.fillStyle = '#000410';
-  ctx.fillRect(0, 0, CS, CS);
-
-  // Subtle nebula glow at exit
-  const ex = exit_.x*CELL + CELL/2, ey = exit_.y*CELL + CELL/2;
-  const nebula = ctx.createRadialGradient(ex, ey, 0, ex, ey, CELL*3);
-  nebula.addColorStop(0, 'rgba(120,0,255,0.18)');
-  nebula.addColorStop(0.5, 'rgba(0,100,255,0.06)');
-  nebula.addColorStop(1, 'transparent');
-  ctx.fillStyle = nebula;
-  ctx.fillRect(0,0,CS,CS);
-
-  // Player glow
-  const px = player.x*CELL + CELL/2, py = player.y*CELL + CELL/2;
-  const pg = ctx.createRadialGradient(px,py,0,px,py,CELL*2.5);
-  pg.addColorStop(0,'rgba(0,220,255,0.12)');
-  pg.addColorStop(1,'transparent');
-  ctx.fillStyle = pg;
-  ctx.fillRect(0,0,CS,CS);
-
-  // Draw walls
-  ctx.lineWidth = 1.5;
-  for (let row=0; row<ROWS; row++) {
-    for (let col=0; col<COLS; col++) {
-      const cell = maze[row][col];
-      const x = col*CELL, y = row*CELL;
-
-      // Wall color: dim cyan
-      ctx.strokeStyle = 'rgba(0,160,220,0.55)';
-      ctx.shadowBlur = 4;
-      ctx.shadowColor = 'rgba(0,160,220,0.3)';
-
-      if (cell.n && row===0) { ctx.beginPath(); ctx.moveTo(x,y); ctx.lineTo(x+CELL,y); ctx.stroke(); }
-      if (cell.w && col===0) { ctx.beginPath(); ctx.moveTo(x,y); ctx.lineTo(x,y+CELL); ctx.stroke(); }
-      if (cell.s) { ctx.beginPath(); ctx.moveTo(x,y+CELL); ctx.lineTo(x+CELL,y+CELL); ctx.stroke(); }
-      if (cell.e) { ctx.beginPath(); ctx.moveTo(x+CELL,y); ctx.lineTo(x+CELL,y+CELL); ctx.stroke(); }
-    }
-  }
-  ctx.shadowBlur = 0;
-
-  // Exit portal
-  const portalPulse = 0.7 + 0.3*Math.sin(Date.now()*0.004);
-  ctx.shadowBlur = 20*portalPulse;
-  ctx.shadowColor = '#bf00ff';
-
-  const portalGrad = ctx.createRadialGradient(ex,ey,0,ex,ey,CELL*0.42);
-  portalGrad.addColorStop(0,'rgba(255,255,255,0.9)');
-  portalGrad.addColorStop(0.3,'rgba(180,80,255,0.8)');
-  portalGrad.addColorStop(0.7,'rgba(60,0,180,0.5)');
-  portalGrad.addColorStop(1,'transparent');
-  ctx.fillStyle = portalGrad;
-  ctx.beginPath();
-  ctx.arc(ex, ey, CELL*0.42*portalPulse, 0, Math.PI*2);
-  ctx.fill();
-
-  // Portal ring
-  ctx.strokeStyle = `rgba(200,100,255,${0.6*portalPulse})`;
-  ctx.lineWidth = 1.5;
-  ctx.beginPath();
-  ctx.arc(ex, ey, CELL*0.38, 0, Math.PI*2);
-  ctx.stroke();
-  ctx.shadowBlur = 0;
-
-  // Start marker (dim)
-  ctx.fillStyle = 'rgba(0,255,150,0.15)';
-  ctx.beginPath();
-  ctx.arc(CELL/2, CELL/2, CELL*0.3, 0, Math.PI*2);
-  ctx.fill();
-
-  // Particles
-  ctx.shadowBlur = 8;
-  for (let i = particles.length-1; i >= 0; i--) {
-    const p = particles[i];
-    p.x += p.vx; p.y += p.vy;
-    p.vx *= 0.95; p.vy *= 0.95;
-    p.life -= p.decay;
-    if (p.life <= 0) { particles.splice(i,1); continue; }
-    ctx.shadowColor = `hsla(${p.hue},100%,70%,${p.life})`;
-    ctx.fillStyle = `hsla(${p.hue},100%,75%,${p.life})`;
-    ctx.beginPath();
-    ctx.arc(p.x, p.y, p.r*p.life, 0, Math.PI*2);
-    ctx.fill();
-  }
-  ctx.shadowBlur = 0;
-
-  // Player spaceship
-  const shipPulse = 0.85 + 0.15*Math.sin(Date.now()*0.006);
-  ctx.save();
-  ctx.translate(px, py);
-
-  // Engine glow
-  ctx.shadowBlur = 18*shipPulse;
-  ctx.shadowColor = '#00dfff';
-  ctx.fillStyle = `rgba(0,220,255,${0.25*shipPulse})`;
-  ctx.beginPath();
-  ctx.arc(0, 0, CELL*0.45, 0, Math.PI*2);
-  ctx.fill();
-
-  // Ship body
-  const sr = Math.max(3, CELL*0.32);
-  ctx.shadowBlur = 12;
-  ctx.shadowColor = '#00dfff';
-  ctx.fillStyle = '#00dfff';
-  ctx.beginPath();
-  ctx.moveTo(0, -sr);
-  ctx.lineTo(sr*0.6, sr*0.7);
-  ctx.lineTo(-sr*0.6, sr*0.7);
-  ctx.closePath();
-  ctx.fill();
-
-  // Ship core
-  ctx.fillStyle = '#ffffff';
-  ctx.beginPath();
-  ctx.arc(0, 0, sr*0.25, 0, Math.PI*2);
-  ctx.fill();
-
-  ctx.restore();
-  ctx.shadowBlur = 0;
-
-  // Animate portals & particles continuously
-  if (particles.length > 0 || gameActive) {
-    animFrame = requestAnimationFrame(_draw);
-  }
-}
-
-// Controls
-document.addEventListener('keydown', e => {
-  const map = {
-    ArrowUp:[0,-1], ArrowDown:[0,1], ArrowLeft:[-1,0], ArrowRight:[1,0],
-    w:[0,-1], s:[0,1], a:[-1,0], d:[1,0],
-    W:[0,-1], S:[0,1], A:[-1,0], D:[1,0]
-  };
-  const k = map[e.key];
-  if (k) { e.preventDefault(); move(k[0], k[1]); }
-});
-
-// D-pad
-document.getElementById('dUp').addEventListener('click', () => move(0,-1));
-document.getElementById('dDown').addEventListener('click', () => move(0,1));
-document.getElementById('dLeft').addEventListener('click', () => move(-1,0));
-document.getElementById('dRight').addEventListener('click', () => move(1,0));
-
-// Swipe support
-let touchX=0, touchY=0;
-canvas.addEventListener('touchstart', e => {
-  touchX = e.touches[0].clientX;
-  touchY = e.touches[0].clientY;
-}, {passive:true});
-canvas.addEventListener('touchend', e => {
-  const dx = e.changedTouches[0].clientX - touchX;
-  const dy = e.changedTouches[0].clientY - touchY;
-  if (Math.abs(dx) > Math.abs(dy)) move(dx>0?1:-1, 0);
-  else move(0, dy>0?1:-1);
-}, {passive:true});
-
-// Restore best
-function restoreBest() {
-  const b = localStorage.getItem(`maze_best_${level}`);
-  document.getElementById('best').textContent = b ? `${b}s` : '--';
-}
-
-// Init
-initLevel();
-restoreBest();
-draw();
-// Keep portal pulsing on start screen
-setInterval(() => { if (!gameActive) draw(); }, 50);
-</script>
+        // Klaviaturadan kiritish funksiyasi
+        window.addEventListener('keydown', function (event) {
+            const key = event.key;
+            if ('0123456789+-*/'.includes(key)) {
+                cInp(key);
+            } else if (key === 'Enter' || key === '=') {
+                event.preventDefault();
+                cRes();
+            } else if (key === 'Escape') {
+                cClr();
+            } else if (key === 'Backspace') {
+                d.value = d.value.toString().slice(0, -1);
+            }
+        });
+    </script>
 </body>
+
 </html>
