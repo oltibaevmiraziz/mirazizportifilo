@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="uz">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Cyber Kitchen | Menu</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Inter:wght@300;400;600&display=swap"
+        rel="stylesheet">
+    <style>
+        body {
+            background: #050a14;
+            color: #fff;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .cyber-font {
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        .neon-border {
+            border: 1px solid #39ff14;
+            box-shadow: 0 0 15px rgba(57, 255, 20, 0.2);
+        }
+
+        .neon-text {
+            color: #39ff14;
+            text-shadow: 0 0 10px rgba(57, 255, 20, 0.5);
+        }
+
+        #cart-sidebar {
+            transform: translateX(100%);
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            background: rgba(5, 10, 20, 0.98);
+            backdrop-filter: blur(15px);
+        }
+
+        #cart-sidebar.open {
+            transform: translateX(0);
+        }
+
+        .food-card:hover {
+            box-shadow: 0 0 20px rgba(57, 255, 20, 0.15);
+        }
+    </style>
+</head>
+
+<body class="p-8">
+    <!-- Back Button -->
+    <a href="index.html" class="inline-block mb-6 text-zinc-500 hover:text-white transition-colors">← Portfolioga
+        qaytish</a>
+
+    <header class="flex justify-between items-center mb-12">
+        <h1 class="cyber-font text-3xl neon-text font-bold tracking-tighter">CYBER KITCHEN</h1>
+        <button onclick="toggleCart()"
+            class="bg-zinc-900 px-6 py-2 rounded-full border border-zinc-800 neon-text font-bold">
+            🛒 SAVAT (<span id="cart-count">0</span>)
+        </button>
+    </header>
+
+    <div id="food-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        <!-- Taomlar JS orqali bu yerga yuklanadi (30+ dona) -->
+    </div>
+
+    <!-- Cart Sidebar -->
+    <div id="cart-sidebar"
+        class="fixed top-0 right-0 h-full w-full sm:w-96 border-l border-zinc-800 z-50 p-6 shadow-2xl flex flex-col">
+        <div class="flex justify-between items-center mb-8">
+            <h2 class="cyber-font text-xl neon-text">SIZNING SAVATINGIZ</h2>
+            <button onclick="toggleCart()" class="text-zinc-500 hover:text-white text-2xl">✕</button>
+        </div>
+        <div id="cart-items" class="flex-1 space-y-4 overflow-y-auto pr-2">
+            <p class="text-zinc-500 text-center mt-10">Savat bo'sh</p>
+        </div>
+        <div class="border-t border-zinc-800 pt-6 mt-4">
+            <div class="flex justify-between mb-6">
+                <span class="text-zinc-400">Jami summa:</span>
+                <span id="cart-total" class="neon-text font-bold text-xl">$0</span>
+            </div>
+            <button onclick="checkout()"
+                class="w-full bg-green-600 hover:bg-green-500 text-black font-bold py-4 rounded-xl cyber-font text-sm transition-all shadow-lg shadow-green-500/20">
+                BUYURTMA BERISH (TELEGRAM)
+            </button>
+        </div>
+    </div>
+
+    <script>
+        const menuItems = [
+            { id: 1, name: 'Neon Pizza', price: 12.99, icon: '🍕', desc: 'Maxsus kiber-pishloq bilan' },
+            { id: 2, name: 'Mega Byte Burger', price: 9.50, icon: '🍔', desc: '4 qavatli kiber-go\'sht' },
+            { id: 3, name: 'Matrix Rolls', price: 15.00, icon: '🍣', desc: 'Yangi raqamli baliq' },
+            { id: 4, name: 'Cyber Ramen', price: 11.20, icon: '🍜', desc: 'Yuqori voltli ugra' },
+            { id: 5, name: 'Crypto Tacos', price: 8.40, icon: '🌮', desc: 'Blokcheyn go\'shti bilan' },
+            { id: 6, name: 'Neon Soda', price: 3.50, icon: '🥤', desc: 'RGB nurli ichimlik' },
+        ];
+
+        // 30 taga yetkazish
+        const foodNames = ['Sushi', 'Pasta', 'Steyk', 'Salat', 'Kofe', 'Donar', 'Kebab', 'Sandwich'];
+        const icons = ['🍱', '🍝', '🥩', '🥗', '☕', '🌯', '🍢', '🥪'];
+
+        for (let i = 7; i <= 32; i++) {
+            const rand = Math.floor(Math.random() * foodNames.length);
+            menuItems.push({
+                id: i,
+                name: `Cyber ${foodNames[rand]} v${i}`,
+                price: (Math.random() * (20 - 5) + 5).toFixed(2),
+                icon: icons[rand],
+                desc: 'Premium kiber-taom, yuqori sifatli mahsulotlardan'
+            });
+        }
+
+        let cart = [];
+
+        function initMenu() {
+            const grid = document.getElementById('food-grid');
+            grid.innerHTML = menuItems.map(p => `
+                <div class="food-card bg-zinc-900/50 p-6 rounded-2xl border border-zinc-800 transition-all hover:-translate-y-1">
+                    <div class="h-40 bg-zinc-800 rounded-xl mb-4 flex items-center justify-center text-5xl transition-transform hover:scale-110">${p.icon}</div>
+                    <h3 class="cyber-font text-xl mb-2">${p.name}</h3>
+                    <p class="text-zinc-400 text-sm mb-4">${p.desc}</p>
+                    <div class="flex justify-between items-center">
+                        <span class="neon-text font-bold">$${p.price}</span>
+                        <button onclick="addToCart('${p.name}', ${p.price})" class="bg-zinc-800 hover:bg-green-600 hover:text-black transition-colors py-2 px-4 rounded-lg text-xs text-white font-bold">QO'SHISH</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function toggleCart() {
+            document.getElementById('cart-sidebar').classList.toggle('open');
+        }
+
+        function addToCart(name, price) {
+            cart.push({ name, price });
+            updateCartUI();
+        }
+
+        function updateCartUI() {
+            document.getElementById('cart-count').innerText = cart.length;
+            const itemsDiv = document.getElementById('cart-items');
+            const totalSpan = document.getElementById('cart-total');
+
+            if (cart.length === 0) {
+                itemsDiv.innerHTML = '<p class="text-zinc-500 text-center mt-10">Savat bo\'sh</p>';
+                totalSpan.innerText = '$0';
+                return;
+            }
+
+            itemsDiv.innerHTML = cart.map((item, idx) => `
+                <div class="flex justify-between items-center bg-zinc-800/80 p-3 rounded-lg border border-zinc-700">
+                    <div>
+                        <div class="text-sm font-bold text-white">${item.name}</div>
+                        <div class="text-xs neon-text">$${item.price}</div>
+                    </div>
+                    <button onclick="removeFromCart(${idx})" class="text-red-500 hover:text-red-400 px-2">✕</button>
+                </div>
+            `).join('');
+
+            const total = cart.reduce((sum, item) => sum + parseFloat(item.price), 0);
+            totalSpan.innerText = '$' + total.toFixed(2);
+        }
+
+        function removeFromCart(idx) {
+            cart.splice(idx, 1);
+            updateCartUI();
+        }
+
+        function checkout() {
+            if (cart.length === 0) return alert("Savat bo'sh!");
+
+            const total = cart.reduce((sum, item) => sum + parseFloat(item.price), 0);
+            const itemList = cart.map(i => `• ${i.name} ($${i.price})`).join('%0A');
+
+            // Telegram sozlamalari
+            const botToken = "YOUR_BOT_TOKEN"; // Telegram bot tokeningizni kiriting
+            const chatId = "950000129"; // Chat ID raqamingiz
+
+            const message = `🍴 YANGI TAOM BUYURTMASI!%0A%0A📦 Taomlar:%0A${itemList}%0A%0A💰 Jami: $${total.toFixed(2)}%0A📞 Tel: +998 95 000 0129`;
+
+            fetch(`https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatId}&text=${message}`)
+                .then(() => {
+                    alert("Buyurtmangiz Telegram orqali yuborildi! Osh bo'lsin!");
+                    cart = [];
+                    updateCartUI();
+                    toggleCart();
+                })
+                .catch(() => alert("Xatolik! Bot sozlamalarini tekshiring."));
+        }
+
+        window.onload = initMenu;
+    </script>
+</body>
+
+</html>
