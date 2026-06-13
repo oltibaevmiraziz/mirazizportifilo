@@ -9,6 +9,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <style>
         :root {
             --bg: #020408;
@@ -201,7 +202,7 @@
                 qaytib boshqa bo'limlarni ko'ring.</p>
             <div class="download-panel">
                 <button class="button" id="download-cv">Yuklab olish</button>
-                <small>Yuklab olingan fayl `Miraziz-CV.txt` nomi bilan saqlanadi.</small>
+                <small>Yuklab olingan fayl `Miraziz-CV.pdf` nomi bilan saqlanadi.</small>
             </div>
         </section>
 
@@ -234,17 +235,53 @@
 
     <script>
         const downloadBtn = document.getElementById('download-cv');
-        const cvText = `Miraziz Oltibaev\nFrontend Developer\n\nTelefon: +998 95 000 0129\nEmail: miraziz@example.com\nManzil: Xiva, Uzbekistan\nTa'lim: IT Park\n\nNimalarni bilaman:\n- HTML, CSS, JavaScript\n- UI/UX dizayn\n- Responsive va PWA loyihalar\n- Tailwind va Git\n\nSaytlarim haqida:\n- Personal portfolio\n- Expert app sahifalar\n- Kiber dizayn demo sahifalar\n- Kontakt va aloqa bo'limi\n`;
 
         downloadBtn.addEventListener('click', () => {
-            const blob = new Blob([cvText], { type: 'text/plain;charset=utf-8' });
-            const link = document.createElement('a');
-            link.href = URL.createObjectURL(blob);
-            link.download = 'Miraziz-CV.txt';
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-            URL.revokeObjectURL(link.href);
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+
+            // Dizayn va Sarlavha
+            doc.setFont("helvetica", "bold");
+            doc.setFontSize(22);
+            doc.setTextColor(0, 150, 200); // Kiber ko'k rang
+            doc.text("Miraziz Oltibaev", 20, 25);
+
+            doc.setFont("helvetica", "normal");
+            doc.setFontSize(14);
+            doc.setTextColor(100, 100, 100);
+            doc.text("Frontend Developer", 20, 33);
+
+            // Gorizontal chiziq
+            doc.setDrawColor(0, 150, 200);
+            doc.setLineWidth(0.5);
+            doc.line(20, 38, 190, 38);
+
+            // Ma'lumotlar qismi
+            doc.setFontSize(12);
+            doc.setTextColor(40, 40, 40);
+            const info = [
+                "Telefon: +998 95 000 0129",
+                "Email: miraziz@example.com",
+                "Manzil: Xiva, Uzbekistan",
+                "Ta'lim: IT Park",
+                "",
+                "ASOSIY KO'NIKMALAR:",
+                "- HTML5, CSS3, JavaScript (ES6+)",
+                "- UI/UX dizayn va Prototiplash",
+                "- Responsive va PWA (Progressive Web Apps)",
+                "- Tailwind CSS va Git versiya nazorati",
+                "",
+                "LOYIHALAR VA TAJRIBA:",
+                "- Premium Cyber Portfolio (interaktiv effektlar bilan)",
+                "- Shopping & Fashion App namunalari",
+                "- Canvas asosidagi interaktiv o'yinlar",
+                "- API va xavfsiz ma'lumot uzatish tizimlari"
+            ];
+
+            doc.text(info, 20, 50);
+
+            // PDF faylni saqlash
+            doc.save('Miraziz-CV.pdf');
         });
     </script>
 </body>
